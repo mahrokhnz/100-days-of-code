@@ -5,22 +5,27 @@
 }
 
 .tools {
+    cursor: pointer;
     display: flex;
     gap: 20px;
     justify-content: center;
     background-color: cornflowerblue;
     padding: 20px;
+    position: absolute;
+    width: 100%;
 }
 
 .board {
+    position: relative;
     border: 1px red solid;
-    cursor: none;
+    width: 100%;
+    height: 100vh;
 }
 
-.circlePointer {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 1px gray solid;
-    position: absolute;
-}
+/*.circlePointer {*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    border-radius: 50%;*/
+/*    border: 1px gray solid;*/
+/*    position: absolute;*/
+/*}*/
