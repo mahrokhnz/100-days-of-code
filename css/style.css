@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.mainPage {
+    display: flex;
+    gap: 20px;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.menu {
+    border-right: 1px purple solid;
+    padding: 25px;
+}
+
+.navBar {
+    display: flex;
+    padding: 3px 8px 0 3px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.days {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 50px;
+    text-align: center;
+    padding: 25px;
+}
+
+header {
+    font-size: 30px;
+    position: relative;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    background-color: red;
+    height: 2px;
+    top: 50px;
+    left: 42%;
+    /*animation: line 1s infinite alternate forwards;*/
+}
+
+.challenges {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+    height: 150px;
+}
+
+.challenge {
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+    background-image: url("../assets/challenge1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.challenge:hover .showChallenge, .challenge:hover .dark {
+    display: block;
+}
+
+.challenge img {
+    width: 100%;
+}
+
+.showChallenge {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: blueviolet;
+    padding: 5px 10px;
+    border: none;
+    display: none;
+    /*-webkit-transition: display 1s ease-in-out;*/
+    /*-moz-transition: display 1s ease-in-out;*/
+    /*-o-transition: display 1s ease-in-out;*/
+    /*transition: display 1s ease-in-out;*/
+}
+
+.showChallenge a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.dark {
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    display: none;
+}
+
+/*@keyframes line {*/
+/*    0% {*/
+/*        width: 200px;*/
+/*    }*/
+
+/*    50% {*/
+/*        width: 0;*/
+/*    }*/
+
+/*    100% {*/
+/*        width: 0;*/
+/*    }*/
+/*}*/
