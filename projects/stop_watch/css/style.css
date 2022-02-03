@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap');
+
+:root {
+    --primary-color: #3B3B98;
+    --secondary-color: #3B3B9888;
+}
+
+body {
+    background-color: var(--secondary-color);
+    font-family: 'opensans', serif;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 330px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-color);
+    background-color: #fff;
+    border-radius: 40px;
+    padding: 40px 0;
+}
+
+.timer {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    box-shadow: var(--secondary-color) 0 3px 10px;
+    position: relative;
+}
+
+.timer span {
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.buttons button {
+    width: 130px;
+    font-family: 'opensans', serif;
+    font-size: 20px;
+    font-weight: 700;
+    box-shadow: var(--secondary-color) 0 3px 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.buttons button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
