@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>RGB Selector</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="resultColor"></div>
+      <span class="resultCode">rgb(0,0,0)</span>
+
+      <hr />
+      <div class="colorMaker">
+        <div class="container">
+          <label>R</label>
+          <input class="slider r" type="range" min="0" max="255" value="0" />
+        </div>
+        <div class="container">
+          <label>G</label>
+          <input class="slider g" type="range" min="0" max="255" value="0" />
+        </div>
+        <div class="container">
+          <label>B</label>
+          <input class="slider b" type="range" min="0" max="255" value="0" />
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
