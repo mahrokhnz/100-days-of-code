@@ -1,34 +1,70 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #312729;
+}
+
 .main {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 400px;
-  width: 250px;
-  border: 1px gray solid;
-  padding: 10px;
+  height: 550px;
+  width: 450px;
+  padding: 20px 30px;
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  background-color: #2d3436;
+}
+
+.container {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
   align-items: center;
 }
 
-.div {
-  display: none;
+.toDo {
+  flex-grow: 1;
+  height: 40px;
+  border-radius: 3px;
+  background-color: #b2bec3;
+  border: none;
+  padding: 10px;
 }
 
-.active {
-  display: block;
+.addButton {
+  padding: 10px;
+  background-color: #0984e3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+  border-radius: 3px;
 }
 
 .toDoItems {
   display: flex;
-  border: 1px red solid;
-  height: 20px;
-  width: 100%;
+  border-bottom: 1px #b2bec3 solid;
+  justify-content: space-between;
+  color: #fff;
+  padding: 10px;
 }
 
 .deleteIcon {
   border: 1px blue solid;
   height: 10px;
   width: 10px;
+  order: 3;
+}
+
+.crossToDo {
+  border: 1px red solid;
+  height: 20px;
+  width: 15px;
 }
