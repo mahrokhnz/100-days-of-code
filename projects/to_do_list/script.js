@@ -4,7 +4,7 @@ const main = document.querySelector(".main");
 const addButton = document.querySelector(".addButton");
 
 let toDoItem = null;
-let isWrite = false;
+let isWriting = false;
 
 function addToDoHandler() {
   //parent div
@@ -16,7 +16,8 @@ function addToDoHandler() {
   row.appendChild(text);
   text.innerText = toDoItem;
 
-  //childs
+  //children
+
   //remove
   const deleteIcon = document.createElement("div");
   document.body.appendChild(deleteIcon);
@@ -34,12 +35,12 @@ function addToDoHandler() {
   crossToDo.classList.add("crossToDo");
 
   crossToDo.addEventListener("click", () => {
-    text.style.textDecoration = "line-through";
+    text.classList.toggle("active");
   });
 }
 
 addButton.addEventListener("click", () => {
-  if (isWrite) {
+  if (isWriting) {
     addToDoHandler();
     toDo.value = "";
   }
@@ -48,7 +49,7 @@ addButton.addEventListener("click", () => {
 toDo.addEventListener("input", (e) => {
   if (e.target.value.length > 0) {
     toDoItem = e.target.value;
-    isWrite = true;
+    isWriting = true;
   } else {
     toDoItem = "";
   }

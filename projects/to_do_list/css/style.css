@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #312729;
+  background-color: #1c1c1e;
 }
 
 .main {
@@ -13,18 +13,18 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 550px;
-  width: 450px;
-  padding: 20px 30px;
+  height: 650px;
+  width: 500px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background-color: #2d3436;
+  background-color: #2c2c2e;
 }
 
 .container {
   display: flex;
-  gap: 5px;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
 }
@@ -33,9 +33,15 @@ body {
   flex-grow: 1;
   height: 40px;
   border-radius: 3px;
-  background-color: #b2bec3;
+  background-color: #3a3a3c;
   border: none;
   padding: 10px;
+  color: #fff;
+}
+
+::placeholder {
+  color: #6e6f6a;
+  font-size: 16px;
 }
 
 .addButton {
@@ -45,26 +51,54 @@ body {
   border: none;
   cursor: pointer;
   height: 40px;
+  width: 80px;
   border-radius: 3px;
+  font-weight: 700;
 }
 
 .toDoItems {
-  display: flex;
   border-bottom: 1px #b2bec3 solid;
-  justify-content: space-between;
   color: #fff;
   padding: 10px;
+  position: relative;
+}
+
+.active {
+  text-decoration: line-through;
 }
 
 .deleteIcon {
-  border: 1px blue solid;
-  height: 10px;
-  width: 10px;
+  height: 20px;
+  width: 20px;
   order: 3;
+  background-image: url("../assets/icon/trash-alt-solid.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.toDoItems:hover .deleteIcon,
+.toDoItems:hover .crossToDo {
+  opacity: 1;
 }
 
 .crossToDo {
-  border: 1px red solid;
   height: 20px;
-  width: 15px;
+  width: 20px;
+  background-image: url("../assets/icon/check-square-solid.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  position: absolute;
+  right: 40px;
+  top: 10px;
 }
