@@ -9,7 +9,6 @@ let isWriting = false;
 function addToDoHandler() {
   //parent div
   const row = document.createElement("div");
-  document.body.appendChild(row);
   main.appendChild(row);
   row.classList.add("toDoItems");
   const text = document.createElement("span");
@@ -20,7 +19,6 @@ function addToDoHandler() {
 
   //remove
   const deleteIcon = document.createElement("div");
-  document.body.appendChild(deleteIcon);
   row.appendChild(deleteIcon);
   deleteIcon.classList.add("deleteIcon");
 
