@@ -1,37 +1,37 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-    box-sizing: border-box;
-    overflow: hidden;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 main {
-    width: 100vw;
-    height: 100vh;
-    background-color: #23c4ed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #23c4ed;
 }
 
 .draggable {
-    width: 300px;
-    height: 200px;
-    background-color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9;
-    border-radius: 12px;
-    opacity: 0.8;
+  width: 300px;
+  height: 200px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  border-radius: 12px;
+  opacity: 0.8;
 }
 
 header {
-    background-color: #3944F7;
-    height: 50px;
-    cursor: move;
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
+  background-color: #3944f7;
+  height: 50px;
+  cursor: move;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
 }

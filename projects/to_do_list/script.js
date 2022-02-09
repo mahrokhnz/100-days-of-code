@@ -45,7 +45,7 @@ addButton.addEventListener("click", () => {
 });
 
 toDo.addEventListener("input", (e) => {
-  if (e.target.value.length > 0) {
+  if (e.target.value.length.trim() > 0) {
     toDoItem = e.target.value;
     isWriting = true;
   } else {

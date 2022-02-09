@@ -1,19 +1,19 @@
 .wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 3px gray dashed;
-    width: 400px;
-    height: 400px;
-    overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px gray dashed;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
 }
 
 .draggable {
-    width: 100%;
-    left: 0;
-    top: 0;
-    position: absolute;
-    user-select: none;
-    -webkit-user-drag: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  user-select: none;
+  -webkit-user-drag: none;
 }
