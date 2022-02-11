@@ -26,6 +26,8 @@ main {
   z-index: 9;
   border-radius: 12px;
   opacity: 0.8;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 header {
