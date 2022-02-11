@@ -4,11 +4,43 @@
   box-sizing: border-box;
 }
 
-svg {
-  border: 1px blue solid;
+/*svg {*/
+/*  border: 1px blue solid;*/
+/*}*/
+
+/*.pointer {*/
+/*  cursor: pointer;*/
+/*  position: absolute;*/
+/*}*/
+
+main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.pointer {
-  cursor: pointer;
+.range {
+  width: 400px;
+  height: 400px;
+  border: 3px red solid;
+  border-radius: 50%;
+  position: relative;
+}
+
+.circle {
   position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  user-select: none;
+  -webkit-user-drag: none;
 }
