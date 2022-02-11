@@ -7,48 +7,49 @@ let toDoItem = null;
 let isWriting = false;
 
 function addToDoHandler() {
-  //parent div
-  const row = document.createElement("div");
-  main.appendChild(row);
-  row.classList.add("toDoItems");
-  const text = document.createElement("span");
-  row.appendChild(text);
-  text.innerText = toDoItem;
+  if (toDo.value.trim() !== "") {
+    //parent div
+    const row = document.createElement("div");
+    main.appendChild(row);
+    row.classList.add("toDoItems");
+    const text = document.createElement("span");
+    row.appendChild(text);
+    text.innerText = toDoItem;
 
-  //children
+    //children
 
-  //remove
-  const deleteIcon = document.createElement("div");
-  row.appendChild(deleteIcon);
-  deleteIcon.classList.add("deleteIcon");
+    //remove
+    const deleteIcon = document.createElement("div");
+    row.appendChild(deleteIcon);
+    deleteIcon.classList.add("deleteIcon");
 
-  deleteIcon.addEventListener("click", () => {
-    row.remove();
-  });
+    deleteIcon.addEventListener("click", () => {
+      row.remove();
+    });
 
-  //line-through
-  const crossToDo = document.createElement("div");
-  document.body.appendChild(crossToDo);
-  row.appendChild(crossToDo);
-  crossToDo.classList.add("crossToDo");
+    //line-through
+    const crossToDo = document.createElement("div");
+    row.appendChild(crossToDo);
+    crossToDo.classList.add("crossToDo");
 
-  crossToDo.addEventListener("click", () => {
-    text.classList.toggle("active");
-  });
+    crossToDo.addEventListener("click", () => {
+      text.classList.toggle("active");
+    });
+  }
 }
 
 addButton.addEventListener("click", () => {
-  if (isWriting) {
+  addToDoHandler();
+  toDo.value = "";
+});
+
+toDo.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
     addToDoHandler();
     toDo.value = "";
   }
 });
 
 toDo.addEventListener("input", (e) => {
-  if (e.target.value.length.trim() > 0) {
-    toDoItem = e.target.value;
-    isWriting = true;
-  } else {
-    toDoItem = "";
-  }
+  toDoItem = e.target.value;
 });
