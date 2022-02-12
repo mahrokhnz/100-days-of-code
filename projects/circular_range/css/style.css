@@ -1,46 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/*svg {*/
-/*  border: 1px blue solid;*/
-/*}*/
+html {
+  height: 100%;
+}
 
-/*.pointer {*/
-/*  cursor: pointer;*/
-/*  position: absolute;*/
-/*}*/
-
-main {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
+body {
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: Lobster, sans-serif;
+  background-color: #1c1c1e;
+  margin: 0;
 }
 
 .range {
-  width: 400px;
-  height: 400px;
-  border: 3px red solid;
-  border-radius: 50%;
-  position: relative;
+  width: 300px;
+  height: 300px;
+  transform: rotateZ(-90deg);
 }
 
-.circle {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background-color: blue;
-  border-radius: 50%;
-  top: 0;
-  left: 0;
+.progress {
+  stroke: #0a84ff;
+}
+
+.thumb {
+  fill: #0064ef;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+  cursor: pointer;
+}
+
+.value {
   user-select: none;
-  -webkit-user-drag: none;
+  transform: rotateZ(90deg);
+  transform-origin: 50% 50%;
+  /*fill: #f2f2f7;*/
+  font-size: 20px;
 }

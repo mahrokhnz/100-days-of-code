@@ -11,25 +11,29 @@
     <title>circular Range</title>
   </head>
   <body>
-    <!--    <svg class="svg" viewBox="0 0 100 100">-->
-    <!--      <circle-->
-    <!--        cx="50"-->
-    <!--        cy="50"-->
-    <!--        r="44"-->
-    <!--        fill="none"-->
-    <!--        stroke="blue"-->
-    <!--        stroke-width="5"-->
-    <!--        class="range"-->
-    <!--      />-->
-    <!--      <circle class="pointer" cx="6" cy="50" r="6" fill="red" />-->
-    <!--      <circle cx="50" cy="50" r="2" fill="black" />-->
-    <!--    </svg>-->
-
-    <main>
-      <div class="range">
-        <div class="circle"></div>
-      </div>
-    </main>
+    <svg class="range" viewBox="0 0 100 100">
+      <circle
+        class="progress"
+        cx="50"
+        cy="50"
+        r="44"
+        fill="none"
+        stroke="black"
+        stroke-width="10"
+        stroke-dasharray="138.23007675795088 10000"
+        stroke-linecap="round"
+      ></circle>
+      <circle class="thumb" cx="6" cy="50" r="6" fill="blue"></circle>
+      <text
+        class="value"
+        x="50"
+        y="50"
+        text-anchor="middle"
+        dominant-baseline="middle"
+      >
+        50%
+      </text>
+    </svg>
     <script src="script.js"></script>
   </body>
 </html>
