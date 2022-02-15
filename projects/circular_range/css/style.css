@@ -40,6 +40,6 @@ body {
   user-select: none;
   transform: rotateZ(90deg);
   transform-origin: 50% 50%;
-  /*fill: #f2f2f7;*/
+  fill: #f2f2f7;
   font-size: 20px;
 }
