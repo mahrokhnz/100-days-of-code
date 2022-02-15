@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap");
+
+:root {
+  --primary-color: #fd79a8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+}
+
+header a {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 2em;
+}
+
+.container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.container button {
+  padding: 7px 18px;
+  border-radius: 50px;
+  outline: none;
+  border: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 1em;
+}
+
+nav {
+  display: none;
+}
+
+.hamburger {
+  cursor: pointer;
+  position: relative;
+  width: 30px;
+  height: 20px;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background-color: #000;
+  position: absolute;
+  cursor: pointer;
+}
+
+span:nth-child(3) {
+  top: 20px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+span:nth-child(2) {
+  top: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+span:nth-child(1) {
+  transition: transform 0.2s ease-in-out;
+}
+
+span.open:nth-child(3) {
+  opacity: 0;
+}
+
+span.open:nth-child(1) {
+  transform: rotate(45deg);
+  top: 7px;
+}
+
+span.open:nth-child(2) {
+  transform: rotate(-45deg);
+  top: 7px;
+}
