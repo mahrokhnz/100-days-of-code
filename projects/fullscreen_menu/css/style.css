@@ -10,16 +10,35 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
 header {
   display: flex;
   justify-content: space-between;
+  gap: 60px;
   padding: 20px 60px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
-header a {
-  font-family: "Open Sans Condensed", sans-serif;
+header .logo {
   font-weight: 800;
   font-size: 2em;
+  color: #000;
+  transition: color 0.1s ease;
+}
+
+.logo.open {
+  color: #fff;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .container {
@@ -38,8 +57,40 @@ header a {
   font-size: 1em;
 }
 
+button.open {
+  display: none;
+}
+
 nav {
   display: none;
+  animation: rightToLeftMove 0.9s forwards;
+}
+
+nav.open {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  align-items: center;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  backdrop-filter: brightness(40%);
+  z-index: -1;
+  padding-top: 100px;
+  animation: leftToRightMove 0.9s forwards;
+}
+
+nav li {
+  list-style: none;
+}
+
+nav li a {
+  text-decoration: none;
+  font-size: 3em;
+  font-weight: 600;
+  color: #fff;
 }
 
 .hamburger {
@@ -55,6 +106,11 @@ nav {
   background-color: #000;
   position: absolute;
   cursor: pointer;
+}
+
+.hamburger span.open {
+  background-color: #fff;
+  transition: background-color 1.5s ease;
 }
 
 span:nth-child(3) {
@@ -83,4 +139,24 @@ span.open:nth-child(1) {
 span.open:nth-child(2) {
   transform: rotate(-45deg);
   top: 7px;
+}
+
+@keyframes leftToRightMove {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes rightToLeftMove {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
 }
