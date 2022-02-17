@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap");
 
 :root {
-  --primary-color: #fd79a8;
+  --primary-color: #e03b8b;
+  --font-family: "Caveat", cursive, "Open Sans Condensed", sans-serif;
 }
 
 * {
@@ -11,137 +12,119 @@
 }
 
 body {
-  font-family: "Open Sans Condensed", sans-serif;
+  font-family: var(--font-family);
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  gap: 60px;
-  padding: 20px 60px;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  padding: 20px 50px;
 }
 
 header .logo {
-  font-weight: 800;
-  font-size: 2em;
+  font-size: 40px;
+  text-decoration: none;
   color: #000;
-  transition: color 0.1s ease;
+  font-weight: 700;
+  transition: color 0.5s ease-in-out;
+  z-index: 1;
 }
 
-.logo.open {
+header.open .logo {
   color: #fff;
 }
 
 .wrapper {
   display: flex;
-  justify-content: space-between;
-}
-
-.container {
-  display: flex;
-  gap: 30px;
   align-items: center;
+  gap: 40px;
 }
 
-.container button {
-  padding: 7px 18px;
+.button {
+  padding: 9px 22px;
   border-radius: 50px;
-  outline: none;
   border: none;
+  outline: none;
   background-color: var(--primary-color);
   color: #fff;
-  font-size: 1em;
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 500;
+  transition: opacity 0.5s ease-in-out;
 }
 
-button.open {
-  display: none;
+header.open .button {
+  opacity: 0;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.hamburger span {
+  width: 35px;
+  height: 3px;
+  background-color: #000;
+  transition-property: background-color, transform;
+  transition-duration: 0.9s;
+  transition-timing-function: ease-in-out;
+}
+
+header.open .hamburger span:nth-child(3) {
+  background-color: transparent;
+  transform: translateY(2px);
+}
+
+header.open .hamburger span:nth-child(2) {
+  background-color: #fff;
+  transform: rotateZ(-45deg) translate(0px, -6px);
+}
+
+header.open .hamburger span:nth-child(1) {
+  background-color: #fff;
+  transform: rotateZ(45deg) translate(0px, 6px);
 }
 
 nav {
   display: none;
-  animation: rightToLeftMove 0.9s forwards;
 }
 
-nav.open {
+header.open nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(57, 48, 48, 0.7);
+  backdrop-filter: blur(20px);
+  animation: showNav 0.8s alternate;
+}
+
+.navbar {
   display: flex;
   flex-direction: column;
-  gap: 100px;
-  align-items: center;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  backdrop-filter: brightness(40%);
-  z-index: -1;
-  padding-top: 100px;
-  animation: leftToRightMove 0.9s forwards;
-}
-
-nav li {
+  gap: 40px;
   list-style: none;
 }
 
-nav li a {
+li a {
   text-decoration: none;
-  font-size: 3em;
+  font-size: 40px;
   font-weight: 600;
   color: #fff;
 }
 
-.hamburger {
-  cursor: pointer;
-  position: relative;
-  width: 30px;
-  height: 20px;
-}
-
-.hamburger span {
-  width: 30px;
-  height: 3px;
-  background-color: #000;
-  position: absolute;
-  cursor: pointer;
-}
-
-.hamburger span.open {
-  background-color: #fff;
-  transition: background-color 1.5s ease;
-}
-
-span:nth-child(3) {
-  top: 20px;
-  transition: opacity 0.2s ease-in-out;
-}
-
-span:nth-child(2) {
-  top: 10px;
-  transition: transform 0.2s ease-in-out;
-}
-
-span:nth-child(1) {
-  transition: transform 0.2s ease-in-out;
-}
-
-span.open:nth-child(3) {
-  opacity: 0;
-}
-
-span.open:nth-child(1) {
-  transform: rotate(45deg);
-  top: 7px;
-}
-
-span.open:nth-child(2) {
-  transform: rotate(-45deg);
-  top: 7px;
-}
-
-@keyframes leftToRightMove {
+/*animations*/
+@keyframes showNav {
   0% {
     width: 0;
   }
@@ -151,7 +134,7 @@ span.open:nth-child(2) {
   }
 }
 
-@keyframes rightToLeftMove {
+@keyframes hideNav {
   0% {
     width: 100%;
   }
