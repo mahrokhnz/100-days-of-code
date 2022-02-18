@@ -96,19 +96,20 @@ header.open .hamburger span:nth-child(1) {
 }
 
 nav {
-  display: none;
-}
-
-header.open nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  inset: 0;
-  background-color: rgba(57, 48, 48, 0.7);
-  backdrop-filter: blur(20px);
-  animation: showNav 0.8s alternate;
   z-index: 2;
+  inset: 0;
+  position: fixed;
+  background-color: rgba(57, 48, 48, 0.7);
+  transform: translateX(-100%);
+  transition: all 1s ease-in-out;
+  backdrop-filter: blur(10px);
+}
+
+nav.open {
+  transform: translateX(0);
 }
 
 .navbar {
