@@ -1,69 +1,41 @@
-const board = document.querySelector(".board");
 const svg = document.querySelector(".svg");
+const board = document.querySelector(".board");
 
-// let getFirstMousePos = {x:}
-//
-// board.addEventListener("click", (e) => {
-//   let getMousePos = [{ x: e.pageX || e.clientX, y: e.pageY || e.clientY }];
-//
-//   console.log(getMousePos[0]);
-//
-//   line(getMousePos[0].x, getMousePos[0].y);
-// });
+const firstMousePos = { x: 0, y: 0 };
+const secondMousePos = { x: 0, y: 0 };
 
-// function line(x, y) {
-// if (getMousePos.length > 1) {
+let isDrawing = false;
 
-// let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-// svg.appendChild(line);
-// line.setAttribute("x1", "0");
-// line.setAttribute("y1", "0");
-// line.setAttribute("x2", x);
-// line.setAttribute("y2", y);
-// line.setAttribute("stroke", "#fff");
-// line.setAttribute("stroke-width", "3");
+let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+svg.appendChild(line);
 
-// }
-// }
+board.addEventListener("mousedown", (e) => {
+  firstMousePos.x = e.pageX || e.clientX;
+  firstMousePos.y = e.pageY || e.clientY;
 
-svg.addEventListener("mousedown", (e) => {
-  let getFirstMousePos = { x: e.pageX || e.clientX, y: e.pageY || e.clientY };
+  line.setAttribute("x1", firstMousePos.x);
+  line.setAttribute("y1", firstMousePos.y);
 
-  svg.addEventListener("mouseup", (e) => {
-    let getSecondMousePos = {
-      x: e.pageX || e.clientX,
-      y: e.pageY || e.clientY,
-    };
+  console.log(firstMousePos);
 
-    // console.log(
-    //   getFirstMousePos.x,
-    //   getFirstMousePos.y,
-    //   getSecondMousePos.x,
-    //   getSecondMousePos.y
-    // );
-
-    line(
-      getFirstMousePos.x,
-      getFirstMousePos.y,
-      getSecondMousePos.x,
-      getSecondMousePos.y
-    );
-  });
+  isDrawing = true;
 });
 
-board.addEventListener("mousemove", () => {
+board.addEventListener("mousemove", (e) => {
   if (isDrawing) {
-    console.log("hhh");
+    secondMousePos.x = e.pageX || e.clientX;
+    secondMousePos.y = e.pageY || e.clientY;
+
+    line.setAttribute("x2", secondMousePos.x);
+    line.setAttribute("y2", secondMousePos.y);
+
+    line.setAttribute("stroke", "#fff");
+    line.setAttribute("stroke-width", "1");
+
+    console.log(secondMousePos);
   }
 });
 
-function line(x1, y1, x2, y2) {
-  let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-  svg.appendChild(line);
-  line.setAttribute("x1", x1);
-  line.setAttribute("y1", y1);
-  line.setAttribute("x2", x2);
-  line.setAttribute("y2", y2);
-  line.setAttribute("stroke", "#fff");
-  line.setAttribute("stroke-width", "3");
-}
+document.addEventListener("mouseup", () => {
+  isDrawing = false;
+});

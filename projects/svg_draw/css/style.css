@@ -1,5 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Charmonman:wght@700&family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap");
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Charmonman", cursive, "Open Sans Condensed", sans-serif;
+}
+
+.svg {
+  height: 100vh;
+}
+
+.text {
+  user-select: none;
+  font-size: 1.5em;
 }
