@@ -1,0 +1,112 @@
+:root {
+  --primary-color: #5a20cb;
+  --secondary-color: #242b2e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+main {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/*.checkboxInput {*/
+/*  opacity: 0;*/
+/*  width: 0;*/
+/*  height: 0;*/
+/*}*/
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: -35px;
+  border: 1px #fff solid;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.simpleCheckbox {
+  top: 0;
+}
+
+.checkbox:hover {
+  border-color: var(--primary-color);
+}
+
+.simpleCheckbox::after {
+  content: "";
+  width: 10px;
+  height: 5px;
+  position: absolute;
+  bottom: 8px;
+  transform: rotate(-45deg);
+  border-left: 2px #fff solid;
+  border-bottom: 2px #fff solid;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.checkboxInput:checked ~ .simpleCheckbox:after {
+  opacity: 1;
+}
+
+.checkboxInput:checked ~ .simpleCheckbox {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.3d {
+  transform-style: preserve-3d;
+}
+
+.flippingCheckbox,
+.checked {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  top: 38px;
+}
+
+.flippingCheckbox {
+  background-color: var(--secondary-color);
+}
+
+.checkboxInput:checked ~ .checked {
+  background-color: var(--primary-color);
+  transform: rotateY(180deg);
+}
+
+.checked::after {
+  content: "";
+  width: 10px;
+  height: 5px;
+  position: absolute;
+  bottom: 8px;
+  transform: rotate(-45deg);
+  border-left: 2px #fff solid;
+  border-bottom: 2px #fff solid;
+}
