@@ -47,9 +47,6 @@ main {
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease-in-out;
-}
-
-.simpleCheckbox {
   top: 0;
 }
 
@@ -79,33 +76,49 @@ main {
   border-color: var(--primary-color);
 }
 
-.3d {
+.flipping {
   transform-style: preserve-3d;
 }
 
-.flippingCheckbox,
-.checked {
-  position: absolute;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  top: 38px;
-}
-
 .flippingCheckbox {
-  background-color: var(--secondary-color);
+  position: relative;
+  top: -19px;
 }
 
-.checkboxInput:checked ~ .checked {
+.flippingChecked {
+  width: 19px;
+  height: 19px;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  transition: transform 1s ease-in-out;
+  position: absolute;
+  left: -34px;
+  top: 0;
+  backface-visibility: hidden;
   background-color: var(--primary-color);
+  opacity: 0;
+}
+
+.checkboxInput:checked ~ .flippingChecked {
+  opacity: 1;
+}
+
+.flippingChecked.active {
   transform: rotateY(180deg);
 }
 
-.checked::after {
+.checkboxInput:checked ~ .flippingCheckbox {
+  border-color: var(--primary-color);
+}
+
+.checkboxInput:checked ~ .flippingChecked::after {
   content: "";
   width: 10px;
   height: 5px;
   position: absolute;
   bottom: 8px;
+  left: 3px;
   transform: rotate(-45deg);
   border-left: 2px #fff solid;
   border-bottom: 2px #fff solid;
