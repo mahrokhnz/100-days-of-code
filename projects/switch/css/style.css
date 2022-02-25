@@ -21,3 +21,118 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wrapper {
+  width: 300px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.input {
+  display: none;
+}
+
+/*SIMPLE CHECKBOX*/
+
+.simpleCheckbox {
+  width: 18px;
+  height: 18px;
+  border: 1px #fff solid;
+  border-radius: 20%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.checked::after {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+  position: absolute;
+  bottom: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.simpleCheckbox:hover {
+  border-color: var(--primary-color);
+}
+
+.input:checked ~ .checked::after {
+  opacity: 1;
+}
+
+.input:checked ~ .simpleCheckbox {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/*FLIPPING CHECKBOX*/
+
+.checkboxContainer {
+  width: 18px;
+  height: 18px;
+  border: 1px #fff solid;
+  border-radius: 20%;
+  perspective: 50px;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.checkboxContainer:hover {
+  border-color: var(--primary-color);
+}
+
+.checkboxWrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 20%;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+.blankFace {
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  border-radius: 20%;
+  backface-visibility: hidden;
+  position: absolute;
+}
+
+.checkedFace {
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  position: absolute;
+}
+
+.input:checked ~ .checkboxContainer {
+  border-color: var(--primary-color);
+}
+
+.input:checked ~ .checkboxWrapper {
+  transform: rotateY(180deg);
+}
