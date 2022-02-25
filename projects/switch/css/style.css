@@ -150,7 +150,7 @@ main {
 
 /*SIMPLE SWITCH*/
 
-.simpleSwitchWrapper {
+.switchWrapper {
   width: 45px;
   height: 26px;
   border: 1px solid #fff;
@@ -162,7 +162,7 @@ main {
   transition: all 0.3s ease-in-out;
 }
 
-.simpleSwitchWrapper:hover {
+.switchWrapper:hover {
   border-color: var(--primary-color);
 }
 
@@ -175,12 +175,50 @@ main {
   transition: all 0.3s ease-in-out;
 }
 
-.input:checked + .simpleSwitchWrapper .circle {
+.input:checked + .switchWrapper .circle {
   margin-left: 21px;
   background-color: #fff;
 }
 
-.input:checked ~ .simpleSwitchWrapper {
+.input:checked ~ .switchWrapper {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+.svg {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+}
+
+.eyes {
+  fill: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.sadMouth {
+  stroke: #fff;
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
+
+.happyMouth {
+  stroke: var(--primary-color);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.input:checked ~ .switchWrapper .circle .svg .sadMouth {
+  opacity: 0;
+  d: path("M 5 14 Q 10 7 15 14") !important;
+}
+
+.input:checked ~ .switchWrapper .circle .svg .happyMouth {
+  opacity: 1;
+}
+
+.input:checked ~ .switchWrapper .circle .svg .eyes {
+  fill: var(--primary-color);
 }
