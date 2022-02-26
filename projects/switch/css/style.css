@@ -197,26 +197,17 @@ main {
   transition: all 0.3s ease-in-out;
 }
 
-.sadMouth {
+.mouth {
   stroke: #fff;
-  stroke-width: 2px;
+  stroke-width: 1px;
   stroke-linecap: round;
+  d: path("M 5 14 Q 10 9 15 14");
+  transition: all 0.3s ease-in-out;
 }
 
-.happyMouth {
+.input:checked ~ .switchWrapper .circle .svg .mouth {
   stroke: var(--primary-color);
-  stroke-width: 2px;
-  stroke-linecap: round;
-  opacity: 0;
-}
-
-.input:checked ~ .switchWrapper .circle .svg .sadMouth {
-  opacity: 0;
-  d: path("M 5 14 Q 10 7 15 14") !important;
-}
-
-.input:checked ~ .switchWrapper .circle .svg .happyMouth {
-  opacity: 1;
+  d: path("M 5 14 Q 10 17 15 14");
 }
 
 .input:checked ~ .switchWrapper .circle .svg .eyes {
