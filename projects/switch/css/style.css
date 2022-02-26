@@ -16,6 +16,7 @@ body {
 
 main {
   display: flex;
+  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -29,7 +30,7 @@ main {
 }
 
 .wrapper {
-  width: 300px;
+  width: 200px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -185,6 +186,8 @@ main {
   border-color: var(--primary-color);
 }
 
+/*SMILING SWITCH*/
+
 .svg {
   width: 20px;
   height: 20px;
@@ -212,4 +215,51 @@ main {
 
 .input:checked ~ .switchWrapper .circle .svg .eyes {
   fill: var(--primary-color);
+}
+
+/*LINE SWITCH*/
+
+.line {
+  width: 50px;
+  height: 4px;
+  background-color: gray;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.line:hover .bigCircle {
+  background-color: var(--primary-color);
+}
+
+.bigCircle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: gray;
+  top: -8px;
+  left: 0;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+}
+
+.smallCircle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.input:checked ~ .line .bigCircle {
+  left: 30px;
+  background-color: var(--primary-color);
+}
+
+.input:checked ~ .line .bigCircle .smallCircle {
+  background-color: var(--primary-color);
 }
