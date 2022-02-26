@@ -15,6 +15,7 @@ function addToDoHandler() {
     const text = document.createElement("span");
     row.appendChild(text);
     text.innerText = toDoItem;
+    localStorage.setItem("text", "ToDoItem");
 
     //children
 
@@ -25,6 +26,7 @@ function addToDoHandler() {
 
     deleteIcon.addEventListener("click", () => {
       row.remove();
+      localStorage.removeItem("text");
     });
 
     //line-through
