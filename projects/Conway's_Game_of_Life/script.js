@@ -1,43 +1,49 @@
 const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 
+let isMoving = false;
+
 //FULL SCREEN CANVAS
-const resize = () => {
-  ctx.width = window.innerWidth;
-  ctx.height = window.innerHeight;
-};
 
-resize();
-window.addEventListener("resize", resize);
+ctx.width = window.innerWidth;
+ctx.height = window.innerHeight;
 
-let squareWidth = 5;
-let squareCountInWidth = Math.ceil(ctx.width / squareWidth);
-let squareCountInHeight = Math.ceil(ctx.height / squareWidth);
+ctx.fillStyle = "#000";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-const coordsArray = [
-  {
-    x: 0,
-    y: 0,
-  },
-  {
-    x: 5,
-    y: 5,
-  },
-  {
-    x: 10,
-    y: 10,
-  },
-  {
-    x: 15,
-    y: 15,
-  },
-];
+// let squareWidth = 5;
+// let squareCountInWidth = Math.ceil(ctx.width / squareWidth);
+// let squareCountInHeight = Math.ceil(ctx.height / squareWidth);
 
-console.log(squareCountInWidth, squareCountInHeight);
+const coordsArray = [];
+
+for (let i = 0; i <= window.innerWidth; i++) {
+  coordsArray.push(20 * i);
+}
 
 coordsArray.map((coordArray) => {
   ctx.beginPath();
-  ctx.moveTo(coordArray.x, 0);
-  ctx.lineTo(coordArray.x, coordArray.y);
+  ctx.moveTo(coordArray, 0);
+  ctx.lineTo(coordArray, window.innerHeight);
   ctx.stroke();
+  ctx.strokeStyle = "#535c68";
+});
+
+coordsArray.map((coordArray) => {
+  ctx.beginPath();
+  ctx.moveTo(0, coordArray);
+  ctx.lineTo(window.innerWidth, coordArray);
+  ctx.stroke();
+  ctx.strokeStyle = "#535c68";
+});
+
+canvas.addEventListener("mousedown", (e) => {
+  const x = e.pageX || e.clientX;
+  const y = e.pageY || e.clientY;
+
+  ctx.fillRect(0, 0, x, y);
+  ctx.fill();
+  ctx.fillStyle = "red";
+
+  isMoving = true;
 });
