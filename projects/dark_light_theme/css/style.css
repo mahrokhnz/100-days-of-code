@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Charmonman:wght@700&family=Roboto+Condensed:wght@300;400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #fff;
+  --secondary-color: #8e8e93;
+  --tertiary-color: #c7c7cc;
+  --text-color: #000;
+}
+
+.dark {
+  --primary-color: #000;
+  --secondary-color: #aeaeb2;
+  --tertiary-color: #636366;
+  --text-color: #fff;
+}
+
+body {
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: var(--primary-color);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  border: 1px red solid;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.logo {
+  font-size: 35px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+nav .navbar {
+  display: flex;
+  gap: 35px;
+  list-style: none;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: var(--tertiary-color);
+}
+
+button {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 16px;
+  color: var(--secondary-color);
+}
+
+.login {
+  border: none;
+  background-color: var(--primary-color); /*To Do change it*/
+}
+
+.signUp {
+  padding: 10px 15px;
+  border-radius: 50px;
+  outline: none;
+  border: var(--secondary-color) 1px solid;
+  background-color: var(--primary-color);
+}
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  width: 66px;
+  height: 38px;
+  border-radius: 50px;
+  border: 4px var(--tertiary-color) solid;
+  cursor: pointer;
+}
+
+.switch {
+  width: 32px;
+  height: 32px;
+  border: 2px var(--tertiary-color) solid;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  border-radius: 50%;
+  margin-left: 0;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox:checked + .switch {
+  margin-left: 26px;
+}
