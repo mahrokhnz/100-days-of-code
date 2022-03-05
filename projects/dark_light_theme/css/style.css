@@ -13,7 +13,7 @@
   --text-color: #000;
 }
 
-:root.dark {
+:root .dark {
   --primary-color: #000;
   --secondary-color: #aeaeb2;
   --tertiary-color: #636366;
@@ -23,13 +23,13 @@
 body {
   font-family: "Roboto Condensed", sans-serif;
   background-color: var(--primary-color);
+  overflow: hidden;
 }
 
 header {
   display: flex;
   justify-content: space-between;
   padding: 50px;
-  border: 1px red solid;
   position: absolute;
   top: 0;
   left: 0;
@@ -67,7 +67,7 @@ button {
 
 .login {
   border: none;
-  background-color: var(--primary-color); /*To Do change it*/
+  background-color: var(--primary-color);
 }
 
 .signUp {
@@ -103,4 +103,95 @@ button {
 
 .checkbox:checked + .switch {
   margin-left: 26px;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  padding: 160px 50px 50px 50px;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 500px;
+  position: relative;
+}
+
+.textContainer h1 {
+  font-size: 80px;
+  color: var(--text-color);
+}
+
+.textContainer p {
+  font-size: 17px;
+  color: var(--secondary-color);
+}
+
+.shop {
+  padding: 10px 15px;
+  border-radius: 50px;
+  outline: none;
+  border: none;
+  background-color: var(--text-color);
+  color: var(--primary-color);
+}
+
+.imageContainer {
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background-color: #6462df;
+  position: absolute;
+  right: -220px;
+  top: 160px;
+  z-index: -1;
+}
+
+.skateboarder {
+  width: 410px;
+}
+
+/*BUBBLES*/
+.bubble1 {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: var(--primary-color);
+  left: -18px;
+}
+
+.bubble2 {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #6462df;
+  top: 160px;
+  left: 970px;
+}
+
+.bubble3 {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: var(--primary-color);
+  top: 310px;
+  left: 1350px;
+}
+
+.bubble4 {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: var(--primary-color);
+  opacity: 0.4;
+  top: 510px;
+  left: 1000px;
 }
