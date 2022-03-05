@@ -13,7 +13,7 @@
   --text-color: #000;
 }
 
-.dark {
+:root.dark {
   --primary-color: #000;
   --secondary-color: #aeaeb2;
   --tertiary-color: #636366;
