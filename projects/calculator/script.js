@@ -1,39 +1,53 @@
 const types = document.querySelectorAll(".type");
-const screen = document.querySelector(".screen");
+const display = document.querySelector(".calculatorScreen");
 const backSpace = document.querySelector(".clear");
 
 let beforeNumber, NextNumber;
 
-const screenViewHandler = (type) => {
-  if (type.innerHTML !== ".") {
-    if (type.innerHTML !== "=") {
-      if (screen.innerHTML.length > 0) {
-        screen.innerHTML += type.innerHTML;
-      } else if (type.innerHTML !== "×" && type.innerHTML !== "÷") {
-        screen.innerHTML += type.innerHTML;
-      }
-    }
-  } else {
-    if (!screen.innerHTML.includes(".")) {
-      screen.innerHTML += type.innerHTML;
-    }
-  }
-};
+// const calculatorScreenViewHandler = (type) => {
+//   if (type.innerHTML !== ".") {
+//     if (type.innerHTML !== "=") {
+//       if (calculatorScreen.innerHTML.length > 0) {
+//         calculatorScreen.innerHTML += type.innerHTML;
+//       } else if (type.innerHTML !== "×" && type.innerHTML !== "÷") {
+//         calculatorScreen.innerHTML += type.innerHTML;
+//       }
+//     }
+//   } else {
+//     if (!calculatorScreen.innerHTML.includes(".")) {
+//       calculatorScreen.innerHTML += type.innerHTML;
+//     }
+//   }
+// };
 
-const operators = () => {
-  if (screen.innerHTML.includes("+")) {
-    const slug = screen.innerHTML.substring(screen.innerHTML.indexOf("+"));
-    console.log(slug);
-  }
-};
+// // const operators = () => {
+// //   if (calculatorScreen.innerHTML.includes("+")) {
+// //     const slug = calculatorScreen.innerHTML.substring(calculatorScreen.innerHTML.indexOf("+"));
+// //     console.log(slug);
+// //   }
+// // };
+//
+// types.forEach((type) => {
+//   type.addEventListener("click", (e) => {
+//     if (e.target.matches("button")) {
+//       const key = e.target;
+//       const action = key.dataset.action;
+//       const keyContent = key.textContent;
+//
+//       if (display.textContent !== "0" && action !== "calculate") {
+//         display.textContent += keyContent;
+//       }
+//       if (
+//         display.textContent === "0" &&
+//         action === "sum" &&
+//         action === "division"
+//       ) {
+//         display.textContent += keyContent;
+//       }
+//     }
+//   });
+// });
 
-types.forEach((type) => {
-  type.addEventListener("click", () => {
-    screenViewHandler(type);
-    operators();
-  });
-});
-
-backSpace.addEventListener("click", () => {
-  screen.innerHTML = screen.innerHTML.substring(0, screen.innerHTML.length - 1);
-});
+// backSpace.addEventListener("click", () => {
+//   calculatorScreen.innerHTML = calculatorScreen.innerHTML.substring(0, calculatorScreen.innerHTML.length - 1);
+// });

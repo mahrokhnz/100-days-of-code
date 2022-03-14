@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-main {
+.calculator {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -20,7 +20,7 @@ main {
   user-select: none;
 }
 
-.screen {
+.calculatorScreen {
   display: flex;
   align-items: center;
   height: 100px;
@@ -35,22 +35,21 @@ main {
   flex-grow: 1;
 }
 
-.numbers {
+.calculatorNumbers {
   display: flex;
   flex-direction: column;
   gap: 10px;
   flex: 1 0 0;
 }
 
-span {
+button {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-grow: 1;
-  border: 1px pink solid;
 }
 
-.operators {
+.calculatorOperators {
   display: flex;
   flex-direction: column;
   gap: 10px;

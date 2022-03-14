@@ -11,37 +11,39 @@
     <title>Calculator</title>
   </head>
   <body>
-    <main>
-      <div class="screen"></div>
+    <main class="calculator">
+      <div class="calculatorScreen">0</div>
       <div class="row">
-        <div class="numbers">
+        <div class="calculatorNumbers">
           <div class="row">
-            <span class="type">7</span>
-            <span class="type">8</span>
-            <span class="type">9</span>
+            <button class="type">7</button>
+            <button class="type">8</button>
+            <button class="type">9</button>
           </div>
           <div class="row">
-            <span class="type">4</span>
-            <span class="type">5</span>
-            <span class="type">6</span>
+            <button class="type">4</button>
+            <button class="type">5</button>
+            <button class="type">6</button>
           </div>
           <div class="row">
-            <span class="type">1</span>
-            <span class="type">2</span>
-            <span class="type">3</span>
+            <button class="type">1</button>
+            <button class="type">2</button>
+            <button class="type">3</button>
           </div>
           <div class="row">
-            <span class="type">0</span>
-            <span class="type">.</span>
-            <span class="type">=</span>
+            <button class="type">0</button>
+            <button class="type" data-action="decimal">.</button>
+            <button class="type" data-action="calculate">=</button>
           </div>
         </div>
-        <div class="operators">
-          <span class="clear">clear</span>
-          <span class="type division">÷</span>
-          <span class="type multiplication">×</span>
-          <span class="type submission">-</span>
-          <span class="type sum">+</span>
+        <div class="calculatorOperators">
+          <button class="clear" data-action="clear">clear</button>
+          <button class="type division" data-action="division">÷</button>
+          <button class="type multiplication" data-action="multiplication">
+            ×
+          </button>
+          <button class="type submission" data-action="submission">-</button>
+          <button class="type sum" data-action="sum">+</button>
         </div>
       </div>
     </main>
