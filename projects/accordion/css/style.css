@@ -1,7 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Charmonman:wght@700&family=Dancing+Script:wght@400;500;700&family=Roboto+Condensed:wght@300;400;700&display=swap");
+
+:root {
+  --primary-color: #12b0e8;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: "Dancing Script", sans-serif;
+  background-color: #75828366;
 }
 
 main {
@@ -9,8 +20,7 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px red solid;
-  width: 800px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -18,20 +28,52 @@ main {
 }
 
 main .accordion {
-  border: 1px blue solid;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 48px;
 }
 
 main .accordion.active {
-  overflow: auto;
+  overflow: visible;
+  height: auto;
+}
+
+main .accordion span {
+  font-weight: bold;
+  font-size: 1.5em;
+  position: relative;
+}
+
+main .accordion span::before,
+main .accordion span::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 2px;
+  background-color: #fff;
+  left: 460px;
+  top: 50%;
+}
+
+main .accordion span::after {
+  transform: rotate(90deg);
+}
+
+main .accordion.active span::after {
+  transform: translate(0);
 }
 
 main .accordion .about {
-  height: 0;
   cursor: auto;
-}
-
-main .accordion .about.active {
-  height: auto;
+  background-color: #fff;
+  color: gray;
+  padding: 8px;
+  font-size: 1.1em;
 }
