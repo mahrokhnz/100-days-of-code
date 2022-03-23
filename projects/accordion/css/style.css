@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px red solid;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  user-select: none;
+}
+
+main .accordion {
+  border: 1px blue solid;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+main .accordion.active {
+  overflow: auto;
+}
+
+main .accordion .about {
+  height: 0;
+  cursor: auto;
+}
+
+main .accordion .about.active {
+  height: auto;
+}
