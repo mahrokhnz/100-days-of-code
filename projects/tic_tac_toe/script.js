@@ -1,49 +1,40 @@
 const buttons = document.querySelectorAll(".button");
 const modal = document.querySelector(".modal");
 const cells = document.querySelectorAll(".cell");
-const cellsParent = document.querySelector(".wrapper");
 
 const marks = ["X", "O"];
-const cellNumbers = cellsParent.children;
 
 let userMark = "";
 let gameMark = "";
 
 const userFillingCells = (mark) => {
   cells.forEach((cell) => {
-    if (cell.textContent.length <= 0) {
-      cell.addEventListener("click", () => {
+    cell.addEventListener("click", () => {
+      if (cell.childNodes.length === 0) {
         cell.textContent = mark;
-        console.log(cell.textContent.length);
         gameFillingCells(gameMark);
-        // CONTROL USER CLICK ON COMPLETED CELLS
-      });
-    }
+      }
+    });
   });
 };
 
 const gameFillingCells = (mark) => {
-  const corners = [
-    cellNumbers[0],
-    cellNumbers[2],
-    cellNumbers[6],
-    cellNumbers[8],
-  ];
+  const corners = [cells[0], cells[2], cells[6], cells[8]];
 
   if (
-    corners[0].textContent.length === 0 ||
-    corners[1].textContent.length === 0 ||
-    corners[2].textContent.length === 0 ||
-    corners[3].textContent.length === 0
+    corners[0].childNodes.length === 0 ||
+    corners[1].childNodes.length === 0 ||
+    corners[2].childNodes.length === 0 ||
+    corners[3].childNodes.length === 0
   ) {
     const random = Math.floor(Math.random() * corners.length);
-    if (corners[random].textContent.length === 0) {
+    if (corners[random].childNodes.length === 0) {
       corners[random].textContent = gameMark;
     } else {
-      let newCorners = [...corners];
-      console.log(newCorners);
-      // REMOVE COMPLETED INDEX FROM RANDOM
-      // FIND A NEW RANDOM
+      corners.splice(random, 1);
+      const newRandom = Math.floor(Math.random() * corners.length);
+      corners[newRandom].textContent = gameMark;
+      // IT DOESN'T WORK PROPERLY
     }
   }
 };
