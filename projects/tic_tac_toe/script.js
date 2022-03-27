@@ -18,38 +18,20 @@ const userFillingCells = (mark) => {
 
 const gameFillingCells = (mark) => {
   const cornersCell = [cells[0], cells[2], cells[6], cells[8]];
-
   let corners = [];
-  // for (let i = 0; i <= cornersCell.length; i++) {
-  //   if (cornersCell[i].textContent === "") {
-  //     corners.push(cornersCell[i]);
-  //   }
-  // }
 
-  let i = 0;
-  do {
-    corners.push(cornersCell[i]);
-    i++;
-  } while (i < cornersCell.length && cornersCell[i].childNodes.length === 0);
+  for (let i = 0; i < cornersCell.length; i++) {
+    if (cornersCell[i].childNodes.length === 0) {
+      corners.push(cornersCell[i]);
+    }
+  }
 
-  console.log(corners);
-
-  // if (
-  //   corners[0].childNodes.length === 0 ||
-  //   corners[1].childNodes.length === 0 ||
-  //   corners[2].childNodes.length === 0 ||
-  //   corners[3].childNodes.length === 0
-  // ) {
-  const random = Math.floor(Math.random() * corners.length);
-  // if (corners[random].childNodes.length === 0) {
-  corners[random].textContent = gameMarker;
-  // } else {
-  //   corners.splice(random, 1);
-  //   const newRandom = Math.floor(Math.random() * corners.length);
-  //   corners[newRandom].textContent = gameMarker;
-  // IT DOESN'T WORK PROPERLY
-  // }
-  // }
+  if (corners.length > 2) {
+    const random = Math.floor(Math.random() * corners.length);
+    corners[random].textContent = gameMarker;
+  } else {
+    // THIRD MOVE
+  }
 };
 
 markers.forEach((marker) => {
