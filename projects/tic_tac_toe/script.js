@@ -5,18 +5,20 @@ const cells = document.querySelectorAll(".cell");
 let playerMarker;
 let gameMarker;
 
-const userFillingCells = (mark) => {
+const userFillingCells = () => {
   cells.forEach((cell) => {
     cell.addEventListener("click", () => {
       if (cell.childNodes.length === 0) {
-        cell.textContent = mark;
+        cell.textContent = playerMarker;
         gameFillingCells(gameMarker);
       }
     });
   });
+
+  winnerHandler();
 };
 
-const gameFillingCells = (mark) => {
+const gameFillingCells = () => {
   const cornersCell = [cells[0], cells[2], cells[6], cells[8]];
   let corners = [];
 
@@ -26,12 +28,70 @@ const gameFillingCells = (mark) => {
     }
   }
 
-  if (corners.length > 2) {
+  if (
+    cells[0].textContent.includes(gameMarker) &&
+    cells[2].textContent.includes(gameMarker) &&
+    cells[1].childNodes.length === 0
+  ) {
+    cells[1].textContent = gameMarker;
+  } else if (
+    cells[6].textContent.includes(gameMarker) &&
+    cells[8].textContent.includes(gameMarker) &&
+    cells[7].childNodes.length === 0
+  ) {
+    cells[7].textContent = gameMarker;
+  } else if (
+    cells[0].textContent.includes(gameMarker) &&
+    cells[6].textContent.includes(gameMarker) &&
+    cells[3].childNodes.length === 0
+  ) {
+    cells[3].textContent = gameMarker;
+  } else if (
+    cells[2].textContent.includes(gameMarker) &&
+    cells[8].textContent.includes(gameMarker) &&
+    cells[5].childNodes.length === 0
+  ) {
+    cells[5].textContent = gameMarker;
+  } else if (
+    cells[0].textContent.includes(gameMarker) &&
+    cells[8].textContent.includes(gameMarker) &&
+    cells[4].childNodes.length === 0
+  ) {
+    cells[4].textContent = gameMarker;
+  } else if (
+    cells[2].textContent.includes(gameMarker) &&
+    cells[6].textContent.includes(gameMarker) &&
+    cells[4].childNodes.length === 0
+  ) {
+    cells[4].textContent = gameMarker;
+  } else {
     const random = Math.floor(Math.random() * corners.length);
     corners[random].textContent = gameMarker;
-  } else {
-    // THIRD MOVE
   }
+
+  winnerHandler();
+};
+
+const winnerHandler = () => {
+  const winnerArrays = [
+    [cells[0], cells[1], cells[2]],
+    [cells[3], cells[4], cells[5]],
+    [cells[6], cells[7], cells[8]],
+    [cells[0], cells[3], cells[6]],
+    [cells[1], cells[4], cells[7]],
+    [cells[2], cells[5], cells[8]],
+    [cells[0], cells[4], cells[8]],
+  ];
+
+  const checkWinner = (cell) => {
+    if (cell.textContent.includes(playerMarker)) {
+      console.log("player");
+    }
+  };
+
+  winnerArrays.forEach((winnerArray) => {
+    winnerArray.every(checkWinner);
+  });
 };
 
 markers.forEach((marker) => {
@@ -42,7 +102,7 @@ markers.forEach((marker) => {
     playerMarker = marker.textContent;
     gameMarker = playerMarker === "X" ? "O" : "X";
 
-    userFillingCells(playerMarker);
-    gameFillingCells(gameMarker);
+    userFillingCells();
+    gameFillingCells();
   });
 });
