@@ -1,6 +1,7 @@
 const markers = document.querySelectorAll(".button");
 const modal = document.querySelector(".modal");
 const cells = document.querySelectorAll(".cell");
+const text = document.querySelector(".text");
 
 let playerMarker;
 let gameMarker;
@@ -27,6 +28,8 @@ const gameFillingCells = () => {
       corners.push(cornersCell[i]);
     }
   }
+
+  //MAKE IT SIMPLE
 
   if (
     cells[0].textContent.includes(gameMarker) &&
@@ -81,17 +84,26 @@ const winnerHandler = () => {
     [cells[1], cells[4], cells[7]],
     [cells[2], cells[5], cells[8]],
     [cells[0], cells[4], cells[8]],
+    [cells[2], cells[4], cells[6]],
   ];
 
-  const checkWinner = (cell) => {
-    if (cell.textContent.includes(playerMarker)) {
-      console.log("player");
-    }
-  };
+  //MAKE IT SIMPLE && FIX && DEFINE BOOLEAN ISACTIVE
 
-  winnerArrays.forEach((winnerArray) => {
-    winnerArray.every(checkWinner);
-  });
+  for (let i = 0; i < winnerArrays.length; i++) {
+    if (
+      winnerArrays[i].every((element) =>
+        element.textContent.includes(gameMarker)
+      )
+    ) {
+      text.textContent = "game";
+    } else if (
+      winnerArrays[i].every((element) =>
+        element.textContent.includes(playerMarker)
+      )
+    ) {
+      text.textContent = "player";
+    }
+  }
 };
 
 markers.forEach((marker) => {
