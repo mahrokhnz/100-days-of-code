@@ -4,11 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary-color: #12b0e8;
+}
+
 .modal {
   position: fixed;
   inset: 0;
-  background-color: gray;
-  filter: grayscale(90%);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
@@ -47,6 +50,39 @@
   padding: 20px;
 }
 
+.choices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 2px 5px;
+  background-color: #fff;
+  border: 1px var(--primary-color) solid;
+  border-radius: 3px;
+  outline: none;
+  transition-property: color, background-color;
+  transition: 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+}
+
+.text {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
+}
+
 .wrapper {
   position: absolute;
   top: 50%;
@@ -64,7 +100,7 @@
 .cell {
   width: 170px;
   height: 120px;
-  background-color: #12b0e8;
+  background-color: var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
