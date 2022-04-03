@@ -11,3 +11,5 @@ document.addEventListener("keyup", (e) => {
     dinosaur.classList.remove("active");
   }
 });
+
+console.log(dinosaur);
