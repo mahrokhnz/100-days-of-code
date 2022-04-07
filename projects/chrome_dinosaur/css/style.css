@@ -1,74 +1,62 @@
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-.gameEnvironment {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+main {
+  margin: 0 auto;
+  border: 1px black solid;
   width: 500px;
-  height: 300px;
-  /*overflow: hidden;*/
-}
-
-.container {
-  width: 500px;
-  height: 300px;
-  overflow: hidden;
-  border: 1px red solid;
+  height: 250px;
 }
 
 .dinosaur {
-  width: 120px;
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  transition: bottom 0.5s ease-in-out;
+  width: 100px;
+  height: 100px;
+  background-image: url("../assets/images/Dinosaur.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100px 100px;
+  position: relative;
+  top: 150px;
 }
 
 .dinosaur.active {
-  bottom: 100px;
-  animation: obstacleMoving 5s ease-out forwards infinite;
+  animation: jumping 0.6s linear;
 }
 
 .cactus {
   width: 50px;
-  position: absolute;
-  bottom: -3px;
+  height: 50px;
+  background-image: url("../assets/images/cactus.png");
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  position: relative;
+  left: 450px;
+  top: 100px;
 }
 
-.cactus1 {
-  left: 100%;
+.cactus.active {
+  animation: moving 3s linear;
 }
 
-.cactus2 {
-  left: 120%;
-}
-
-.cactus3 {
-  left: 150%;
-}
-
-.ground {
-  width: 100%;
-  height: 2px;
-  background-color: gray;
-  position: absolute;
-}
-
-.ground.active {
-  animation: groundMoving 5s ease-out forwards infinite;
-}
-
-@keyframes groundMoving {
+@keyframes jumping {
   0% {
-    left: -10%;
+    top: 150px;
   }
 
   100% {
-    left: 100%;
+    top: 50px;
+  }
+}
+
+@keyframes moving {
+  0% {
+    left: 450px;
+  }
+
+  100% {
+    left: -50px;
   }
 }
