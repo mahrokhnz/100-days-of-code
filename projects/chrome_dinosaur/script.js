@@ -1,24 +1,17 @@
 const dinosaur = document.querySelector(".dinosaur");
-const cactus = document.querySelector(".cactus");
+const ground = document.querySelector(".ground");
+
+let frameId;
 
 function jumping() {
-  if (dinosaur.classList !== "active") {
-    dinosaur.classList.add("active");
-
-    setInterval(() => {
-      dinosaur.classList.remove("active");
-    }, 2000);
-  }
-  cactus.classList.add("active");
-}
-
-function isAlive() {
-  const dinosaurTop = dinosaur.getBoundingClientRect().top;
-  const cactusLeft = cactus.getBoundingClientRect().left;
-
-  setInterval(() => {
-    console.log(cactusLeft);
-  }, 100);
+  dinosaur.classList.add("active");
+  ground.classList.add("active");
 }
 
 document.addEventListener("keydown", jumping);
+dinosaur.addEventListener("animationend", () => {
+  dinosaur.classList.remove("active");
+});
+ground.addEventListener("animationend", () => {
+  ground.classList.remove("active");
+});

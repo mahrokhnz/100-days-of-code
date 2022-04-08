@@ -5,10 +5,36 @@
 }
 
 main {
-  margin: 0 auto;
-  border: 1px black solid;
   width: 500px;
   height: 250px;
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ground {
+  width: 400%;
+  height: 2px;
+  background-color: black;
+  position: relative;
+  top: 246px;
+}
+
+.ground.active {
+  animation: moving 4s linear;
+}
+
+.cactus {
+  width: 50px;
+  height: 50px;
+  background-image: url("../assets/images/cactus.png");
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  position: absolute;
+  left: 50%;
+  top: -50px;
 }
 
 .dinosaur {
@@ -26,21 +52,6 @@ main {
   animation: jumping 0.6s linear;
 }
 
-.cactus {
-  width: 50px;
-  height: 50px;
-  background-image: url("../assets/images/cactus.png");
-  background-repeat: no-repeat;
-  background-size: 50px 50px;
-  position: relative;
-  left: 450px;
-  top: 100px;
-}
-
-.cactus.active {
-  animation: moving 3s linear;
-}
-
 @keyframes jumping {
   0% {
     top: 150px;
@@ -53,10 +64,10 @@ main {
 
 @keyframes moving {
   0% {
-    left: 450px;
+    left: 0;
   }
 
   100% {
-    left: -50px;
+    left: -250%;
   }
 }
