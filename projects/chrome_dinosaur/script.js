@@ -29,9 +29,13 @@ function overlap() {
 
   reqAnimation = window.requestAnimationFrame(overlap);
 
+  //IN DIFFERENT WINDOW SIZES SHOULD BE CHECKED
+
   if (dinosaurY <= 172 && dinosaurY > 122 && cactusX <= 90 && cactusX >= 0) {
     window.cancelAnimationFrame(reqAnimation);
     isPlaying = false;
+
+    //DOESNT WORK PROPERLY
 
     ground.style.animationPlayState = "paused";
   }
