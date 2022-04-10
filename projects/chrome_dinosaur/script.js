@@ -1,43 +1,40 @@
 const dinosaur = document.querySelector(".dinosaur");
 const ground = document.querySelector(".ground");
 const cactus = document.querySelector(".cactus");
+const restart = document.querySelector(".restart");
+const main = document.querySelector(".main");
 
-let frameId;
-let dinosaurY;
-let cactusX;
 let reqAnimation;
-let playing = true;
+let isPlaying = true;
 
-function conflict() {
-  let dinosaurY = dinosaur.getBoundingClientRect().top;
-  let cactusX = cactus.getBoundingClientRect().left;
-
-  let reqAnimation = window.requestAnimationFrame(conflict);
-
-  window.cancelAnimationFrame(reqAnimation);
-}
-
-function jumping() {
-  playing && dinosaur.classList.add("active");
-}
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space" && isPlaying) {
+    dinosaur.classList.add("active");
+    ground.classList.add("active");
+  }
+});
 
 dinosaur.addEventListener("animationend", () => {
   dinosaur.classList.remove("active");
 });
 
-function moving() {
-  if (playing) {
-    ground.classList.add("active");
+restart.addEventListener("click", () => {
+  isPlaying = true;
+});
+
+function overlap() {
+  let dinosaurY =
+    dinosaur.getBoundingClientRect().top - main.getBoundingClientRect().top;
+  let cactusX = cactus.getBoundingClientRect().left;
+
+  reqAnimation = window.requestAnimationFrame(overlap);
+
+  if (dinosaurY <= 172 && dinosaurY > 122 && cactusX <= 90 && cactusX >= 0) {
     window.cancelAnimationFrame(reqAnimation);
-    conflict();
+    isPlaying = false;
+
+    ground.style.animationPlayState = "paused";
   }
 }
 
-ground.addEventListener("animationend", () => {
-  ground.classList.remove("active");
-});
-
-document.addEventListener("keydown", () => {
-  jumping();
-  moving();
-});
+reqAnimation = window.requestAnimationFrame(overlap);
