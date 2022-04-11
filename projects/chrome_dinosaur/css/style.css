@@ -7,11 +7,26 @@
 main {
   width: 500px;
   height: 250px;
-  /*overflow: hidden;*/
+  overflow: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.gameOver {
+  width: 500px;
+  height: 250px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 10;
+}
+
+.gameOver .button {
+  padding: 10px;
 }
 
 .ground {
