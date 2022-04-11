@@ -43,8 +43,6 @@ function overlap() {
   let cactusX =
     cactus.getBoundingClientRect().left - main.getBoundingClientRect().left;
 
-  console.log(dinosaurY, cactusX);
-
   reqAnimation = window.requestAnimationFrame(overlap);
 
   //IN DIFFERENT WINDOW SIZES SHOULD BE CHECKED
