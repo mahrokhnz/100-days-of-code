@@ -21,12 +21,17 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.1);
   display: none;
   z-index: 10;
 }
 
-.gameOver .button {
-  padding: 10px;
+.gameOver .restart {
+  width: 90px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .ground {
@@ -48,8 +53,15 @@ main {
   background-repeat: no-repeat;
   background-size: 50px 50px;
   position: absolute;
-  left: 800px;
   top: -50px;
+}
+
+.cactus1 {
+  left: 800px;
+}
+
+.cactus2 {
+  left: 1200px;
 }
 
 .dinosaur {
