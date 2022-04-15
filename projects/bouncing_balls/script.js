@@ -27,20 +27,30 @@ const circles = [
     x: 110,
     y: 300,
     r: 30,
-    color: "blue",
+    color: "yellow",
   },
 ];
 
+let newCircles = [];
 function drawCircles() {
-  const newCircles = [...circles];
+  for (let i = 0; i <= circles.length; i++) {
+    newCircles.push(circles[i]);
+  }
 
   ctx.beginPath();
   newCircles.map((circle) => {
-    ctx.fillStyle = circle.color;
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2, false);
+    if (circle) {
+      ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2, false);
+      ctx.fillStyle = circle.color;
+    }
   });
+  animateCircles();
 }
 
 drawCircles();
+
+function animateCircles() {
+  console.log(newCircles);
+}
