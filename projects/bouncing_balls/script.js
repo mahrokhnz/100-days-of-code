@@ -5,52 +5,49 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-//FILL CANVAS
-ctx.fillStyle = "black";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 //CIRCLES
-const circles = [
-  {
-    x: 10,
-    y: 75,
-    r: 10,
-    color: "red",
-  },
-  {
-    x: 60,
-    y: 500,
-    r: 20,
-    color: "purple",
-  },
-  {
-    x: 110,
-    y: 300,
-    r: 30,
-    color: "yellow",
-  },
-];
+const circles = new Array(15).fill(0).map(() => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 20 + 10,
+    color: '#' + Math.floor(Math.random() * 16777215).toString(16),
+    sx: Math.random() * 10 - 5,
+    sy: Math.random() * 10 - 5,
+  }));
 
-let newCircles = [];
 function drawCircles() {
-  for (let i = 0; i <= circles.length; i++) {
-    newCircles.push(circles[i]);
-  }
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.beginPath();
-  newCircles.map((circle) => {
-    ctx.fill();
+  circles.forEach((circle) => {
+    ctx.fillStyle = circle.color;
     ctx.beginPath();
-    if (circle) {
-      ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2, false);
-      ctx.fillStyle = circle.color;
+    ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2, false);
+    ctx.fill();
+  });
+}
+
+function animate() {
+  circles.forEach((circle) => {
+    circle.x += circle.sx;
+    circle.y += circle.sy;
+
+    if (circle.x < circle.r || circle.x > canvas.width - circle.r) {
+      circle.sx = -circle.sx
+      circle.color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+    }
+
+    if (circle.y < circle.r || circle.y > canvas.height - circle.r) {
+      circle.sy = -circle.sy
+      circle.color = '#' + Math.floor(Math.random() * 16777215).toString(16)
     }
   });
-  animateCircles();
+
+  drawCircles();
+
+  requestAnimationFrame(animate)
 }
 
-drawCircles();
+requestAnimationFrame(animate)
 
-function animateCircles() {
-  console.log(newCircles);
-}
+
