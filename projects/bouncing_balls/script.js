@@ -5,42 +5,49 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-//FILL CANVAS
-ctx.fillStyle = "black";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 //CIRCLES
-const circles = [
-  {
-    x: 10,
-    y: 75,
-    r: 10,
-    color: "red",
-  },
-  {
-    x: 60,
-    y: 500,
-    r: 20,
-    color: "purple",
-  },
-  {
-    x: 110,
-    y: 300,
-    r: 30,
-    color: "blue",
-  },
-];
+const circles = new Array(15).fill(0).map(() => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 20 + 10,
+    color: '#' + Math.floor(Math.random() * 16777215).toString(16),
+    sx: Math.random() * 10 - 5,
+    sy: Math.random() * 10 - 5,
+  }));
 
 function drawCircles() {
-  const newCircles = [...circles];
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.beginPath();
-  newCircles.map((circle) => {
+  circles.forEach((circle) => {
     ctx.fillStyle = circle.color;
-    ctx.fill();
     ctx.beginPath();
     ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2, false);
+    ctx.fill();
   });
 }
 
-drawCircles();
+function animate() {
+  circles.forEach((circle) => {
+    circle.x += circle.sx;
+    circle.y += circle.sy;
+
+    if (circle.x < circle.r || circle.x > canvas.width - circle.r) {
+      circle.sx = -circle.sx
+      circle.color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+    }
+
+    if (circle.y < circle.r || circle.y > canvas.height - circle.r) {
+      circle.sy = -circle.sy
+      circle.color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+    }
+  });
+
+  drawCircles();
+
+  requestAnimationFrame(animate)
+}
+
+requestAnimationFrame(animate)
+
+
