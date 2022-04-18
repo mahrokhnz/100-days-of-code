@@ -5,40 +5,40 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-//COLORIZE
+// //COLORIZE
 ctx.fillStyle = "lightBlue";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-canvas.addEventListener("keydown", function (e) {
-  if (e.code === "Space") {
-    console.log("hjhg");
-  }
-});
-
-function ballHandler() {
-  ctx.fillStyle = "blue";
-  ctx.beginPath();
-  ctx.rect(500, canvas.height, 300, 100);
-  ctx.fill();
-}
 
 //Ball
 const ball = {
   x: Math.random() * canvas.width,
   y: Math.random() * canvas.height,
   r: 20,
-  color: "white",
-  sx: Math.random() * 10 - 5,
-  sy: Math.random() * 10 - 5,
+  color: "red",
+  sx: 8,
+  sy: 2,
 };
 
-function drawCircles() {
+//RECT
+const rect = {
+  x: 200,
+  y: canvas.height - 20,
+  width: 200,
+  height: 10,
+};
+
+function draw() {
   ctx.fillStyle = "lightBlue";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = ball.color;
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2, false);
+  ctx.fill();
+
+  ctx.fillStyle = "red";
+  ctx.beginPath();
+  ctx.rect(rect.x, rect.y, rect.width, rect.height);
   ctx.fill();
 }
 
@@ -54,7 +54,27 @@ function animate() {
     ball.sy = -ball.sy;
   }
 
-  drawCircles();
+  // if (ball.y === rect.y) {
+  //   ball.sy = -ball.sy;
+  // }
+
+  //SHOULD CONTROL BALL MOVEMENT
+
+  canvas.addEventListener("keydown", function (e) {
+    if (e.code === "ArrowRight") {
+      if (rect.x < canvas.width - rect.width) {
+        rect.x += 0.2;
+      }
+    }
+
+    if (e.code === "ArrowLeft") {
+      if (rect.x > 0) {
+        rect.x -= 0.2;
+      }
+    }
+  });
+
+  draw();
 
   requestAnimationFrame(animate);
 }
