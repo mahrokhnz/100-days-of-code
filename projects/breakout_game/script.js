@@ -58,7 +58,11 @@ function animate() {
   ball.x += ball.sx;
   ball.y += ball.sy;
 
-  if (ball.x < ball.r || ball.x > canvas.width - ball.r) {
+  if (ball.x > rect1.x && ball.y < rect1.y + rect1.height) {
+    ball.sx = -ball.sx;
+  }
+
+  if (ball.x < rect2.x && ball.y > rect2.y) {
     ball.sx = -ball.sx;
   }
 
@@ -66,14 +70,9 @@ function animate() {
     ball.sy = -ball.sy;
   }
 
-  // if (ball.y === rect.y) {
-  //   ball.sy = -ball.sy;
-  // }
-
   //SHOULD CONTROL BALL MOVEMENT
 
   canvas.addEventListener("keydown", function (e) {
-
     //Right Rect
     if (e.code === "ArrowUp") {
       if (rect1.y > 0) {
