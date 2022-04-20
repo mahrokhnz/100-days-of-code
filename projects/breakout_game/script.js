@@ -20,11 +20,18 @@ const ball = {
 };
 
 //RECT
-const rect = {
-  x: 200,
-  y: canvas.height - 20,
-  width: 200,
-  height: 10,
+const rect1 = {
+  x: canvas.width - 20,
+  y: 200,
+  width: 10,
+  height: 200,
+};
+
+const rect2 = {
+  x: 20,
+  y: 200,
+  width: 10,
+  height: 200,
 };
 
 function draw() {
@@ -38,7 +45,12 @@ function draw() {
 
   ctx.fillStyle = "red";
   ctx.beginPath();
-  ctx.rect(rect.x, rect.y, rect.width, rect.height);
+  ctx.rect(rect1.x, rect1.y, rect1.width, rect1.height);
+  ctx.fill();
+
+  ctx.fillStyle = "red";
+  ctx.beginPath();
+  ctx.rect(rect2.x, rect2.y, rect2.width, rect2.height);
   ctx.fill();
 }
 
@@ -61,15 +73,30 @@ function animate() {
   //SHOULD CONTROL BALL MOVEMENT
 
   canvas.addEventListener("keydown", function (e) {
-    if (e.code === "ArrowRight") {
-      if (rect.x < canvas.width - rect.width) {
-        rect.x += 0.2;
+
+    //Right Rect
+    if (e.code === "ArrowUp") {
+      if (rect1.y > 0) {
+        rect1.y -= 0.2;
       }
     }
 
-    if (e.code === "ArrowLeft") {
-      if (rect.x > 0) {
-        rect.x -= 0.2;
+    if (e.code === "ArrowDown") {
+      if (rect1.y < canvas.height - rect1.height) {
+        rect1.y += 0.2;
+      }
+    }
+
+    //Left Rect
+    if (e.code === "KeyW") {
+      if (rect2.y > 0) {
+        rect2.y -= 0.2;
+      }
+    }
+
+    if (e.code === "KeyS") {
+      if (rect2.y < canvas.height - rect2.height) {
+        rect2.y += 0.2;
       }
     }
   });
