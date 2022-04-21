@@ -68,7 +68,7 @@ function animate() {
     if (ball.x > rect1.x && ball.x < rect1.x + rect1.width) {
       ball.sx = -ball.sx;
     } else {
-      alert("jj");
+      console.log("kjh");
     }
   }
 
