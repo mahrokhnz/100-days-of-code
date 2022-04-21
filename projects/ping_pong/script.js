@@ -15,20 +15,20 @@ const ball = {
   y: Math.random() * canvas.height,
   r: 20,
   color: "red",
-  sx: 8,
+  sx: 2,
   sy: 2,
 };
 
 //RECT
 const rect1 = {
-  x: canvas.width - 20,
+  x: canvas.width - 10,
   y: 200,
   width: 10,
   height: 200,
 };
 
 const rect2 = {
-  x: 20,
+  x: 0,
   y: 200,
   width: 10,
   height: 200,
@@ -58,16 +58,18 @@ function animate() {
   ball.x += ball.sx;
   ball.y += ball.sy;
 
-  if (ball.x > rect1.x && ball.y < rect1.y + rect1.height) {
-    ball.sx = -ball.sx;
-  }
-
-  if (ball.x < rect2.x && ball.y > rect2.y) {
-    ball.sx = -ball.sx;
-  }
-
   if (ball.y < ball.r || ball.y > canvas.height - ball.r) {
     ball.sy = -ball.sy;
+  }
+
+  if (ball.x < ball.r) {
+    ball.sx = -ball.sx;
+  } else if (ball.x > canvas.width - ball.r) {
+    if (ball.x > rect1.x && ball.x < rect1.x + rect1.width) {
+      ball.sx = -ball.sx;
+    } else {
+      alert("jj");
+    }
   }
 
   //SHOULD CONTROL BALL MOVEMENT
