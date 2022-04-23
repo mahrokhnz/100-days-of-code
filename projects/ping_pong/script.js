@@ -8,34 +8,66 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 //COLORIZE
-ctx.fillStyle = "lightBlue";
+ctx.fillStyle = "black";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 //Ball
 const ball = {
-  x: Math.random() * canvas.width,
+  x: Math.random() * 500 - 100,
   y: Math.random() * canvas.height,
   r: 16,
   color: "white",
-  sx: 10,
+  sx: 8,
   sy: 2,
 };
 
-//RECT
-const rect1 = {
+//PADDLES
+const paddleR = {
   x: canvas.width - 10,
-  y: 200,
+  y: canvas.height / 2 - 100,
   width: 10,
   height: 200,
 };
 
-const rect2 = {
+const paddleL = {
   x: 0,
-  y: 200,
+  y: canvas.height / 2 - 100,
   width: 10,
   height: 200,
 };
 
+//RESTART
+function playAgain() {
+  if (!isPlaying) {
+    ctx.font = "30px Arial";
+    ctx.fillText(
+      "Click Enter for Playing Again!",
+      canvas.width / 2 - 200,
+      canvas.height / 2 - 50
+    );
+    ctx.font = "18px Arial";
+    ctx.fillText(
+      "Handle Paddle Right with Arrow Up and Arrow Down",
+      canvas.width / 2 - 200,
+      canvas.height / 2
+    );
+    ctx.font = "18px Arial";
+    ctx.fillText(
+      "Handle Paddle Left with W and S",
+      canvas.width / 2 - 200,
+      canvas.height / 2 + 25
+    );
+
+    canvas.addEventListener("keydown", (e) => {
+      if (e.code === "Enter") {
+        location.reload();
+        isPlaying = true;
+      }
+    });
+  }
+}
+
+//DRAW BALL AND PADDLES
 function draw() {
   if (isPlaying) {
     ctx.fillStyle = "black";
@@ -55,36 +87,17 @@ function draw() {
 
     ctx.fillStyle = "red";
     ctx.beginPath();
-    ctx.rect(rect1.x, rect1.y, rect1.width, rect1.height);
+    ctx.rect(paddleR.x, paddleR.y, paddleR.width, paddleR.height);
     ctx.fill();
 
     ctx.fillStyle = "red";
     ctx.beginPath();
-    ctx.rect(rect2.x, rect2.y, rect2.width, rect2.height);
+    ctx.rect(paddleL.x, paddleL.y, paddleL.width, paddleL.height);
     ctx.fill();
-  } else {
-    //fit text
-    ctx.font = "20px Georgia";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = "#000000";
-
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.rect(canvas.width / 2 - 150, canvas.height / 2 - 100, 300, 200);
-    ctx.fill();
-
-    ctx.fillText("Attack!", canvas.width / 2 - 150, canvas.height / 2 - 100);
-
-    canvas.addEventListener("keydown", (e) => {
-      if (e.code === "Space") {
-        isPlaying = true;
-        location.reload();
-      }
-    });
   }
 }
 
+//ANIMATE BALL AND PADDLES
 function animate() {
   if (isPlaying) {
     ball.x += ball.sx;
@@ -95,51 +108,51 @@ function animate() {
     }
 
     if (
-      ball.y <= rect1.y + rect1.height &&
-      ball.y >= rect1.y &&
-      ball.x >= rect1.x - rect1.width
+      ball.y <= paddleR.y + paddleR.height &&
+      ball.y >= paddleR.y &&
+      ball.x >= paddleR.x - paddleR.width
     ) {
       ball.sx = -ball.sx;
-    } else if (ball.x + ball.r > canvas.width) {
+    } else if (ball.x > canvas.width) {
       isPlaying = false;
+      playAgain();
     }
 
     if (
-      ball.y <= rect2.y + rect2.height &&
-      ball.y >= rect2.y &&
-      ball.x <= rect2.x + rect2.width
+      ball.y <= paddleL.y + paddleL.height &&
+      ball.y >= paddleL.y &&
+      ball.x <= paddleL.x + paddleL.width + 10
     ) {
       ball.sx = -ball.sx;
-    } else if (ball.x - ball.r < 0) {
+    } else if (ball.x < paddleL.width) {
       isPlaying = false;
+      playAgain();
     }
 
-    //SHOULD CONTROL BALL MOVEMENT
-
     canvas.addEventListener("keydown", function (e) {
-      //Right Rect
+      //PADDLE RIGHT
       if (e.code === "ArrowUp") {
-        if (rect1.y > 0) {
-          rect1.y -= 0.2;
+        if (paddleR.y > 0) {
+          paddleR.y -= 0.2;
         }
       }
 
       if (e.code === "ArrowDown") {
-        if (rect1.y < canvas.height - rect1.height) {
-          rect1.y += 0.2;
+        if (paddleR.y < canvas.height - paddleR.height) {
+          paddleR.y += 0.2;
         }
       }
 
-      //Left Rect
+      //PADDLE LEFT
       if (e.code === "KeyW") {
-        if (rect2.y > 0) {
-          rect2.y -= 0.2;
+        if (paddleL.y > 0) {
+          paddleL.y -= 0.2;
         }
       }
 
       if (e.code === "KeyS") {
-        if (rect2.y < canvas.height - rect2.height) {
-          rect2.y += 0.2;
+        if (paddleL.y < canvas.height - paddleL.height) {
+          paddleL.y += 0.2;
         }
       }
     });
@@ -147,7 +160,6 @@ function animate() {
     draw();
     requestAnimationFrame(animate);
   }
-  console.log(isPlaying);
 }
 
 requestAnimationFrame(animate);
