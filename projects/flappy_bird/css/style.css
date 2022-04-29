@@ -12,12 +12,17 @@
   border: 1px red solid;
   width: 100%;
   height: 90vh;
+  overflow: hidden;
 }
 
 .flappyBird {
   position: absolute;
   top: 50%;
   width: 100px;
+}
+
+.flappyBird.active {
+  animation: flapping 2s linear;
 }
 
 .pipe {
@@ -53,4 +58,18 @@
 .secondPipe {
   position: absolute;
   top: 150%;
+}
+
+@keyframes flapping {
+  0% {
+    top: 50%;
+  }
+
+  50% {
+    top: 0;
+  }
+
+  100% {
+    top: 100%;
+  }
 }

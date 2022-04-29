@@ -1,9 +1,19 @@
 const flappyBird = document.querySelector(".flappyBird");
 
-document.addEventListener("keydown", (e) => {
-  let flappyTop = flappyBird.style.top;
+let randomTop = Math.random() * 100;
+document.addEventListener("keypress", (e) => {
   if (e.code === "Space") {
-    flappyTop += "5%";
-    flappyTop.style.top = flappyTop;
+    flappyBird.classList.add("active");
   }
 });
+
+document.addEventListener("keyup", (e) => {
+  flappyBird.classList.remove("active");
+  console.log("jj");
+});
+
+// const animationHandler = () => {
+//   requestAnimationFrame(animationHandler);
+// };
+//
+// requestAnimationFrame(animationHandler);
