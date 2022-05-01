@@ -10,7 +10,7 @@ document.addEventListener("keyup", (e) => {
 const animationHandler = () => {
   document.addEventListener("keypress", (e) => {
     if (e.code === "Space") {
-      flappyBird.style.top += "10px";
+      console.log("hh");
     }
   });
 
