@@ -21,10 +21,6 @@
   width: 100px;
 }
 
-.flappyBird.active {
-  animation: flapping 2s linear;
-}
-
 .pipe {
   width: 300px;
 }
@@ -58,18 +54,4 @@
 .secondPipe {
   position: absolute;
   top: 150%;
-}
-
-@keyframes flapping {
-  0% {
-    top: 50%;
-  }
-
-  50% {
-    top: 0;
-  }
-
-  100% {
-    top: 100%;
-  }
 }

@@ -1,20 +1,10 @@
 const flappyBird = document.querySelector(".flappyBird");
+const start = document.querySelector(".start");
 
-let randomTop = Math.random() * 100;
+document.addEventListener("click", () => {
+  flappyBird.style.top = "3px";
 
-document.addEventListener("keyup", (e) => {
-  flappyBird.classList.remove("active");
-  console.log("jj");
+  setInterval(() => {
+    flappyBird.style.top = "100%";
+  }, 3000);
 });
-
-const animationHandler = () => {
-  document.addEventListener("keypress", (e) => {
-    if (e.code === "Space") {
-      console.log("hh");
-    }
-  });
-
-  requestAnimationFrame(animationHandler);
-};
-
-requestAnimationFrame(animationHandler);
