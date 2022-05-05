@@ -1,107 +1,68 @@
-const flappyBird = document.querySelector(".flappyBird");
-const ground = document.querySelector(".ground");
-const pipes = document.querySelectorAll(".pipe");
+const block = document.querySelector(".block");
+const hole = document.querySelector(".hole");
+const bird = document.querySelector(".bird");
 
-//Speeds
-let groundSpeed = 3;
-let gravity = 0.5;
+let jumping = 0;
+let counter = 0;
 
-let gameState = "Start";
-
-const groundB = ground.getBoundingClientRect();
-
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && gameState !== "Play") {
-    pipes.forEach((pipe) => {
-      pipe.remove();
-    });
-
-    flappyBird.style.top = "40vh";
-    gameState = "Play";
-    play();
-  }
+hole.addEventListener("animationiteration", () => {
+  const random = -(Math.random() * 300 + 150);
+  hole.style.top = random + "px";
+  counter++;
 });
 
-function play() {
-  function move() {
-    if (gameState !== "Play") return;
+function gravity() {
+  const birdTop = parseInt(
+    window.getComputedStyle(bird).getPropertyValue("top")
+  );
 
-    pipes.forEach((pipe) => {
-      let pipeB = pipe.getBoundingClientRect();
-      let flappyBirdB = flappyBird.getBoundingClientRect();
-
-      if (pipeB.right <= 0) {
-        pipe.remove();
-      } else {
-        if (
-          flappyBirdB.left < pipeB.left + pipeB.width &&
-          flappyBirdB.left + flappyBirdB.width > pipeB.left &&
-          flappyBirdB.top < pipeB.top + pipeB.height &&
-          flappyBirdB.top + flappyBirdB.height > pipeB.top
-        ) {
-          gameState = "End";
-          return;
-        }
-        requestAnimationFrame(move);
-      }
-      requestAnimationFrame(move);
-
-      let flappyBirdY = 0;
-
-      function applyGravity() {
-        if (gameState !== "Play") return;
-
-        flappyBirdY += gravity;
-
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "ArrowUp" || e.key === " ") {
-            flappyBirdY = -7.6;
-          }
-        });
-
-        if (flappyBirdB <= 0 || flappyBirdB.bottom >= groundB.bottom) {
-          gameState = "End";
-          return;
-        }
-
-        flappyBird.style.top = flappyBird.top + flappyBirdY + "px";
-        flappyBirdB = flappyBird.getBoundingClientRect();
-
-        requestAnimationFrame(applyGravity);
-      }
-
-      requestAnimationFrame(applyGravity);
-
-      let pipeSeperation = 0;
-
-      let pipeGap = 35;
-
-      function create_pipe() {
-        if (gameState !== "Play") return;
-
-        if (pipeSeperation > 115) {
-          pipeSeperation = 0;
-
-          let pipePosition = Math.floor(Math.random() * 43) + 8;
-          let pipeSpriteInv = document.createElement("div");
-          pipeSpriteInv.className = "pipeSprite";
-          pipeSpriteInv.style.top = pipePosition - 70 + "vh";
-          pipeSpriteInv.style.left = "100vw";
-
-          document.body.appendChild(pipeSpriteInv);
-          let pipeSprite = document.createElement("div");
-          pipeSprite.className = "pipeSprite";
-          pipeSprite.style.top = pipePosition + pipeGap + "vh";
-          pipeSprite.style.left = "100vw";
-          pipeSprite.increase_score = "1";
-
-          document.body.appendChild(pipeSprite);
-        }
-        pipeSeperation++;
-        requestAnimationFrame(create_pipe);
-      }
-
-      requestAnimationFrame(create_pipe);
-    });
+  if (jumping === 0) {
+    bird.style.top = birdTop + 3 + "px";
   }
+
+  const blockLeft = parseInt(
+    window.getComputedStyle(block).getPropertyValue("left")
+  );
+  const holeTop = parseInt(
+    window.getComputedStyle(hole).getPropertyValue("top")
+  );
+  const cTop = -(500 - birdTop);
+
+  if (
+    birdTop > 480 ||
+    (blockLeft < 20 &&
+      blockLeft > -50 &&
+      (cTop < holeTop || cTop > holeTop + 130))
+  ) {
+    alert("Game Over. Score:" + counter);
+    bird.style.top = 100 + "px";
+    counter = 0;
+  }
+
+  requestAnimationFrame(gravity);
 }
+
+requestAnimationFrame(gravity);
+
+document.addEventListener("click", () => {
+  jumping = 1;
+  let jumpCount = 0;
+
+  const jumpInterval = setInterval(function () {
+    const birdTop = parseInt(
+      window.getComputedStyle(bird).getPropertyValue("top")
+    );
+
+    if (birdTop > 6 && jumpCount < 15) {
+      bird.style.top = birdTop - 5 + "px";
+    }
+
+    if (jumpCount > 20) {
+      clearInterval(jumpInterval);
+      jumping = 0;
+      jumpCount = 0;
+    }
+
+    jumpCount++;
+  }, 10);
+});
