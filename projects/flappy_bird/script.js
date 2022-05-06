@@ -6,7 +6,7 @@ let jumping = 0;
 let counter = 0;
 
 hole.addEventListener("animationiteration", () => {
-  const random = -(Math.random() * 300 + 150);
+  const random = -(Math.random() * 400 + 150);
   hole.style.top = random + "px";
   counter++;
 });
@@ -32,9 +32,9 @@ function gravity() {
     birdTop > 480 ||
     (blockLeft < 20 &&
       blockLeft > -50 &&
-      (cTop < holeTop || cTop > holeTop + 130))
+      (cTop < holeTop || cTop > holeTop + 100))
   ) {
-    alert("Game Over. Score:" + counter);
+    alert("Game Over!    Score:" + counter);
     bird.style.top = 100 + "px";
     counter = 0;
   }

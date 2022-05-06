@@ -34,6 +34,12 @@
   animation: obstacle 2s infinite linear;
 }
 
+.bird {
+  position: absolute;
+  top: 100px;
+  width: 100px;
+}
+
 @keyframes obstacle {
   0% {
     left: 700px;
@@ -42,10 +48,4 @@
   100% {
     left: -100px;
   }
-}
-
-.bird {
-  position: absolute;
-  top: 100px;
-  width: 100px;
 }
