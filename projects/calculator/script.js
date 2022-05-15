@@ -2,12 +2,8 @@ const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 const display = document.querySelector(".display");
 
-let displayArray = [display.value];
-
 const handleInsertNumber = (e) => {
   display.value += e.target.innerText;
-
-  displayArray.push(display.value);
 };
 
 const handleInsertOperator = (e) => {
@@ -32,8 +28,6 @@ const handleInsertOperator = (e) => {
   ) {
     display.value += e.target.innerText;
   }
-
-  displayArray.push(display.value);
 };
 
 numbers.forEach((number) => {
