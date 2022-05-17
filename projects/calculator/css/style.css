@@ -17,11 +17,17 @@ main {
 }
 
 .display {
-  padding: 30px;
   font-size: 20px;
+  padding: 30px;
   background-color: #40407a;
   outline: none;
   color: #fff;
+  direction: rtl;
+  height: 100px;
+}
+
+.currentOperand {
+  font-size: 25px;
 }
 
 .buttonsContainer {
