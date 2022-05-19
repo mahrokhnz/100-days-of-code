@@ -3,8 +3,13 @@ class Calculator {
     this.previousOperandTextElement = previousOperandTextElement;
     this.currentOperandTextElement = currentOperandTextElement;
 
+    this.deleteAll();
+  }
+
+  deleteAll() {
     this.currentOperand = "";
     this.previousOperand = "";
+    this.operation = undefined;
   }
 
   clear() {
@@ -29,22 +34,22 @@ class Calculator {
   compute() {
     let computation;
     const prev = parseFloat(this.previousOperand);
-    const curr = parseFloat(this.currentOperand);
+    const current = parseFloat(this.currentOperand);
 
-    if (isNaN(prev) || isNaN(curr)) return;
+    if (isNaN(prev) || isNaN(current)) return;
 
     switch (this.operation) {
       case "+":
-        computation = prev + curr;
+        computation = prev + current;
         break;
       case "-":
-        computation = prev - curr;
+        computation = prev - current;
         break;
       case "×":
-        computation = prev * curr;
+        computation = prev * current;
         break;
       case "÷":
-        computation = prev / curr;
+        computation = prev / current;
         break;
       default:
         return;
@@ -66,7 +71,7 @@ class Calculator {
         maximumFractionDigits: 0,
       });
     }
-    if (decimalDigits !== null) {
+    if (decimalDigits != null) {
       return `${integerDisplay}.${decimalDigits}`;
     } else {
       return integerDisplay;
@@ -74,9 +79,11 @@ class Calculator {
   }
 
   updateDisplay() {
-    this.currentOperandTextElement.innerText = this.currentOperand;
-    if (this.operation !== null) {
-      this.previousOperandTextElement.innerText = `${
+    this.currentOperandTextElement.innerText = this.getDisplayNumber(
+      this.currentOperand
+    );
+    if (this.operation != null) {
+      this.previousOperandTextElement.innerText = ` ${
         this.operation
       } ${this.getDisplayNumber(this.previousOperand)}`;
     } else {
