@@ -6,42 +6,23 @@
   box-sizing: border-box;
 }
 
-.mainPage {
-  display: flex;
-  gap: 20px;
+body {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
-.menu {
-  border-right: 1px purple solid;
-  padding: 25px;
-}
-
-.navBar {
-  display: flex;
-  padding: 3px 8px 0 3px;
-}
-
-ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 20px;
-}
-
-.days {
-  display: flex;
-  flex-direction: column;
+.challenges {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
   flex-grow: 1;
-  gap: 50px;
   text-align: center;
-  padding: 25px;
+  padding: 15px;
 }
 
 header {
   font-size: 30px;
   position: relative;
+  grid-column-end: span 5;
 }
 
 header::after {
@@ -51,24 +32,10 @@ header::after {
   height: 2px;
   top: 50px;
   left: 42%;
-  /*animation: line 1s infinite alternate forwards;*/
-}
-
-.challenges {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex-grow: 1;
-}
-
-.row {
-  display: flex;
-  gap: 20px;
-  flex-grow: 1;
-  height: 150px;
 }
 
 .challenge {
+  height: 150px;
   display: flex;
   flex-grow: 1;
   position: relative;
@@ -94,12 +61,6 @@ header::after {
 
 .challenge:hover:after {
   opacity: 0.3;
-}
-
-.challenge img {
-  width: 100%;
-  position: relative;
-  z-index: 0;
 }
 
 .showChallenge {
