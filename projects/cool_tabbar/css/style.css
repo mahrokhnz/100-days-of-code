@@ -51,3 +51,27 @@ i {
   left: 40px;
   top: 82%;
 }
+
+@keyframes home {
+  100% {
+    left: 40px;
+  }
+}
+
+@keyframes comment {
+  100% {
+    left: 165px;
+  }
+}
+
+@keyframes folder {
+  100% {
+    left: 415px;
+  }
+}
+
+@keyframes user {
+  100% {
+    left: 400px;
+  }
+}
