@@ -1,18 +1,26 @@
-const buttons = document.querySelectorAll(".button");
 const bucket = document.querySelector(".bucket");
+const home = document.getElementById("home");
+const comment = document.getElementById("comment");
+const folder = document.getElementById("folder");
+const user = document.getElementById("user");
 
-const handleMousePosition = (e) => {
-  const mousePosX = e.clientX;
+let buttonArray = [home, comment, folder, user];
 
-  console.log(mousePosX);
-
-  movingBucket(mousePosX);
+const movingBucket = (number) => {
+  if (number === 1) {
+    bucket.classList.add("activeHome");
+  }
+  if (number === 2) {
+    bucket.classList.add("activeComment");
+  }
+  if (number === 3) {
+    bucket.classList.add("activeFolder");
+  }
+  if (number === 4) {
+    bucket.classList.add("activeUser");
+  }
 };
 
-const movingBucket = (x) => {
-  bucket.style.left = `${x}px`;
-};
-
-buttons.forEach((button) => {
-  button.addEventListener("click", (e) => handleMousePosition(e));
-});
+buttonArray.forEach((button, index) =>
+  button.addEventListener("click", () => movingBucket(index + 1))
+);

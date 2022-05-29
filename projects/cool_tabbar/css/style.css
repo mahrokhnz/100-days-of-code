@@ -29,11 +29,15 @@ main {
   overflow: hidden;
 }
 
-.button {
-  border: none;
+#home,
+#comment,
+#folder,
+#user {
+  /*border: none;*/
   outline: none;
   background-color: #fff;
   cursor: pointer;
+  border: 1px red solid;
 }
 
 i {
@@ -50,6 +54,22 @@ i {
   background-color: var(--primary-color);
   left: 40px;
   top: 82%;
+}
+
+.bucket.activeHome {
+  animation: home 0.3s ease-in-out forwards;
+}
+
+.bucket.activeComment {
+  animation: comment 0.3s ease-in-out forwards;
+}
+
+.bucket.activeFolder {
+  animation: folder 0.3s ease-in-out forwards;
+}
+
+.bucket.activeUser {
+  animation: user 0.3s ease-in-out forwards;
 }
 
 @keyframes home {
