@@ -33,11 +33,10 @@ main {
 #comment,
 #folder,
 #user {
-  /*border: none;*/
+  border: none;
   outline: none;
   background-color: #fff;
   cursor: pointer;
-  border: 1px red solid;
 }
 
 i {
@@ -45,7 +44,7 @@ i {
   font-size: 30px;
 }
 
-.bucket {
+#bucket {
   width: 45px;
   height: 45px;
   transform: rotate(45deg);
@@ -54,44 +53,15 @@ i {
   background-color: var(--primary-color);
   left: 40px;
   top: 82%;
+  transition: left 0.3s ease-in-out;
 }
 
-.bucket.activeHome {
-  animation: home 0.3s ease-in-out forwards;
-}
-
-.bucket.activeComment {
-  animation: comment 0.3s ease-in-out forwards;
-}
-
-.bucket.activeFolder {
-  animation: folder 0.3s ease-in-out forwards;
-}
-
-.bucket.activeUser {
-  animation: user 0.3s ease-in-out forwards;
-}
-
-@keyframes home {
-  100% {
-    left: 40px;
-  }
-}
-
-@keyframes comment {
-  100% {
-    left: 165px;
-  }
-}
-
-@keyframes folder {
-  100% {
-    left: 415px;
-  }
-}
-
-@keyframes user {
-  100% {
-    left: 400px;
-  }
+#colorBall {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }

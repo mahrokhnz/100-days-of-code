@@ -1,4 +1,5 @@
-const bucket = document.querySelector(".bucket");
+const bucket = document.getElementById("bucket");
+const colorBall = document.getElementById("colorBall");
 const home = document.getElementById("home");
 const comment = document.getElementById("comment");
 const folder = document.getElementById("folder");
@@ -8,16 +9,16 @@ let buttonArray = [home, comment, folder, user];
 
 const movingBucket = (number) => {
   if (number === 1) {
-    bucket.classList.add("activeHome");
+    bucket.style.left = '40px'
   }
   if (number === 2) {
-    bucket.classList.add("activeComment");
+    bucket.style.left = '165px'
   }
   if (number === 3) {
-    bucket.classList.add("activeFolder");
+    bucket.style.left = '290px'
   }
   if (number === 4) {
-    bucket.classList.add("activeUser");
+    bucket.style.left = '415px'
   }
 };
 
