@@ -13,7 +13,7 @@ body {
   background-color: #f4eefd;
 }
 
-main {
+.tabbar {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -25,6 +25,14 @@ main {
 
 .solid {
   display: none;
+}
+
+.light.active {
+  display: none;
+}
+
+.light.active ~ .solid {
+  display: block;
 }
 
 ul {
@@ -53,9 +61,10 @@ button {
 .indicator {
   position: absolute;
   top: 100%;
-  left: 20px;
+  left: 60px;
   transform: translateY(-50%) rotate(45deg);
   width: 50px;
   height: 50px;
   background-color: var(--c-color);
+  transition: left 0.3s ease-in-out;
 }

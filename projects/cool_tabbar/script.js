@@ -1,27 +1,36 @@
-const bucket = document.getElementById("bucket");
-const colorBall = document.getElementById("colorBall");
-const home = document.getElementById("home");
-const comment = document.getElementById("comment");
-const folder = document.getElementById("folder");
-const user = document.getElementById("user");
+const lightIcons = document.querySelectorAll(".light");
+const solidIcons = document.querySelectorAll(".solid");
+const tabbar = document.querySelector(".tabbar");
+const indicator = document.querySelector(".indicator");
 
-let buttonArray = [home, comment, folder, user];
-
-const movingBucket = (number) => {
-  if (number === 1) {
-    bucket.style.left = '40px'
-  }
-  if (number === 2) {
-    bucket.style.left = '165px'
-  }
-  if (number === 3) {
-    bucket.style.left = '290px'
-  }
-  if (number === 4) {
-    bucket.style.left = '415px'
-  }
+const indicatorPosition = (left) => {
+  indicator.style.left = `${left}px`;
 };
 
-buttonArray.forEach((button, index) =>
-  button.addEventListener("click", () => movingBucket(index + 1))
-);
+const closestNumber = (goal) => {
+  const validIndicatorPosition = [60, 160, 260, 360];
+
+  const closest = validIndicatorPosition.reduce(function (prev, curr) {
+    return Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev;
+  });
+
+  indicatorPosition(closest);
+};
+
+const mousePositionCalculator = (e) => {
+  const tabbarPosition =
+    tabbar.offsetLeft - tabbar.getBoundingClientRect().width / 2;
+  const whereCLicked = e.clientX - tabbarPosition;
+
+  closestNumber(whereCLicked);
+};
+
+// TODO not working
+lightIcons.forEach((icon) => {
+  icon.classList.remove("active");
+  icon.addEventListener("click", (e) => {
+    mousePositionCalculator(e);
+
+    icon.classList.add("active");
+  });
+});
