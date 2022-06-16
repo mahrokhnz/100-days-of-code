@@ -1,70 +1,98 @@
-:root {
-  --c-color: #763fee;
-  --c-background: #ffffff;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  background-color: #f4eefd;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tabbar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--c-background);
-  padding: 30px 70px;
+  position: relative;
+  display: flex;
+  width: 500px;
+  height: 100px;
   border-radius: 20px;
-}
-
-.solid {
-  display: none;
-}
-
-.light.active {
-  display: none;
-}
-
-.light.active ~ .solid {
-  display: block;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+  color: rebeccapurple;
+  overflow: hidden;
 }
 
 ul {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 70px;
+  flex-grow: 1;
 }
 
 li {
-  list-style: none;
-}
-
-svg {
-  width: 30px;
-  fill: var(--c-color);
-}
-
-button {
-  border: none;
-  outline: none;
-  background-color: unset;
+  flex: 1 0 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
+.icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: clip 0.3s ease-in-out;
+}
+
+.icon svg {
+  fill: currentColor;
+}
+
+.light {
+  clip: rect(0px, 30px, 30px, 0px);
+}
+
+.solid {
+  clip: rect(30px, 30px, 30px, 0px);
+}
+
+li.active .light {
+  clip: rect(0px, 30px, 0px, 0px);
+}
+
+li.active .solid {
+  clip: rect(0px, 30px, 30px, 0px);
+}
+
 .indicator {
+  width: 32px;
+  height: 32px;
   position: absolute;
   top: 100%;
   left: 60px;
-  transform: translateY(-50%) rotate(45deg);
-  width: 50px;
-  height: 50px;
-  background-color: var(--c-color);
+  background: currentColor;
+  transform: translate(-50%, -50%) rotateZ(45deg);
+  border-top-left-radius: 18px;
   transition: left 0.3s ease-in-out;
+}
+
+.indicator .ball {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  border-radius: 18px;
+  transition: left 0.3s ease-in-out, top 0.3s ease-in-out;
 }

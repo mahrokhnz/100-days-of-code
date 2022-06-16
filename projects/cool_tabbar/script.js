@@ -1,36 +1,18 @@
-const lightIcons = document.querySelectorAll(".light");
-const solidIcons = document.querySelectorAll(".solid");
-const tabbar = document.querySelector(".tabbar");
+const icons = document.querySelectorAll(".icon");
 const indicator = document.querySelector(".indicator");
 
-const indicatorPosition = (left) => {
-  indicator.style.left = `${left}px`;
-};
+icons.forEach((icon) => {
+  icon.addEventListener("click", () => {
+    const iconPos =
+      icon.getBoundingClientRect().left +
+      icon.getBoundingClientRect().width / 2;
 
-const closestNumber = (goal) => {
-  const validIndicatorPosition = [60, 160, 260, 360];
+    indicator.style.left = iconPos + "px";
 
-  const closest = validIndicatorPosition.reduce(function (prev, curr) {
-    return Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev;
-  });
-
-  indicatorPosition(closest);
-};
-
-const mousePositionCalculator = (e) => {
-  const tabbarPosition =
-    tabbar.offsetLeft - tabbar.getBoundingClientRect().width / 2;
-  const whereCLicked = e.clientX - tabbarPosition;
-
-  closestNumber(whereCLicked);
-};
-
-// TODO not working
-lightIcons.forEach((icon) => {
-  icon.classList.remove("active");
-  icon.addEventListener("click", (e) => {
-    mousePositionCalculator(e);
-
-    icon.classList.add("active");
+    if (icon.classList.contains(".solid")) {
+      icon.classList.add("active");
+    } else {
+      console.log(icon.classList);
+    }
   });
 });
