@@ -59,10 +59,12 @@ li {
 
 .light {
   clip: rect(0px, 30px, 30px, 0px);
+  transition: clip 0.4s ease-in-out;
 }
 
 .solid {
   clip: rect(30px, 30px, 30px, 0px);
+  transition: clip 0.4s ease-in-out;
 }
 
 li.active .light {
@@ -82,7 +84,7 @@ li.active .solid {
   background: currentColor;
   transform: translate(-50%, -50%) rotateZ(45deg);
   border-top-left-radius: 18px;
-  transition: left 0.3s ease-in-out;
+  transition: left 0.2s ease-in-out;
 }
 
 .indicator .ball {
