@@ -22,18 +22,6 @@ ctx.beginPath()
 ctx.rect(80, 2 * height/6, 50, 50)
 ctx.fillRect(80, 2 * height/6, 50, 50)
 
-if (isPlaying) {
-    cancelAnimationFrame(rectReq)
-}
-
-const rectAnimate = () => {
-    if (!isPlaying) {
-        ctx.rect(width - 120, 2 * height/6, 50, 50)
-        ctx.fillRect(width - 120, 2 * height/6, 50, 50)
-
-        rectReq = requestAnimationFrame(rectAnimate)
-    }
-}
-
-rectReq = requestAnimationFrame(rectAnimate)
+ctx.rect(width - 120, 2 * height/6, 50, 50)
+ctx.fillRect(width - 120, 2 * height/6, 50, 50)
 
