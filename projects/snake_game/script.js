@@ -34,4 +34,24 @@ const makeSnakeEnergy = () => {
     ctx.fillRect(energy.x, energy.y, 20, 20)
 }
 
+// console.log(array)
+
+const snake = () => {
+    const newArray = [...array]
+    const snakeCells = []
+
+    setInterval(() => {
+        const cel = newArray.shift()
+
+        if (snakeCells.length >= 4) {
+            snakeCells.push(cel)
+            snakeCells.shift()
+        } else {
+            snakeCells.push(cel)
+        }
+
+    }, 1000)
+}
+
 // TODO: MAKE SNAKE AND RUN MAKE SNAKE ENERGY
+// TODO: SNAKEARRAY DOESNT UPDATE AND DRAW ALL HISTORY OF SNAKE!
