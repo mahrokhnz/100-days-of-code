@@ -8,6 +8,7 @@ let x = 0;
 let y = 0;
 
 const array = []
+const snakeArray = []
 
 let i = 0
 while (i <= 673) {
@@ -26,32 +27,45 @@ while (i <= 673) {
     i ++
 }
 
-const makeSnakeEnergy = () => {
-    const index = Math.floor(Math.random()*array.length)
-
-    const energy = array[index]
-    ctx.fillStyle = "red";
-    ctx.fillRect(energy.x, energy.y, 20, 20)
+const keyHandler = (snake, type) => {
+    console.log(snake, type)
 }
 
-// console.log(array)
+document.addEventListener('keydown', (e) => {
+    if (e.code === 'ArrowUp') {
+        keyHandler(snakeArray, 'ArrowUp')
+    } else if (e.code === 'ArrowDown') {
+        keyHandler(snakeArray, 'ArrowDown')
+    } else if (e.code === 'ArrowRight') {
+        keyHandler(snakeArray, 'ArrowRight')
+    } else if (e.code === 'ArrowLeft') {
+        keyHandler(snakeArray, 'ArrowLeft')
+    }
+})
 
-const snake = () => {
-    const newArray = [...array]
-    const snakeCells = []
+const snakeColor = (snakeBody) => {
+    ctx.fillStyle = "red";
+    ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
+}
+
+const snakeMove = () => {
+    let i = 0
 
     setInterval(() => {
-        const cel = newArray.shift()
-
-        if (snakeCells.length >= 4) {
-            snakeCells.push(cel)
-            snakeCells.shift()
+        if (snakeArray.length <= 3) {
+            snakeArray.push(array[i])
+            snakeColor(array[i])
         } else {
-            snakeCells.push(cel)
+            snakeArray.shift()
+            snakeArray.push(array[i])
+            snakeColor(array[i])
         }
 
+        i++
     }, 1000)
 }
 
-// TODO: MAKE SNAKE AND RUN MAKE SNAKE ENERGY
-// TODO: SNAKEARRAY DOESNT UPDATE AND DRAW ALL HISTORY OF SNAKE!
+snakeMove()
+
+
+// TODO: snakeArray should delete first element
