@@ -11,7 +11,7 @@ const array = [];
 const snakeArray = [];
 
 let i = 0;
-while (i <= 673) {
+while (i <= 674) {
   array.push({ x: x, y: y });
 
   ctx.strokeStyle = "gray";
@@ -27,33 +27,69 @@ while (i <= 673) {
   i++;
 }
 
-// const keyHandler = (snake, type) => {
-//   console.log(snake, type);
-// };
-//
-// document.addEventListener("keydown", (e) => {
-//   if (e.code === "ArrowUp") {
-//     keyHandler(snakeArray, "ArrowUp");
-//   } else if (e.code === "ArrowDown") {
-//     keyHandler(snakeArray, "ArrowDown");
-//   } else if (e.code === "ArrowRight") {
-//     keyHandler(snakeArray, "ArrowRight");
-//   } else if (e.code === "ArrowLeft") {
-//     keyHandler(snakeArray, "ArrowLeft");
-//   }
-// });
+const keyHandler = (cellArray, type) => {
+  const snakeHead = cellArray[cellArray.length - 1];
 
-const snakeColor = (snakeBody, type) => {
-  if (type === "color") {
-    ctx.fillStyle = "red";
-    ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
+  console.log(cellArray);
+
+  if (type === "ArrowUp") {
+    // FAIL
+    if (snakeHead.y === 0) {
+      alert("Failed");
+      // TODO: RESTART THE GAME AFTER SHOWING BUTTON TO TRUE THE IS PLAYING
+    }
   }
 
-  if (type === "clear") {
-    ctx.clearRect(snakeBody.x, snakeBody.y, 20, 20);
+  if (type === "ArrowDown") {
+    // FAIL
+    if (snakeHead.y === 480) {
+      alert("Failed");
+      // TODO: RESTART THE GAME AFTER SHOWING BUTTON TO TRUE THE IS PLAYING
+    }
+  }
 
-    ctx.strokeStyle = "gray";
-    ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
+  if (type === "ArrowRight") {
+    // FAIL
+    if (snakeHead.x === 480) {
+      alert("Failed");
+      // TODO: RESTART THE GAME AFTER SHOWING BUTTON TO TRUE THE IS PLAYING
+    }
+  }
+
+  if (type === "ArrowLeft") {
+    // FAIL
+    if (snakeHead.x === 0) {
+      alert("Failed");
+      // TODO: RESTART THE GAME AFTER SHOWING BUTTON TO TRUE THE IS PLAYING
+    }
+  }
+};
+
+document.addEventListener("keydown", (e) => {
+  if (e.code === "ArrowUp") {
+    keyHandler(snakeArray, "ArrowUp");
+  } else if (e.code === "ArrowDown") {
+    keyHandler(snakeArray, "ArrowDown");
+  } else if (e.code === "ArrowRight") {
+    keyHandler(snakeArray, "ArrowRight");
+  } else if (e.code === "ArrowLeft") {
+    keyHandler(snakeArray, "ArrowLeft");
+  }
+});
+
+const snakeColor = (snakeBody, type) => {
+  if (snakeBody) {
+    if (type === "color") {
+      ctx.fillStyle = "red";
+      ctx.fillRect(snakeBody.x, snakeBody.y, 20, 20);
+    }
+
+    if (type === "clear") {
+      ctx.clearRect(snakeBody.x, snakeBody.y, 20, 20);
+
+      ctx.strokeStyle = "gray";
+      ctx.strokeRect(snakeBody.x, snakeBody.y, 20, 20);
+    }
   }
 };
 
@@ -75,6 +111,9 @@ const snakeMove = () => {
   }, 1000);
 };
 
-snakeMove();
+if (isPlaying) {
+  snakeMove();
+}
 
 // TODO: HANDLE SNAKE MOVEMENT
+// DEFINE BOUNDER
