@@ -8,7 +8,7 @@ let x = 0;
 let y = 0;
 
 const array = [];
-const snakeArray = [];
+const snakeCellsArray = [];
 
 let i = 0;
 while (i <= 674) {
@@ -27,10 +27,9 @@ while (i <= 674) {
   i++;
 }
 
-const keyHandler = (cellArray, type) => {
-  const snakeHead = cellArray[cellArray.length - 1];
-
-  console.log(cellArray);
+const keyHandler = (type) => {
+  const snakeHead = snakeCellsArray[snakeCellsArray.length - 1];
+  const newSnakeCellsArray = [];
 
   if (type === "ArrowUp") {
     // FAIL
@@ -46,6 +45,13 @@ const keyHandler = (cellArray, type) => {
       alert("Failed");
       // TODO: RESTART THE GAME AFTER SHOWING BUTTON TO TRUE THE IS PLAYING
     }
+
+    snakeCellsArray.forEach((cell) => {
+      cell.y += 20;
+      newSnakeCellsArray.push(cell);
+    });
+
+    snakeMove(newSnakeCellsArray);
   }
 
   if (type === "ArrowRight") {
@@ -67,14 +73,15 @@ const keyHandler = (cellArray, type) => {
 
 document.addEventListener("keydown", (e) => {
   if (e.code === "ArrowUp") {
-    keyHandler(snakeArray, "ArrowUp");
+    keyHandler("ArrowUp");
   } else if (e.code === "ArrowDown") {
-    keyHandler(snakeArray, "ArrowDown");
-  } else if (e.code === "ArrowRight") {
-    keyHandler(snakeArray, "ArrowRight");
-  } else if (e.code === "ArrowLeft") {
-    keyHandler(snakeArray, "ArrowLeft");
+    keyHandler("ArrowDown");
   }
+  // else if (e.code === "ArrowRight") {
+  //   keyHandler(snakeCellsArray, "ArrowRight");
+  // } else if (e.code === "ArrowLeft") {
+  //   keyHandler(snakeCellsArray, "ArrowLeft");
+  // }
 });
 
 const snakeColor = (snakeBody, type) => {
@@ -93,17 +100,17 @@ const snakeColor = (snakeBody, type) => {
   }
 };
 
-const snakeMove = () => {
+const snakeMove = (cellsArray) => {
   let i = 0;
 
   setInterval(() => {
-    if (snakeArray.length <= 3) {
-      snakeArray.push(array[i]);
+    if (cellsArray.length <= 3) {
+      snakeCellsArray.push(array[i]);
       snakeColor(array[i], "color");
     } else {
-      const extraRect = snakeArray.shift();
+      const extraRect = snakeCellsArray.shift();
       snakeColor(extraRect, "clear");
-      snakeArray.push(array[i]);
+      snakeCellsArray.push(array[i]);
       snakeColor(array[i], "color");
     }
 
@@ -112,8 +119,9 @@ const snakeMove = () => {
 };
 
 if (isPlaying) {
-  snakeMove();
+  snakeMove([array[0]]);
 }
 
 // TODO: HANDLE SNAKE MOVEMENT
-// DEFINE BOUNDER
+// DEFINE BOUNDER _/
+// MOVE HEAD AND OTHER CELLS
