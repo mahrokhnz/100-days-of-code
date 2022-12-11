@@ -54,19 +54,44 @@ const snakeColorize = (snakeCell, cell) => {
 };
 
 const snakeMover = (snakeCells) => {
+  let upInterval;
+  let rightInterval;
+  let downInterval;
+  let bottomInterval;
+
+  // TODO: WHEN DEFINE ALL DIRECTIONS CHANGE IF TO ELSE IF
+
   if (snake.direction === "right") {
-    // Delete Tail
-    const snakeTail = snakeCells.shift();
-    snakeColorize(snakeTail, "dead");
-    // Define new Head
-    snake.head = { x: snake.head.x + gridSize, y: snake.head.y };
-    snakeCells.push(snake.head);
-    snakeColorize(snake.head, "alive");
+    rightInterval = setInterval(() => {
+      // Delete Tail
+      const snakeTail = snakeCells.shift();
+      snakeColorize(snakeTail, "dead");
+      // Define new Head
+      snake.head = { x: snake.head.x + gridSize, y: snake.head.y };
+      snakeCells.push(snake.head);
+      snakeColorize(snake.head, "alive");
+    }, snake.interval);
+  }
+
+  if (snake.direction === "down") {
+    clearInterval(rightInterval); // TODO: DOESN'T WORK
+    rightInterval = 0;
+
+    bottomInterval = setInterval(() => {
+      // Delete Tail
+      const snakeTail = snakeCells.shift();
+      snakeColorize(snakeTail, "dead");
+      // Define new Head
+      snake.head = { x: snake.head.x, y: snake.head.y + 20 };
+      snakeCells.push(snake.head);
+      snakeColorize(snake.head, "alive");
+    }, snake.interval);
   }
 };
 
+const snakeCells = [array[0], array[1], array[2], array[3]];
+
 const snakeBuilder = () => {
-  const snakeCells = [array[0], array[1], array[2], array[3]];
   // Colorize
   snakeCells.forEach((snakeCell) => {
     snakeColorize(snakeCell, "alive");
@@ -79,8 +104,31 @@ const snakeBuilder = () => {
 
 snakeBuilder();
 
+const directionDefiner = (key) => {
+  switch (key) {
+    case "ArrowUp":
+      snake.direction = "up";
+      break;
+    case "ArrowRight":
+      snake.direction = "right";
+      break;
+    case "ArrowDown":
+      snake.direction = "down";
+      break;
+    case "ArrowLeft":
+      snake.direction = "left";
+      break;
+  }
+};
+
+document.addEventListener("keydown", (e) => {
+  directionDefiner(e.code);
+  snakeMover(snakeCells);
+});
+
 // TODO
 // MOVE SNAKE BY KEYS (SWITCH AND CASE)
-// DEFINE MOVEMENT BY DIRECTION
+// DEFINE MOVEMENT BY DIRECTION (TOP, RIGHT _/, LEFT, BOTTOM)
 // IN ARRAY OF SNAKE ELEMENT[0] WILL SHIFT AND HEAD WILL CHANGE ACCORDING TO DIRECTION
 // ADD KEY DOWN AND INTERVAL FOR AUTO MOVING
+// DEFINE FAIL WHEN ACCIDENT
