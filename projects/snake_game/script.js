@@ -6,7 +6,7 @@ const ctx = canvas.getContext("2d");
 // LEVEL
 
 const snake = {
-  direction: "right",
+  direction: "",
   cellPositions: [],
   head: { x: 60, y: 0 },
   bodyLength: 4,
@@ -53,16 +53,26 @@ const snakeColorize = (snakeCell, cell) => {
   }
 };
 
+let interval;
 const snakeMover = (snakeCells) => {
-  let upInterval;
-  let rightInterval;
-  let downInterval;
-  let bottomInterval;
-
   // TODO: WHEN DEFINE ALL DIRECTIONS CHANGE IF TO ELSE IF
 
-  if (snake.direction === "right") {
-    rightInterval = setInterval(() => {
+  if (snake.direction === "up") {
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      // Delete Tail
+      const snakeTail = snakeCells.shift();
+      snakeColorize(snakeTail, "dead");
+      // Define new Head
+      snake.head = { x: snake.head.x, y: snake.head.y - gridSize };
+      snakeCells.push(snake.head);
+      snakeColorize(snake.head, "alive");
+    }, snake.interval);
+  } else if (snake.direction === "right") {
+    clearInterval(interval);
+
+    interval = setInterval(() => {
       // Delete Tail
       const snakeTail = snakeCells.shift();
       snakeColorize(snakeTail, "dead");
@@ -71,21 +81,46 @@ const snakeMover = (snakeCells) => {
       snakeCells.push(snake.head);
       snakeColorize(snake.head, "alive");
     }, snake.interval);
-  }
+  } else if (snake.direction === "down") {
+    clearInterval(interval);
 
-  if (snake.direction === "down") {
-    clearInterval(rightInterval); // TODO: DOESN'T WORK
-    rightInterval = 0;
-
-    bottomInterval = setInterval(() => {
+    interval = setInterval(() => {
       // Delete Tail
       const snakeTail = snakeCells.shift();
       snakeColorize(snakeTail, "dead");
       // Define new Head
-      snake.head = { x: snake.head.x, y: snake.head.y + 20 };
+      snake.head = { x: snake.head.x, y: snake.head.y + gridSize };
       snakeCells.push(snake.head);
       snakeColorize(snake.head, "alive");
     }, snake.interval);
+  } else if (snake.direction === "left") {
+    clearInterval(interval);
+
+    // interval = setInterval(() => {
+    // Horizontal & Vertical
+    if (snakeCells.every((cell) => cell.y === snake.head.y)) {
+      // TODO: should fix
+      console.log(snakeCells, "first");
+      // Delete Tail
+      const snakeTail = snakeCells.pop();
+      console.log(snakeTail, "tail");
+      snakeColorize(snakeTail, "dead");
+      // Define new Head
+      snake.head = { x: snake.head.x - gridSize, y: snake.head.y };
+      console.log(snake.head, "head");
+      snakeCells.unshift(snake.head);
+      console.log(snakeCells, "second");
+      snakeColorize(snake.head, "alive");
+    } else {
+      // Delete Tail
+      const snakeTail = snakeCells.shift();
+      snakeColorize(snakeTail, "dead");
+      // Define new Head
+      snake.head = { x: snake.head.x - gridSize, y: snake.head.y };
+      snakeCells.push(snake.head);
+      snakeColorize(snake.head, "alive");
+    }
+    // }, snake.interval);
   }
 };
 
