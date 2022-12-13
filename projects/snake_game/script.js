@@ -96,31 +96,27 @@ const snakeMover = (snakeCells) => {
   } else if (snake.direction === "left") {
     clearInterval(interval);
 
-    // interval = setInterval(() => {
-    // Horizontal & Vertical
     if (snakeCells.every((cell) => cell.y === snake.head.y)) {
-      // TODO: should fix
-      console.log(snakeCells, "first");
-      // Delete Tail
-      const snakeTail = snakeCells.pop();
-      console.log(snakeTail, "tail");
-      snakeColorize(snakeTail, "dead");
-      // Define new Head
-      snake.head = { x: snake.head.x - gridSize, y: snake.head.y };
-      console.log(snake.head, "head");
-      snakeCells.unshift(snake.head);
-      console.log(snakeCells, "second");
-      snakeColorize(snake.head, "alive");
+      interval = setInterval(() => {
+        // Delete Tail
+        const snakeTail = snakeCells.pop();
+        snakeColorize(snakeTail, "dead");
+        // Define new Head LOWER THAN FIRST ELEMENT
+        snake.head = { x: snakeCells[0].x - gridSize, y: snakeCells[0].y };
+        snakeCells.unshift(snake.head);
+        snakeColorize(snake.head, "alive");
+      }, snake.interval);
     } else {
-      // Delete Tail
-      const snakeTail = snakeCells.shift();
-      snakeColorize(snakeTail, "dead");
-      // Define new Head
-      snake.head = { x: snake.head.x - gridSize, y: snake.head.y };
-      snakeCells.push(snake.head);
-      snakeColorize(snake.head, "alive");
+      interval = setInterval(() => {
+        // Delete Tail
+        const snakeTail = snakeCells.shift();
+        snakeColorize(snakeTail, "dead");
+        // Define new Head
+        snake.head = { x: snake.head.x - gridSize, y: snake.head.y };
+        snakeCells.push(snake.head);
+        snakeColorize(snake.head, "alive");
+      }, snake.interval);
     }
-    // }, snake.interval);
   }
 };
 
