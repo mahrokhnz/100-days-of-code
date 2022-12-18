@@ -83,6 +83,8 @@ const snakeMover = () => {
       // Define new Head
       snakeColorize(snakeTail, "alive");
     }, snake.interval);
+
+    // TODO: HOW TO COMPARE DIRECTION OF HEAD LEFT HEAD OR RIGHT HEAD???
   }
 };
 
