@@ -55,8 +55,6 @@ const snakeColorize = (snakeCell, cell) => {
 
 let interval;
 const snakeMover = () => {
-  // TODO BECAUSE IN LEFT DIRECTION OF CELLS CHANGE IN RIGHT WILL HAVE PROBLEM, PLACE INORDER FIRST THEN CONTINUE MOVING
-
   if (snake.direction === "right") {
     clearInterval(interval);
 
@@ -68,19 +66,23 @@ const snakeMover = () => {
       snakeColorize(snakeTail, "dead");
       // Define new Head
       snakeColorize(snake.head, "alive");
-    }, 1000);
+    }, snake.interval);
   } else if (snake.direction === "left") {
     clearInterval(interval);
 
     interval = setInterval(() => {
-      const snakeTail = snake.cellPositions.pop();
-      snake.head = { x: snake.cellPositions[0].x - gridSize, y: snake.head.y };
-      snake.cellPositions.unshift(snake.head);
+      const snakeHead = snake.cellPositions.pop();
+      const snakeTail = {
+        x: snake.cellPositions[0].x - gridSize,
+        y: snake.head.y,
+      };
+      snake.cellPositions.unshift(snakeTail);
+      snake.head = snake.cellPositions[snake.cellPositions.length - 1];
       // Delete Tail
-      snakeColorize(snakeTail, "dead");
+      snakeColorize(snakeHead, "dead");
       // Define new Head
-      snakeColorize(snake.head, "alive");
-    }, 1000);
+      snakeColorize(snakeTail, "alive");
+    }, snake.interval);
   }
 };
 
