@@ -32,6 +32,7 @@ const snake = {
   direction: "",
   cellPositions: [array[0], array[1], array[2], array[3]],
   head: { x: 60, y: 0 },
+  tail: { x: 0, y: 0 },
   bodyLength: 4,
   canTurn: true,
   interval: 1000,
@@ -62,10 +63,13 @@ const snakeMover = () => {
       const snakeTail = snake.cellPositions.shift();
       snake.head = { x: snake.head.x + gridSize, y: snake.head.y };
       snake.cellPositions.push(snake.head);
+
       // Delete Tail
       snakeColorize(snakeTail, "dead");
       // Define new Head
       snakeColorize(snake.head, "alive");
+
+      snake.tail = snake.cellPositions[0];
     }, snake.interval);
   } else if (snake.direction === "left") {
     clearInterval(interval);
@@ -77,14 +81,36 @@ const snakeMover = () => {
         y: snake.head.y,
       };
       snake.cellPositions.unshift(snakeTail);
-      snake.head = snake.cellPositions[snake.cellPositions.length - 1];
+      snake.head = snake.cellPositions[0];
       // Delete Tail
       snakeColorize(snakeHead, "dead");
       // Define new Head
       snakeColorize(snakeTail, "alive");
+
+      snake.tail = snake.cellPositions[snake.cellPositions.length - 1];
     }, snake.interval);
 
     // TODO: HOW TO COMPARE DIRECTION OF HEAD LEFT HEAD OR RIGHT HEAD???
+  } else if (snake.direction === "down") {
+    clearInterval(interval);
+
+    const tailIndex = snake.cellPositions.findIndex((cell) => {
+      return cell.x === snake.tail.x && cell.y === snake.tail.y;
+    });
+    snake.cellPositions.splice(tailIndex, 1);
+
+    snake.head = { x: snake.head.x, y: snake.head.y + gridSize };
+    snake.cellPositions.push(snake.head);
+
+    snake.cellPositions.splice(tailIndex, 1);
+    // Delete Tail
+    snakeColorize(snake.tail, "dead");
+    // Define new Head
+    snakeColorize(snake.head, "alive");
+
+    console.log(snake);
+
+    // TODO: NEW TAIL AND FIX CELLS [] PUSHING
   }
 };
 
