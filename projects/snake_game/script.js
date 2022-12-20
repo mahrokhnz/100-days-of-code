@@ -54,6 +54,13 @@ const snakeColorize = (snakeCell, cell) => {
   }
 };
 
+const cellDeleter = (chosenCell) => {
+  const tailIndex = snake.cellPositions.findIndex((cell) => {
+    return cell.x === chosenCell.x && cell.y === chosenCell.y;
+  });
+  snake.cellPositions.splice(tailIndex, 1);
+};
+
 let interval;
 const snakeMover = () => {
   if (snake.direction === "right") {
@@ -94,22 +101,19 @@ const snakeMover = () => {
   } else if (snake.direction === "down") {
     clearInterval(interval);
 
-    const tailIndex = snake.cellPositions.findIndex((cell) => {
-      return cell.x === snake.tail.x && cell.y === snake.tail.y;
-    });
-    snake.cellPositions.splice(tailIndex, 1);
+    cellDeleter(snake.tail);
 
     snake.head = { x: snake.head.x, y: snake.head.y + gridSize };
     snake.cellPositions.push(snake.head);
 
-    snake.cellPositions.splice(tailIndex, 1);
+    console.log(snake);
+
+    //TODO: SNAKE DOESN'T UPDATE RIGHT
+
     // Delete Tail
     snakeColorize(snake.tail, "dead");
     // Define new Head
     snakeColorize(snake.head, "alive");
-
-    console.log(snake);
-
     // TODO: NEW TAIL AND FIX CELLS [] PUSHING
   }
 };
