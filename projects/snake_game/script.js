@@ -54,69 +54,70 @@ const snakeColorize = (snakeCell, cell) => {
   }
 };
 
-const cellDeleter = (chosenCell) => {
-  const tailIndex = snake.cellPositions.findIndex((cell) => {
-    return cell.x === chosenCell.x && cell.y === chosenCell.y;
-  });
-  snake.cellPositions.splice(tailIndex, 1);
-};
+// const cellDeleter = (chosenCell) => {
+//   const tailIndex = snake.cellPositions.findIndex((cell) => {
+//     return cell.x === chosenCell.x && cell.y === chosenCell.y;
+//   });
+//   snake.cellPositions.splice(tailIndex, 1);
+// };
 
 let interval;
 const snakeMover = () => {
   if (snake.direction === "right") {
     clearInterval(interval);
 
-    interval = setInterval(() => {
-      const snakeTail = snake.cellPositions.shift();
-      snake.head = { x: snake.head.x + gridSize, y: snake.head.y };
-      snake.cellPositions.push(snake.head);
+    // interval = setInterval(() => {
+    const snakeTail = snake.cellPositions.shift();
+    snake.head = { x: snake.head.x + gridSize, y: snake.head.y };
+    snake.cellPositions.push(snake.head);
 
-      // Delete Tail
-      snakeColorize(snakeTail, "dead");
-      // Define new Head
-      snakeColorize(snake.head, "alive");
+    // Delete Tail
+    snakeColorize(snakeTail, "dead");
+    // Define new Head
+    snakeColorize(snake.head, "alive");
 
-      snake.tail = snake.cellPositions[0];
-    }, snake.interval);
+    snake.tail = snake.cellPositions[0];
+
+    // }, snake.interval);
   } else if (snake.direction === "left") {
     clearInterval(interval);
 
-    interval = setInterval(() => {
-      const snakeHead = snake.cellPositions.pop();
-      const snakeTail = {
-        x: snake.cellPositions[0].x - gridSize,
-        y: snake.head.y,
-      };
-      snake.cellPositions.unshift(snakeTail);
-      snake.head = snake.cellPositions[0];
-      // Delete Tail
-      snakeColorize(snakeHead, "dead");
-      // Define new Head
-      snakeColorize(snakeTail, "alive");
-
-      snake.tail = snake.cellPositions[snake.cellPositions.length - 1];
-    }, snake.interval);
-
-    // TODO: HOW TO COMPARE DIRECTION OF HEAD LEFT HEAD OR RIGHT HEAD???
-  } else if (snake.direction === "down") {
-    clearInterval(interval);
-
-    cellDeleter(snake.tail);
-
-    snake.head = { x: snake.head.x, y: snake.head.y + gridSize };
-    snake.cellPositions.push(snake.head);
-
-    console.log(snake);
-
-    //TODO: SNAKE DOESN'T UPDATE RIGHT
-
+    // interval = setInterval(() => {
+    const snakeHead = snake.cellPositions.pop();
+    const snakeTail = {
+      x: snake.cellPositions[0].x - gridSize,
+      y: snake.head.y,
+    };
+    snake.cellPositions.unshift(snakeTail);
+    snake.head = snake.cellPositions[0];
     // Delete Tail
-    snakeColorize(snake.tail, "dead");
+    snakeColorize(snakeHead, "dead");
     // Define new Head
-    snakeColorize(snake.head, "alive");
-    // TODO: NEW TAIL AND FIX CELLS [] PUSHING
+    snakeColorize(snakeTail, "alive");
+
+    snake.tail = snake.cellPositions[snake.cellPositions.length - 1];
+
+    // }, snake.interval);
   }
+  // else if (snake.direction === "down") {
+  //   if (snake.head.x < snake.tail.x) {
+  //     const snakeTail = snake.cellPositions.pop();
+  //     snakeColorize(snakeTail, "dead");
+  //     snake.tail = snake.cellPositions[snake.cellPositions.length - 1];
+  //     console.log(snake.cellPositions);
+  //   } else {
+  //     const snakeTail = snake.cellPositions.shift();
+  //     snakeColorize(snakeTail, "dead");
+  //     snake.tail = snake.cellPositions[0];
+  //   }
+  //
+  //   snake.head = { x: snake.head.x, y: snake.head.y + gridSize };
+  //   snake.cellPositions.push(snake.head);
+  //   snakeColorize(snake.head, "alive");
+  // }
 };
+
+// TODO: REFACTOR ALL :(((((
 
 const snakeBuilder = () => {
   // Colorize
