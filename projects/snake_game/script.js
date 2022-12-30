@@ -1,9 +1,6 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-// TODO
-// FAIL AND STOP GAME
-// LEVEL
 const gridSize = 20;
 const array = [];
 
@@ -53,13 +50,6 @@ const snakeColorize = (snakeCell, cell) => {
     }
   }
 };
-
-// const cellDeleter = (chosenCell) => {
-//   const tailIndex = snake.cellPositions.findIndex((cell) => {
-//     return cell.x === chosenCell.x && cell.y === chosenCell.y;
-//   });
-//   snake.cellPositions.splice(tailIndex, 1);
-// };
 
 let interval;
 const snakeMover = () => {
@@ -169,8 +159,5 @@ document.addEventListener("keydown", (e) => {
 });
 
 // TODO
-// MOVE SNAKE BY KEYS (SWITCH AND CASE)
-// DEFINE MOVEMENT BY DIRECTION (TOP, RIGHT _/, LEFT, BOTTOM)
-// IN ARRAY OF SNAKE ELEMENT[0] WILL SHIFT AND HEAD WILL CHANGE ACCORDING TO DIRECTION
-// ADD KEY DOWN AND INTERVAL FOR AUTO MOVING
 // DEFINE FAIL WHEN ACCIDENT
+// DEFINE LEVEL AND SPEED
