@@ -26,7 +26,7 @@ while (i <= 674) {
 }
 
 const snake = {
-  direction: "right",
+  direction: "",
   cellPositions: [array[0], array[1], array[2], array[3]],
   head: { x: 60, y: 0 },
   tail: { x: 0, y: 0 },
@@ -159,11 +159,29 @@ document.addEventListener("keydown", (e) => {
 });
 
 const snakeFoodMaker = () => {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  console.log(array[randomIndex]);
+
+  const onSnake = snake.cellPositions.some((cell) => cell === { x: 0, y: 0 });
+
+  console.log(snake.cellPositions);
+  console.log(onSnake);
+
+  if (!onSnake) {
+    snakeColorize(array[randomIndex], "alive");
+  } else {
+    snakeFoodMaker();
+  }
+
   // TODO
   // DEFINE RANDOM GRID
+  // NOT ON SNKAE
+  // NOT OUT!
   // WHEN A GRID COLLECTED DEFINE ANOTHER GRID
   // ADD SNAKE LENGTH WHEN COLLECT
 };
+
+snakeFoodMaker();
 
 // TODO
 // DEFINE FAIL WHEN ACCIDENT WITH BORDERS
