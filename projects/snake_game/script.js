@@ -74,6 +74,8 @@ const snakeMover = () => {
       snake.head = { x: snake.head.x + gridSize, y: snake.head.y };
       snake.cellPositions.push(snake.head);
 
+      console.log(snake);
+
       // Delete Tail
       snakeColorize(snakeTail, "dead");
       // Define new Head
@@ -160,12 +162,8 @@ document.addEventListener("keydown", (e) => {
 
 const snakeFoodMaker = () => {
   const randomIndex = Math.floor(Math.random() * array.length);
-  console.log(array[randomIndex]);
 
   const onSnake = snake.cellPositions.some((cell) => cell === { x: 0, y: 0 });
-
-  console.log(snake.cellPositions);
-  console.log(onSnake);
 
   if (!onSnake) {
     snakeColorize(array[randomIndex], "alive");
