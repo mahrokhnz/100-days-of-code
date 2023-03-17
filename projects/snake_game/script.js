@@ -1,189 +1,124 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-const gridSize = 20;
-const array = [];
+ctx.beginPath();
+ctx.rect(0, 0, 500, 500);
+ctx.strokeStyle = "gray";
+ctx.stroke();
 
-let x = 0;
-let y = 0;
-
-let i = 0;
-
-while (i <= 674) {
-  array.push({ x: x, y: y });
-
-  ctx.strokeStyle = "gray";
-  ctx.strokeRect(x, y, gridSize, gridSize);
-
-  x += gridSize;
-
-  if (x > 520) {
-    y += gridSize;
-    x = 0;
-  }
-
-  i++;
-}
-
-const snake = {
-  direction: "",
-  cellPositions: [array[0], array[1], array[2], array[3]],
-  head: { x: 60, y: 0 },
-  tail: { x: 0, y: 0 },
-  bodyLength: 4,
-  canTurn: true,
-  interval: 1000,
-};
-
-const snakeColorize = (snakeCell, cell) => {
-  if (snakeCell) {
-    if (cell === "alive") {
-      ctx.fillStyle = "red";
-      ctx.fillRect(snakeCell.x, snakeCell.y, 20, 20);
-    }
-
-    if (cell === "dead") {
-      ctx.clearRect(snakeCell.x, snakeCell.y, 20, 20);
-
+const ground = [];
+const groundBuilder = () => {
+  let i = 0;
+  let j = 0;
+  while (j < 500) {
+    while (i < 500) {
+      ctx.beginPath();
+      ctx.rect(j, i, 50, 50);
       ctx.strokeStyle = "gray";
-      ctx.strokeRect(snakeCell.x, snakeCell.y, 20, 20);
+      ctx.stroke();
+
+      ground.push({ x: i, y: j });
+
+      i += 50;
     }
+    i = 0;
+    j += 50;
   }
 };
 
-let interval;
-const snakeMover = () => {
-  if (snake.direction === "up") {
-    clearInterval(interval);
+groundBuilder();
 
-    interval = setInterval(() => {
-      const snakeTail = snake.cellPositions.shift();
-      snake.head = { x: snake.head.x, y: snake.head.y - gridSize };
-      snake.cellPositions.push(snake.head);
-
-      // Delete Tail
-      snakeColorize(snakeTail, "dead");
-      // Define new Head
-      snakeColorize(snake.head, "alive");
-    }, snake.interval);
-  } else if (snake.direction === "right") {
-    clearInterval(interval);
-
-    interval = setInterval(() => {
-      const snakeTail = snake.cellPositions.shift();
-      snake.head = { x: snake.head.x + gridSize, y: snake.head.y };
-      snake.cellPositions.push(snake.head);
-
-      // Delete Tail
-      snakeColorize(snakeTail, "dead");
-      // Define new Head
-      snakeColorize(snake.head, "alive");
-    }, snake.interval);
-  } else if (snake.direction === "down") {
-    clearInterval(interval);
-
-    interval = setInterval(() => {
-      const snakeTail = snake.cellPositions.shift();
-      snake.head = { x: snake.head.x, y: snake.head.y + gridSize };
-      snake.cellPositions.push(snake.head);
-
-      // Delete Tail
-      snakeColorize(snakeTail, "dead");
-      // Define new Head
-      snakeColorize(snake.head, "alive");
-    }, snake.interval);
-  } else if (snake.direction === "left") {
-    clearInterval(interval);
-
-    interval = setInterval(() => {
-      const snakeTail = snake.cellPositions.shift();
-      snake.head = { x: snake.head.x - gridSize, y: snake.head.y };
-      snake.cellPositions.push(snake.head);
-
-      // Delete Tail
-      snakeColorize(snakeTail, "dead");
-      // Define new Head
-      snakeColorize(snake.head, "alive");
-    }, snake.interval);
-  }
+snake = {
+  cells: ground.slice(0, 4),
+  head: {},
+  direction: "right",
 };
 
-const snakeBuilder = () => {
-  // Colorize
-  snake.cellPositions.forEach((snakeCell) => {
-    snakeColorize(snakeCell, "alive");
+const snakeCreator = () => {
+  snake.cells.forEach((cell) => {
+    ctx.beginPath();
+    ctx.rect(cell.x, cell.y, 50, 50);
+    ctx.fillStyle = "red";
+    ctx.fill();
   });
 
-  // Move snake
-  snakeMover();
+  snake.head = snake.cells[snake.cells.length - 1];
 };
 
-snakeBuilder();
+snakeCreator();
 
-const directionDefiner = (key) => {
-  const isHorizontal = snake.cellPositions.every(
-    (cell) => cell.y === snake.cellPositions[0].y
-  );
+const boundary = (type) => {
+  // TODO: DON'T MOVE ON SNAKE BODY!
 
-  const isVertical = snake.cellPositions.every(
-    (cell) => cell.x === snake.cellPositions[0].x
-  );
+  if (type === "top") {
+    return snake.head.y > 0 && snake.direction !== "down";
+  }
+  if (type === "right") {
+    return snake.head.x < 450 && snake.direction !== "left";
+  }
+  if (type === "down") {
+    return snake.head.y < 450 && snake.direction !== "top";
+  }
+  if (type === "left") {
+    return snake.head.x > 0 && snake.direction !== "right";
+  }
+};
 
-  switch (key) {
-    case "ArrowUp":
-      if (!isVertical && snake.direction !== "down") {
-        snake.direction = "up";
-      }
-      break;
-    case "ArrowRight":
-      if (!isHorizontal && snake.direction !== "left") {
-        snake.direction = "right";
-      }
-      break;
-    case "ArrowDown":
-      if (!isVertical && snake.direction !== "up") {
-        snake.direction = "down";
-      }
-      break;
-    case "ArrowLeft":
-      if (!isHorizontal && snake.direction !== "right") {
-        snake.direction = "left";
-      }
-      break;
+const snakeDetector = (type, deadCell, newHead) => {
+  snake.direction = type;
+
+  snake.cells.push(newHead);
+
+  ctx.clearRect(deadCell.x, deadCell.y, 50, 50);
+  groundBuilder();
+
+  snakeCreator();
+};
+
+const snakeMover = (dir) => {
+  if (dir === "ArrowUp") {
+    if (boundary("top")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x, y: snake.head.y - 50 };
+
+      snakeDetector("top", deadCell, newHead);
+    } else {
+      // TODO: GAME OVER
+      console.log("WONT GO TOP");
+    }
+  } else if (dir === "ArrowRight") {
+    if (boundary("right")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x + 50, y: snake.head.y };
+
+      snakeDetector("right", deadCell, newHead);
+    } else {
+      // TODO: GAME OVER
+      console.log("WONT GO RIGHT");
+    }
+  } else if (dir === "ArrowDown") {
+    if (boundary("down")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x, y: snake.head.y + 50 };
+
+      snakeDetector("down", deadCell, newHead);
+    } else {
+      // TODO: GAME OVER
+      console.log("WONT GO DOWN");
+    }
+  } else if (dir === "ArrowLeft") {
+    if (boundary("left")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x - 50, y: snake.head.y };
+
+      snakeDetector("left", deadCell, newHead);
+    } else {
+      // TODO: GAME OVER
+      console.log("WONT GO LEFT");
+    }
   }
 };
 
 document.addEventListener("keydown", (e) => {
-  directionDefiner(e.code);
-  snakeMover();
+  snakeMover(e.key);
 });
-
-const snakeFoodMaker = () => {
-  const randomIndex = Math.floor(Math.random() * array.length);
-  console.log(array[randomIndex]);
-
-  const onSnake = snake.cellPositions.some((cell) => cell === { x: 0, y: 0 });
-
-  console.log(snake.cellPositions);
-  console.log(onSnake);
-
-  if (!onSnake) {
-    snakeColorize(array[randomIndex], "alive");
-  } else {
-    snakeFoodMaker();
-  }
-
-  // TODO
-  // DEFINE RANDOM GRID
-  // NOT ON SNKAE
-  // NOT OUT!
-  // WHEN A GRID COLLECTED DEFINE ANOTHER GRID
-  // ADD SNAKE LENGTH WHEN COLLECT
-};
-
-snakeFoodMaker();
-
-// TODO
-// DEFINE FAIL WHEN ACCIDENT WITH BORDERS
-// DEFINE FAIL WHEN ACCIDENT WITH ITSELF
-// DEFINE LEVEL AND SPEED
