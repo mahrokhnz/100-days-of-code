@@ -47,42 +47,73 @@ const snakeCreator = () => {
 
 snakeCreator();
 
-boundary = {
-  top: snake.head.y > 0 && snake.direction !== "down",
-  right: snake.head.x < 450 && snake.direction !== "left",
-  down: snake.head.y < 450 && snake.direction !== "top",
-  left: snake.head.x > 0 && snake.direction !== "right",
+const boundary = (type) => {
+  // TODO: DON'T MOVE ON SNAKE BODY!
+
+  if (type === "top") {
+    return snake.head.y > 0 && snake.direction !== "down";
+  }
+  if (type === "right") {
+    return snake.head.x < 450 && snake.direction !== "left";
+  }
+  if (type === "down") {
+    return snake.head.y < 450 && snake.direction !== "top";
+  }
+  if (type === "left") {
+    return snake.head.x > 0 && snake.direction !== "right";
+  }
 };
 
-console.log(snake.head.x < 450, snake.direction !== "left");
+const snakeDetector = (type, deadCell, newHead) => {
+  snake.direction = type;
+
+  snake.cells.push(newHead);
+
+  ctx.clearRect(deadCell.x, deadCell.y, 50, 50);
+  groundBuilder();
+
+  snakeCreator();
+};
 
 const snakeMover = (dir) => {
   if (dir === "ArrowUp") {
-    if (boundary.top) {
-      // TODO: NEW HEAD AND BODY
-      console.log("WILL GO TOP");
+    if (boundary("top")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x, y: snake.head.y - 50 };
+
+      snakeDetector("top", deadCell, newHead);
     } else {
+      // TODO: GAME OVER
       console.log("WONT GO TOP");
     }
   } else if (dir === "ArrowRight") {
-    if (boundary.right) {
-      // TODO: NEW HEAD AND BODY
-      console.log("WILL GO RIGHT");
+    if (boundary("right")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x + 50, y: snake.head.y };
+
+      snakeDetector("right", deadCell, newHead);
     } else {
+      // TODO: GAME OVER
       console.log("WONT GO RIGHT");
     }
   } else if (dir === "ArrowDown") {
-    if (boundary.down) {
-      // TODO: NEW HEAD AND BODY
-      console.log("WILL GO DOWN");
+    if (boundary("down")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x, y: snake.head.y + 50 };
+
+      snakeDetector("down", deadCell, newHead);
     } else {
+      // TODO: GAME OVER
       console.log("WONT GO DOWN");
     }
   } else if (dir === "ArrowLeft") {
-    if (boundary.left) {
-      // TODO: NEW HEAD AND BODY
-      console.log("WILL GO LEFT");
+    if (boundary("left")) {
+      const deadCell = snake.cells.shift();
+      const newHead = { x: snake.head.x - 50, y: snake.head.y };
+
+      snakeDetector("left", deadCell, newHead);
     } else {
+      // TODO: GAME OVER
       console.log("WONT GO LEFT");
     }
   }
