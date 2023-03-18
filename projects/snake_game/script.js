@@ -35,12 +35,16 @@ snake = {
   interval: 1000,
 };
 
+const snakeCellBuilder = (cell) => {
+  ctx.beginPath();
+  ctx.rect(cell.x, cell.y, 50, 50);
+  ctx.fillStyle = "red";
+  ctx.fill();
+};
+
 const snakeCreator = () => {
   snake.cells.forEach((cell) => {
-    ctx.beginPath();
-    ctx.rect(cell.x, cell.y, 50, 50);
-    ctx.fillStyle = "red";
-    ctx.fill();
+    snakeCellBuilder(cell);
   });
 
   snake.head = snake.cells[snake.cells.length - 1];
@@ -78,6 +82,22 @@ const snakeDetector = (type, deadCell, newHead) => {
 
   // TODO: IF SNAKE GO OVER ITSELF?
 };
+
+const randomFood = () => {
+  return Math.floor(Math.random(ground.length) * 100);
+};
+
+const snakeFeeder = () => {
+  const randomSquare = ground[randomFood()];
+
+  if (!snake.cells.includes(randomSquare)) {
+    snakeCellBuilder(randomSquare);
+  } else {
+    snakeFeeder();
+  }
+};
+
+snakeFeeder();
 
 let myInterval;
 const snakeMover = (dir) => {
