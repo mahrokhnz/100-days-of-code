@@ -32,6 +32,7 @@ snake = {
   cells: ground.slice(0, 4),
   head: {},
   direction: "right",
+  interval: 1000,
 };
 
 const snakeCreator = () => {
@@ -48,8 +49,6 @@ const snakeCreator = () => {
 snakeCreator();
 
 const boundary = (type) => {
-  // TODO: DON'T MOVE ON SNAKE BODY!
-
   if (type === "top") {
     return snake.head.y > 0 && snake.direction !== "down";
   }
@@ -68,54 +67,80 @@ const snakeDetector = (type, deadCell, newHead) => {
   snake.direction = type;
 
   snake.cells.push(newHead);
+  snake.head = newHead;
+
+  console.log(snake.head, snake.cells);
 
   ctx.clearRect(deadCell.x, deadCell.y, 50, 50);
   groundBuilder();
 
   snakeCreator();
+
+  // TODO: IF SNAKE GO OVER ITSELF?
 };
 
+let myInterval;
 const snakeMover = (dir) => {
   if (dir === "ArrowUp") {
-    if (boundary("top")) {
-      const deadCell = snake.cells.shift();
-      const newHead = { x: snake.head.x, y: snake.head.y - 50 };
+    clearInterval(myInterval);
 
-      snakeDetector("top", deadCell, newHead);
-    } else {
-      // TODO: GAME OVER
-      console.log("WONT GO TOP");
-    }
+    myInterval = setInterval(() => {
+      if (boundary("top")) {
+        const deadCell = snake.cells.shift();
+        const newHead = { x: snake.head.x, y: snake.head.y - 50 };
+
+        snakeDetector("top", deadCell, newHead);
+      } else {
+        // TODO: GAME OVER
+        console.log("WONT GO TOP");
+        clearInterval(myInterval);
+      }
+    }, snake.interval);
   } else if (dir === "ArrowRight") {
-    if (boundary("right")) {
-      const deadCell = snake.cells.shift();
-      const newHead = { x: snake.head.x + 50, y: snake.head.y };
+    clearInterval(myInterval);
 
-      snakeDetector("right", deadCell, newHead);
-    } else {
-      // TODO: GAME OVER
-      console.log("WONT GO RIGHT");
-    }
+    myInterval = setInterval(() => {
+      if (boundary("right")) {
+        const deadCell = snake.cells.shift();
+        const newHead = { x: snake.head.x + 50, y: snake.head.y };
+
+        snakeDetector("right", deadCell, newHead);
+      } else {
+        // TODO: GAME OVER
+        console.log("WONT GO RIGHT");
+        clearInterval(myInterval);
+      }
+    }, snake.interval);
   } else if (dir === "ArrowDown") {
-    if (boundary("down")) {
-      const deadCell = snake.cells.shift();
-      const newHead = { x: snake.head.x, y: snake.head.y + 50 };
+    clearInterval(myInterval);
 
-      snakeDetector("down", deadCell, newHead);
-    } else {
-      // TODO: GAME OVER
-      console.log("WONT GO DOWN");
-    }
+    myInterval = setInterval(() => {
+      if (boundary("down")) {
+        const deadCell = snake.cells.shift();
+        const newHead = { x: snake.head.x, y: snake.head.y + 50 };
+
+        snakeDetector("down", deadCell, newHead);
+      } else {
+        // TODO: GAME OVER
+        console.log("WONT GO DOWN");
+        clearInterval(myInterval);
+      }
+    }, snake.interval);
   } else if (dir === "ArrowLeft") {
-    if (boundary("left")) {
-      const deadCell = snake.cells.shift();
-      const newHead = { x: snake.head.x - 50, y: snake.head.y };
+    clearInterval(myInterval);
 
-      snakeDetector("left", deadCell, newHead);
-    } else {
-      // TODO: GAME OVER
-      console.log("WONT GO LEFT");
-    }
+    myInterval = setInterval(() => {
+      if (boundary("left")) {
+        const deadCell = snake.cells.shift();
+        const newHead = { x: snake.head.x - 50, y: snake.head.y };
+
+        snakeDetector("left", deadCell, newHead);
+      } else {
+        // TODO: GAME OVER
+        console.log("WONT GO LEFT");
+        clearInterval(myInterval);
+      }
+    }, snake.interval);
   }
 };
 
