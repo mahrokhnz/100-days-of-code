@@ -98,8 +98,6 @@ const snakeGrower = () => {
   }
 
   snake.cells.unshift(newSnakeTail);
-
-  console.log(snake.cells.length);
 };
 
 let randomSquare = ground[randomFood()];
