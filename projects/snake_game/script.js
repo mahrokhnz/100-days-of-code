@@ -73,8 +73,6 @@ const snakeDetector = (type, deadCell, newHead) => {
   snake.cells.push(newHead);
   snake.head = newHead;
 
-  console.log(snake.head, snake.cells);
-
   ctx.clearRect(deadCell.x, deadCell.y, 50, 50);
   groundBuilder();
 
@@ -87,17 +85,42 @@ const randomFood = () => {
   return Math.floor(Math.random(ground.length) * 100);
 };
 
-const snakeFeeder = () => {
-  const randomSquare = ground[randomFood()];
+const snakeGrower = () => {
+  const snakeTail = snake.cells[0];
+  let newSnakeTail;
 
-  if (!snake.cells.includes(randomSquare)) {
-    snakeCellBuilder(randomSquare);
-  } else {
-    snakeFeeder();
+  if (snake.direction === "right" || snake.direction === "left") {
+    newSnakeTail = { x: snakeTail - 50, y: snakeTail };
   }
+
+  if (snake.direction === "top" || snake.direction === "down") {
+    newSnakeTail = { x: snakeTail - 50, y: snakeTail };
+  }
+
+  snake.cells.unshift(newSnakeTail);
+
+  console.log(snake.cells.length);
 };
 
-snakeFeeder();
+let randomSquare = ground[randomFood()];
+
+const snakeFeeder = () => {
+  if (!snake.cells.includes(randomSquare)) {
+    snakeCellBuilder(randomSquare);
+
+    if (snake.head.x === randomSquare.x && snake.head.y === randomSquare.y) {
+      snakeGrower();
+
+      randomSquare = ground[randomFood()];
+    }
+  } else {
+    randomSquare = ground[randomFood()];
+  }
+
+  requestAnimationFrame(snakeFeeder);
+};
+
+requestAnimationFrame(snakeFeeder);
 
 let myInterval;
 const snakeMover = (dir) => {
@@ -111,6 +134,7 @@ const snakeMover = (dir) => {
 
         snakeDetector("top", deadCell, newHead);
       } else {
+        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
         // TODO: GAME OVER
         console.log("WONT GO TOP");
         clearInterval(myInterval);
@@ -126,6 +150,7 @@ const snakeMover = (dir) => {
 
         snakeDetector("right", deadCell, newHead);
       } else {
+        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
         // TODO: GAME OVER
         console.log("WONT GO RIGHT");
         clearInterval(myInterval);
@@ -141,6 +166,7 @@ const snakeMover = (dir) => {
 
         snakeDetector("down", deadCell, newHead);
       } else {
+        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
         // TODO: GAME OVER
         console.log("WONT GO DOWN");
         clearInterval(myInterval);
@@ -156,6 +182,7 @@ const snakeMover = (dir) => {
 
         snakeDetector("left", deadCell, newHead);
       } else {
+        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
         // TODO: GAME OVER
         console.log("WONT GO LEFT");
         clearInterval(myInterval);
