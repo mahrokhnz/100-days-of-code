@@ -12,13 +12,61 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+#myCanvas {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+.wrapper {
+    padding: 20px;
+    background-color: #0a84ff;
+    margin: 20px auto;
+    color: white;
+}
+
 .score {
     font-size: 20px;
     font-weight: 700;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: none;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.content {
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #0a84ff;
+    padding: 20px;
+    color: white;
+}
+
+.active {
+    display: block;
+}
+
+.button {
+    padding: 10px;
+    border: none;
+    color: white;
+    background-color: #3944f7;
 }
