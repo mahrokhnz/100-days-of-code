@@ -221,7 +221,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-tryAgain.addEventListener("click", (e) => {
+tryAgain.addEventListener("click", () => {
   // TODO: DOESNT WORK WELL
   snake.score = 0;
   score.innerHTML = snake.score;
