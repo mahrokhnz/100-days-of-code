@@ -92,7 +92,6 @@ const randomFood = () => {
 
 const intervalUpdater = () => {
   snake.interval = snake.interval - snake.score * 5;
-  console.log(snake.interval);
 };
 
 const snakeGrower = () => {
