@@ -1,10 +1,23 @@
 const canvas = document.getElementById("myCanvas");
+const score = document.querySelector(".counter");
+const finalScore = document.querySelector(".finalCounter");
+const gameOver = document.querySelector(".backdrop");
+const tryAgain = document.querySelector(".button");
 const ctx = canvas.getContext("2d");
 
 ctx.beginPath();
 ctx.rect(0, 0, 500, 500);
 ctx.strokeStyle = "gray";
 ctx.stroke();
+
+let isPlaying = true;
+
+const deadSnake = () => {
+  isPlaying = false;
+  gameOver.classList.add("active");
+  clearInterval(myInterval);
+  finalScore.innerHTML = snake.score;
+};
 
 const ground = [];
 const groundBuilder = () => {
@@ -33,6 +46,7 @@ snake = {
   head: {},
   direction: "right",
   interval: 1000,
+  score: 0,
 };
 
 const snakeCellBuilder = (cell) => {
@@ -85,6 +99,10 @@ const randomFood = () => {
   return Math.floor(Math.random(ground.length) * 100);
 };
 
+const intervalUpdater = () => {
+  snake.interval = snake.interval - snake.score * 5;
+};
+
 const snakeGrower = () => {
   const snakeTail = snake.cells[0];
   let newSnakeTail;
@@ -98,8 +116,13 @@ const snakeGrower = () => {
   }
 
   snake.cells.unshift(newSnakeTail);
+
+  snake.score += 1;
+  score.innerHTML = snake.score;
+  intervalUpdater();
 };
 
+// TODO: MAY APPEAR ON SNAKE CELLS!
 let randomSquare = ground[randomFood()];
 
 const snakeFeeder = () => {
@@ -132,10 +155,11 @@ const snakeMover = (dir) => {
 
         snakeDetector("top", deadCell, newHead);
       } else {
-        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
-        // TODO: GAME OVER
-        console.log("WONT GO TOP");
+        if (snake.direction !== "down") {
+          deadSnake();
+        }
         clearInterval(myInterval);
+        snakeMover("ArrowDown");
       }
     }, snake.interval);
   } else if (dir === "ArrowRight") {
@@ -148,15 +172,15 @@ const snakeMover = (dir) => {
 
         snakeDetector("right", deadCell, newHead);
       } else {
-        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
-        // TODO: GAME OVER
-        console.log("WONT GO RIGHT");
+        if (snake.direction !== "left") {
+          deadSnake();
+        }
         clearInterval(myInterval);
+        snakeMover("ArrowLeft");
       }
     }, snake.interval);
   } else if (dir === "ArrowDown") {
     clearInterval(myInterval);
-
     myInterval = setInterval(() => {
       if (boundary("down")) {
         const deadCell = snake.cells.shift();
@@ -164,10 +188,11 @@ const snakeMover = (dir) => {
 
         snakeDetector("down", deadCell, newHead);
       } else {
-        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
-        // TODO: GAME OVER
-        console.log("WONT GO DOWN");
+        if (snake.direction !== "top") {
+          deadSnake();
+        }
         clearInterval(myInterval);
+        snakeMover("ArrowUp");
       }
     }, snake.interval);
   } else if (dir === "ArrowLeft") {
@@ -180,15 +205,27 @@ const snakeMover = (dir) => {
 
         snakeDetector("left", deadCell, newHead);
       } else {
-        // TODO: WHY HAPPENED?? LOOK AT BOUNDARY
-        // TODO: GAME OVER
-        console.log("WONT GO LEFT");
+        if (snake.direction !== "right") {
+          deadSnake();
+        }
         clearInterval(myInterval);
+        snakeMover("ArrowRight");
       }
     }, snake.interval);
   }
 };
 
 document.addEventListener("keydown", (e) => {
-  snakeMover(e.key);
+  if (isPlaying) {
+    snakeMover(e.key);
+  }
+});
+
+tryAgain.addEventListener("click", () => {
+  // TODO: DOESNT WORK WELL
+  snake.score = 0;
+  score.innerHTML = snake.score;
+  isPlaying = true;
+
+  gameOver.classList.remove("active");
 });
