@@ -1,10 +1,14 @@
 const canvas = document.getElementById("myCanvas");
+const score = document.querySelector(".counter");
 const ctx = canvas.getContext("2d");
 
 ctx.beginPath();
 ctx.rect(0, 0, 500, 500);
 ctx.strokeStyle = "gray";
 ctx.stroke();
+
+ctx.font = "30px Arial";
+ctx.fillText("Score", 0, 800);
 
 const ground = [];
 const groundBuilder = () => {
@@ -33,6 +37,7 @@ snake = {
   head: {},
   direction: "right",
   interval: 1000,
+  score: 0,
 };
 
 const snakeCellBuilder = (cell) => {
@@ -85,6 +90,11 @@ const randomFood = () => {
   return Math.floor(Math.random(ground.length) * 100);
 };
 
+const intervalUpdater = () => {
+  snake.interval = snake.interval - snake.score * 5;
+  console.log(snake.interval);
+};
+
 const snakeGrower = () => {
   const snakeTail = snake.cells[0];
   let newSnakeTail;
@@ -98,8 +108,13 @@ const snakeGrower = () => {
   }
 
   snake.cells.unshift(newSnakeTail);
+
+  snake.score += 1;
+  score.innerHTML = snake.score;
+  intervalUpdater();
 };
 
+// TODO: MAY APPEAR ON SNAKE CELLS!
 let randomSquare = ground[randomFood()];
 
 const snakeFeeder = () => {
