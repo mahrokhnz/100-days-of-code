@@ -44,7 +44,7 @@ snake = {
   cells: ground.slice(0, 4),
   head: {},
   direction: "right",
-  interval: 10000,
+  interval: 1000,
   score: 0,
 };
 
@@ -230,7 +230,7 @@ const resetGame = () => {
   snake.cells = ground.slice(0, 4);
   snake.head = {};
   snake.direction = "right";
-  snake.interval = 10000;
+  snake.interval = 1000;
 
   snakeCreator();
 
