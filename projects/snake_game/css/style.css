@@ -22,9 +22,9 @@ body {
 }
 
 .wrapper {
-    padding: 20px;
-    background-color: #0a84ff;
-    margin: 20px auto;
+    padding: 18px;
+    background-color: #714d69;
+    margin: 40px auto;
     color: white;
 }
 
@@ -55,9 +55,13 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: #0a84ff;
+    background-color: #a0849d;
     padding: 20px;
     color: white;
+}
+
+h1 {
+    margin: 0;
 }
 
 .active {
@@ -68,5 +72,6 @@ body {
     padding: 10px;
     border: none;
     color: white;
-    background-color: #3944f7;
+    background-color: #714d69;
+    cursor: pointer;
 }
