@@ -15,7 +15,6 @@ let isPlaying = true;
 const deadSnake = () => {
   isPlaying = false;
   gameOver.classList.add("active");
-  clearInterval(myInterval);
   finalScore.innerHTML = snake.score;
 };
 
@@ -27,7 +26,7 @@ const groundBuilder = () => {
     while (i < 500) {
       ctx.beginPath();
       ctx.rect(j, i, 50, 50);
-      ctx.strokeStyle = "gray";
+      ctx.strokeStyle = "#eeecf3";
       ctx.stroke();
 
       ground.push({ x: i, y: j });
@@ -45,14 +44,14 @@ snake = {
   cells: ground.slice(0, 4),
   head: {},
   direction: "right",
-  interval: 1000,
+  interval: 10000,
   score: 0,
 };
 
 const snakeCellBuilder = (cell) => {
   ctx.beginPath();
   ctx.rect(cell.x, cell.y, 50, 50);
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "#a0849d";
   ctx.fill();
 };
 
@@ -81,14 +80,18 @@ const boundary = (type) => {
   }
 };
 
+const removeDeadCell = (cell) => {
+  ctx.clearRect(cell.x, cell.y, 50, 50);
+  groundBuilder();
+};
+
 const snakeDetector = (type, deadCell, newHead) => {
   snake.direction = type;
 
   snake.cells.push(newHead);
   snake.head = newHead;
 
-  ctx.clearRect(deadCell.x, deadCell.y, 50, 50);
-  groundBuilder();
+  removeDeadCell(deadCell);
 
   snakeCreator();
 
@@ -215,6 +218,26 @@ const snakeMover = (dir) => {
   }
 };
 
+const resetGame = () => {
+  snake.cells.forEach((cell) => {
+    removeDeadCell(cell);
+  });
+
+  clearInterval(myInterval);
+
+  gameOver.classList.remove("active");
+  snake.score = 0;
+  snake.cells = ground.slice(0, 4);
+  snake.head = {};
+  snake.direction = "right";
+  snake.interval = 10000;
+
+  snakeCreator();
+
+  isPlaying = true;
+  score.innerHTML = snake.score;
+};
+
 document.addEventListener("keydown", (e) => {
   if (isPlaying) {
     snakeMover(e.key);
@@ -222,10 +245,5 @@ document.addEventListener("keydown", (e) => {
 });
 
 tryAgain.addEventListener("click", () => {
-  // TODO: DOESNT WORK WELL
-  snake.score = 0;
-  score.innerHTML = snake.score;
-  isPlaying = true;
-
-  gameOver.classList.remove("active");
+  resetGame();
 });
