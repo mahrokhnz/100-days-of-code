@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.buttonContainer {
+  position: relative;
+  width: 150px;
+  height: 70px;
+  background-color: #587af2;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.text {
+  position: absolute;
+  user-select: none;
+  align-self: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.hidingText {
+  animation: hidingText 0.03s forwards linear;
+}
+
+.hand {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+}
+
+.rightHand {
+  left: 100%;
+}
+
+.leftHand {
+  left: -35%;
+  transform: translateY(-50%) rotateY(180deg);
+}
+
+.showingLeftHand {
+  animation: leftHand 0.1s 0.1s forwards ease;
+}
+
+.showingRightHand {
+  animation: rightHand 0.1s 0.1s forwards ease;
+}
+
+@keyframes leftHand {
+  from {
+    left: -35%;
+  }
+
+  to {
+    left: 40%;
+    transform: translate(-40%, -50%) rotateY(180deg);
+  }
+}
+
+@keyframes rightHand {
+  from {
+    left: 100%;
+  }
+
+  to {
+    left: 60%;
+    transform: translate(-60%, -50%);
+  }
+}
+
+@keyframes hidingText {
+  from {
+    font-size: 22px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  to {
+    font-size: 15px;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
