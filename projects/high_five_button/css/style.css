@@ -54,32 +54,93 @@ body {
 }
 
 .showingLeftHand {
-  animation: leftHand 0.1s 0.1s forwards ease;
+  animation: leftHand 0.8s 0.1s forwards ease-in-out;
 }
 
 .showingRightHand {
-  animation: rightHand 0.1s 0.1s forwards ease;
+  animation: rightHand 0.8s 0.1s forwards ease-in-out;
 }
 
-@keyframes leftHand {
+.loading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #587a99;
+  border-radius: 50px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.dot {
+  width: 23px;
+  height: 23px;
+  background-color: #587af2;
+  border-radius: 50px;
+  z-index: 1;
+  display: none;
+}
+
+.loading:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 25px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50px;
+  transform-origin: bottom;
+  animation: loadingIndicator 1.5s 0.9s infinite forwards ease-in-out;
+}
+
+.load {
+  opacity: 1;
+}
+
+.load .dot {
+  display: block;
+}
+
+@keyframes loadingIndicator {
   from {
-    left: -35%;
+    transform: rotate(0deg);
   }
 
   to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes leftHand {
+  0% {
+    left: -35%;
+  }
+
+  60% {
     left: 40%;
     transform: translate(-40%, -50%) rotateY(180deg);
+  }
+
+  100% {
+    left: -35%;
   }
 }
 
 @keyframes rightHand {
-  from {
+  0% {
     left: 100%;
   }
 
-  to {
+  60% {
     left: 60%;
     transform: translate(-60%, -50%);
+  }
+
+  100% {
+    left: 100%;
   }
 }
 
