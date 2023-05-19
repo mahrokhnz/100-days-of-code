@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+}
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.white {
+  width: 60px;
+  height: 300px;
+  background-color: white;
+}
+
+.black {
+  width: 30px;
+  height: 180px;
+  background-color: black;
+  z-index: 2;
+}
+
+.doFa,
+.reFa,
+.solFa,
+.laFa,
+.reSol,
+.solSol,
+.laSol {
+  margin: 0 -15px;
+}
+
+.miFa,
+.siFa,
+.miSol,
+.siSol {
+  margin-left: -15px;
+}
+
+.faFa,
+.do,
+.faSol,
+.doSol {
+  margin-right: -15px;
+}
