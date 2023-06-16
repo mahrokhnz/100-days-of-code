@@ -1,4 +1,4 @@
-const doFa = document.querySelector(".doFa");
+const klaviers = document.querySelectorAll(".klavier");
 
 const frequencies = {
   doFa: 130.8128,
@@ -39,10 +39,40 @@ const frequencies = {
   doSolDiez: 554.3653,
 };
 
-// const context = new AudioContext();
-// const o = context.createOscillator();
-// const g = context.createGain();
-// o.connect(g);
-// g.connect(context.destination);
-// o.frequency.value = 440.0;
-// o.start(0);
+let isPlaying = false;
+
+const audioController = (type, freq = null) => {
+  const context = new AudioContext();
+  const o = context.createOscillator();
+  const g = context.createGain();
+  o.connect(g);
+  g.connect(context.destination);
+
+  if (isPlaying) {
+    console.log("Start");
+    o.frequency.value = freq;
+    o.start(0);
+  } else {
+    console.log("Stop");
+    o.start(0);
+    o.stop(0);
+  }
+};
+
+klaviers.forEach((klavier) => {
+  klavier.addEventListener("mousedown", () => {
+    const clicked = klavier.getAttribute("datatype");
+
+    isPlaying = true;
+    audioController(frequencies[clicked]);
+  });
+});
+
+klaviers.forEach((klavier) => {
+  klavier.addEventListener("mouseup", () => {
+    const clicked = klavier.getAttribute("datatype");
+
+    isPlaying = false;
+    audioController(frequencies[clicked]);
+  });
+});
