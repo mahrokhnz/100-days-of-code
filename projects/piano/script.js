@@ -39,7 +39,8 @@ const frequencies = {
   doSolDiez: 554.3653,
 };
 
-//TODO: DOESNT WORK
+let isPlaying = false;
+
 const audioController = (type, freq = null) => {
   const context = new AudioContext();
   const o = context.createOscillator();
@@ -47,12 +48,12 @@ const audioController = (type, freq = null) => {
   o.connect(g);
   g.connect(context.destination);
 
-  if (type === "start") {
+  if (isPlaying) {
+    console.log("Start");
     o.frequency.value = freq;
     o.start(0);
-  }
-
-  if (type === "stop") {
+  } else {
+    console.log("Stop");
     o.start(0);
     o.stop(0);
   }
@@ -62,10 +63,16 @@ klaviers.forEach((klavier) => {
   klavier.addEventListener("mousedown", () => {
     const clicked = klavier.getAttribute("datatype");
 
-    audioController("start", frequencies[clicked]);
+    isPlaying = true;
+    audioController(frequencies[clicked]);
   });
+});
 
+klaviers.forEach((klavier) => {
   klavier.addEventListener("mouseup", () => {
-    audioController("stop");
+    const clicked = klavier.getAttribute("datatype");
+
+    isPlaying = false;
+    audioController(frequencies[clicked]);
   });
 });
