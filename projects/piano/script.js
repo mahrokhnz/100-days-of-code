@@ -41,6 +41,7 @@ const frequencies = {
 
 let isPlaying = false;
 
+//TODO: CHROME DOESNT WORK WELL AND FIREFOX DOESNT PLAY SOUNDS!
 const audioController = (type, freq = null) => {
   const context = new AudioContext();
   const o = context.createOscillator();
@@ -49,11 +50,9 @@ const audioController = (type, freq = null) => {
   g.connect(context.destination);
 
   if (isPlaying) {
-    console.log("Start");
     o.frequency.value = freq;
     o.start(0);
   } else {
-    console.log("Stop");
     o.start(0);
     o.stop(0);
   }
