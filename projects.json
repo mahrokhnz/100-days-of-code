@@ -45,6 +45,10 @@
       "address": "flappy_bird"
     },
     {
+      "title": "Ping Pong",
+      "address": "ping_pong"
+    },
+    {
       "title": "Snake Game",
       "address": "snake_game"
     },
@@ -107,10 +111,6 @@
       "address": "weather"
     },
     {
-      "title": "To Do List",
-      "address": "to_do_list"
-    },
-    {
       "title": "Dark Light Theme",
       "address": "dark_light_theme"
     }
@@ -125,8 +125,8 @@
       "address": "cool_tabbar"
     },
     {
-      "title": "Dark Light Theme",
-      "address": "dark_light_theme"
+      "title": "To Do List",
+      "address": "to_do_list"
     },
     {
       "title": "Digital Clock",
