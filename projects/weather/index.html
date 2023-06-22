@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+      name="viewport"
+    />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+    <link href="css/style.css" rel="stylesheet" />
+    <title>Weather</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <label>
+          <input
+            class="searchBar"
+            placeholder="Enter Your City and Click Enter"
+            type="text"
+          />
+        </label>
+        <input class="search" type="submit" value="Search" />
+      </header>
+
+      <section class="weather">
+        <div class="details">
+          <span class="date"></span>
+          <div class="tempRange">
+            <span class="maxTemp"></span>
+            .
+            <span class="minTemp"></span>
+          </div>
+          <span class="temp"></span>
+          <div class="fellsLike">
+            <span class="Title">Feels like</span>
+            <span class="value"></span>
+          </div>
+        </div>
+        <div class="info">
+          <img alt="Weather Icon" class="icon" src="" />
+          <span class="description"></span>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="script.js"></script>
+</html>

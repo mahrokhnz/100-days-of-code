@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  min-width: 600px;
+  border-radius: 10px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+label {
+  display: flex;
+  flex-grow: 1;
+}
+
+.searchBar {
+  height: 50px;
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 1px gray solid;
+  outline: none;
+  flex-grow: 1;
+}
+
+.search {
+  height: 50px;
+  width: 80px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #0a84ff;
+  cursor: pointer;
+}
+
+section {
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  display: none;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.date {
+  font-size: 25px;
+  color: gray;
+}
+
+.tempRange {
+  font-size: 28px;
+}
+
+.temp {
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.fellsLike {
+  font-size: 20px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+}
+
+.description {
+  font-size: 25px;
+}
