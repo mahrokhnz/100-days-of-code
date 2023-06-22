@@ -1,0 +1,148 @@
+{
+  "svg": [
+    {
+      "title": "SVG Draw",
+      "address": "svg_draw"
+    },
+    {
+      "title": "Circular Range",
+      "address": "circular_range"
+    },
+    {
+      "title": "Checkbox",
+      "address": "checkbox"
+    }
+  ],
+  "canvas": [
+    {
+      "title": "Bouncing Balls",
+      "address": "bouncing_balls"
+    },
+    {
+      "title": "Look Up",
+      "address": "look_up"
+    },
+    {
+      "title": "Paint",
+      "address": "paint"
+    },
+    {
+      "title": "Ping Pong",
+      "address": "ping_pong"
+    },
+    {
+      "title": "Snake Game",
+      "address": "snake_game"
+    }
+  ],
+  "game": [
+    {
+      "title": "Chrome Dinosaur",
+      "address": "chrome_dinosaur"
+    },
+    {
+      "title": "Flappy Bird",
+      "address": "flappy_bird"
+    },
+    {
+      "title": "Snake Game",
+      "address": "snake_game"
+    },
+    {
+      "title": "Tic Tac Toe",
+      "address": "tic_tac_toe"
+    }
+  ],
+  "animation": [
+    {
+      "title": "High Five Button",
+      "address": "high_five_button"
+    },
+    {
+      "title": "Chrome Dinosaur",
+      "address": "chrome_dinosaur"
+    },
+    {
+      "title": "Scroll Animation",
+      "address": "scroll_animation"
+    },
+    {
+      "title": "Flappy Bird",
+      "address": "flappy_bird"
+    }
+  ],
+  "dragging": [
+    {
+      "title": "Draggable",
+      "address": "draggable"
+    },
+    {
+      "title": "Circular Range",
+      "address": "circular_range"
+    },
+    {
+      "title": "Rotatable",
+      "address": "rotatable"
+    },
+    {
+      "title": "Zoom & Pan",
+      "address": "zoom_and_pan"
+    }
+  ],
+  "class": [
+    {
+      "title": "Calculator",
+      "address": "calculator"
+    }
+  ],
+  "api": [
+    {
+      "title": "Weather",
+      "address": "weather"
+    }
+  ],
+  "storeData": [
+    {
+      "title": "Weather",
+      "address": "weather"
+    },
+    {
+      "title": "To Do List",
+      "address": "to_do_list"
+    },
+    {
+      "title": "Dark Light Theme",
+      "address": "dark_light_theme"
+    }
+  ],
+  "other": [
+    {
+      "title": "Accordion",
+      "address": "accordion"
+    },
+    {
+      "title": "Cool Tabbar",
+      "address": "cool_tabbar"
+    },
+    {
+      "title": "Dark Light Theme",
+      "address": "dark_light_theme"
+    },
+    {
+      "title": "Digital Clock",
+      "address": "digital_clock"
+    },
+    {
+      "title": "Fullscreen Menu",
+      "address": "fullscreen_menu"
+    },
+    {
+      "title": "Piano",
+      "address": "piano"
+    },
+    {
+      "title": "RGB Selector",
+      "address": "rgb_selector"
+    }
+  ]
+}
