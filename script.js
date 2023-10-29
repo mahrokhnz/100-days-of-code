@@ -6,6 +6,7 @@ const draggingProjects = document.querySelector(".draggingProjectsWrapper");
 const gameProjects = document.querySelector(".gameProjectsWrapper");
 const otherProjects = document.querySelector(".otherProjectsWrapper");
 const apiProjects = document.querySelector(".apiProjectsWrapper");
+const pwaProjects = document.querySelector(".pwaProjectsWrapper");
 const storeDataProjects = document.querySelector(".storingProjectsWrapper");
 
 fetch('./projects.json')
@@ -31,6 +32,8 @@ const findParent = (category) => {
         parentNode = draggingProjects
     } else if (category === 'api') {
         parentNode = apiProjects
+    } else if (category === 'pwa') {
+        parentNode = pwaProjects
     } else if (category === 'storeData') {
         parentNode = storeDataProjects
     } else {
@@ -89,6 +92,10 @@ const createCategories = (projects) => {
     })
     projects.api.map((project) => {
         const category = findParent('api')
+        createCard(project, category)
+    })
+    projects.pwa.map((project) => {
+        const category = findParent('pwa')
         createCard(project, category)
     })
     projects.storeData.map((project) => {

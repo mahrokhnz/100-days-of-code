@@ -1,0 +1,80 @@
+.notePad {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.notePad form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px gray dashed;
+}
+
+.notePad form:not(:has(+ div)) {
+    transform: translateX(50%);
+}
+
+.notePad form .text {
+    width: 300px;
+    border: 1px gray solid;
+    padding: 10px;
+}
+
+.notePad form .title {
+    min-height: 50px;
+}
+
+.notePad form .description {
+    min-height: 130px;
+}
+
+.notePad .newNote {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px gray solid;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 344px;
+}
+
+.notePad .newNote h3 {
+    font-size: 20px;
+    min-height: 50px;
+    padding: 10px;
+    margin: 0;
+}
+
+.notePad .newNote p {
+    font-size: 16px;
+    flex-grow: 1;
+    min-height: 130px;
+    padding: 10px;
+    margin: 0;
+}
+
+.notePad .newNote header {
+    flex-grow: 1;
+    min-height: 20px;
+    margin: -10px -10px 10px -10px;
+}
+
+.notePad .newNote .buttonWrapper, .notePad form .inputWrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.notePad .newNote .buttonWrapper button, .notePad form .inputWrapper input {
+    flex-grow: 1;
+    height: 30px;
+    cursor: pointer;
+}

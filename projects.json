@@ -105,6 +105,12 @@
       "address": "weather"
     }
   ],
+  "pwa": [
+    {
+      "title": "Note Pad",
+      "address": "note_pad"
+    }
+  ],
   "storeData": [
     {
       "title": "Weather",
@@ -113,6 +119,10 @@
     {
       "title": "Dark Light Theme",
       "address": "dark_light_theme"
+    },
+    {
+      "title": "Note Pad",
+      "address": "note_pad"
     }
   ],
   "other": [

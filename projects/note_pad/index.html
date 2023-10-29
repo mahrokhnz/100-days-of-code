@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="/icon.svg" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <title>Note Pad</title>
+</head>
+<body>
+    <main class="notePad">
+        <form class="form">
+            <div class="title text" contenteditable="true"></div>
+            <div class="description text" contenteditable="true"></div>
+            <div class="inputWrapper">
+                <input class="color" type="color">
+                <input class="submit" type="submit" value="Add Note">
+            </div>
+        </form>
+    </main>
+    <script src="script.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service_worker.js', {scope: '/'})
+    }
+</script>
+</body>
+</html>

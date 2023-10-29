@@ -1,0 +1,17 @@
+{
+    "lang": "en-us",
+    "name": "Note Pad app",
+    "short_name": "Note Pad",
+    "description": "A basic app for saving daily notes.",
+    "start_url": "/",
+    "background_color": "gray",
+    "theme_color": "lightgray",
+    "orientation": "any",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/assets/icon.svg",
+            "sizes": "256x256"
+        }
+    ]
+}
