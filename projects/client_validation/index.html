@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Client Validation</title>
+</head>
+<body>
+<form>
+    <label>Fill out the form by your <em>personal information.</em></label>
+    <input required type='text' minlength="4" placeholder="Full Name"/>
+    <input required type='number' minlength="2" placeholder="Age"/>
+    <input required type='text' minlength="3" placeholder="Job"/>
+    <input id="text" required type='text' minlength="3" placeholder="Education"/>
+    <input id="email" required type='email' minlength="3" placeholder="Email"/>
+
+    <label for="choose">Would you prefer to <em>invest</em> on what?</label>
+    <input id="choose" name="prefer" required type="text" pattern="[Cc]ar|[Mm]otorcycle|[Gg]old|[Hh]ouse|[Ll]and|[Gg]lobal Market|[O]ther" list="preference">
+    <datalist id="preference">
+        <option>Car</option>
+        <option>Motorcycle</option>
+        <option>Gold</option>
+        <option>House</option>
+        <option>Land</option>
+        <option>Global Market</option>
+        <option>Other</option>
+    </datalist>
+
+    <label for="reason">Why?</label>
+    <textarea id="reason" name="message" required minlength="2" maxlength="140" rows="5"></textarea>
+
+    <input class="submit" type="submit" />
+</form>
+
+<script src="script.js"></script>
+</body>
+</html>
