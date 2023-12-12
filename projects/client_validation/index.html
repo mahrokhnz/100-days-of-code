@@ -12,7 +12,7 @@
 <form>
     <label>Fill out the form by your <em>personal information.</em></label>
     <input required type='text' minlength="4" placeholder="Full Name"/>
-    <input required type='number' minlength="2" placeholder="Age"/>
+    <input required type='number' min="10" placeholder="Age"/>
     <input required type='text' minlength="3" placeholder="Job"/>
     <input id="text" required type='text' minlength="3" placeholder="Education"/>
     <input id="email" required type='email' minlength="3" placeholder="Email"/>
@@ -30,7 +30,7 @@
     </datalist>
 
     <label for="reason">Why?</label>
-    <textarea id="reason" name="message" required minlength="2" maxlength="140" rows="5"></textarea>
+    <textarea id="reason" name="message" required minlength="10" maxlength="50" rows="5"></textarea>
 
     <input class="submit" type="submit" />
 </form>
