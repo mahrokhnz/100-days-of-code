@@ -33,6 +33,10 @@
     {
       "title": "Snake Game",
       "address": "snake_game"
+    },
+    {
+      "title": "Gaussian Blur Algorithm",
+      "address": "gaussian_blur_algorithm"
     }
   ],
   "game": [
