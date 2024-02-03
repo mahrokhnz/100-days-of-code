@@ -85,6 +85,10 @@
       "address": "draggable"
     },
     {
+      "title": "Droppable",
+      "address": "droppable"
+    },
+    {
       "title": "Circular Range",
       "address": "circular_range"
     },
