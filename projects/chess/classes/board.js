@@ -58,15 +58,23 @@ class Board {
     }
 
     #renderChessMans(wrapper, item) {
+        const iconWrapper = document.createElement('div')
+        iconWrapper.classList.add('iconWrapper')
+
         if (item.icon) {
-            const iconWrapper = document.createElement('div')
             iconWrapper.innerHTML = item.icon
-
-            iconWrapper.classList.add('iconWrapper')
             iconWrapper.classList.add(item.color)
-
-            wrapper.appendChild(iconWrapper)
         }
+
+        iconWrapper.addEventListener('click' , () => {
+            this.#clickHandler(item)
+        })
+
+        wrapper.appendChild(iconWrapper)
+    }
+
+    #clickHandler(chessman) {
+        console.log(chessman)
     }
 }
 
