@@ -48,7 +48,13 @@ class Board {
                     }
                 }
 
-                this.#renderChessMans(cell, rowCell)
+                if (rowCell !== 0) {
+                    this.#renderChessMans(cell, rowCell)
+                } else {
+                    cell.addEventListener('click' , () => {
+                        this.#clickCellHandler()
+                    })
+                }
 
                 row.appendChild(cell)
             })
@@ -61,20 +67,22 @@ class Board {
         const iconWrapper = document.createElement('div')
         iconWrapper.classList.add('iconWrapper')
 
-        if (item.icon) {
-            iconWrapper.innerHTML = item.icon
-            iconWrapper.classList.add(item.color)
-        }
-
-        iconWrapper.addEventListener('click' , () => {
-            this.#clickHandler(item)
+        iconWrapper.addEventListener('click', () => {
+            this.#clickChessManHandler(item, )
         })
+
+        iconWrapper.innerHTML = item.icon
+        iconWrapper.classList.add(item.color)
 
         wrapper.appendChild(iconWrapper)
     }
 
-    #clickHandler(chessman) {
-        console.log(chessman)
+    #clickChessManHandler() {
+        console.log('Chessman')
+    }
+
+    #clickCellHandler() {
+        console.log('Cell')
     }
 }
 
