@@ -9,6 +9,7 @@ class Board {
             new Player('White'),
             new Player('Black'),
         ];
+        this.wrapper = document.querySelector('.boardWrapper')
 
         this.#renderPlayers();
     }
@@ -22,6 +23,50 @@ class Board {
                 this.boardCells[row][column] = piece
             })
         })
+    }
+
+    render() {
+        this.boardCells.forEach((rowCells, rowIndex) => {
+            const row = document.createElement('div')
+            row.classList.add('row')
+
+            rowCells.forEach((rowCell, cellIndex) => {
+                const cell = document.createElement('div')
+                cell.classList.add('cell')
+
+                if (rowIndex%2 === 0) {
+                    if (cellIndex%2 === 0) {
+                        cell.classList.add('light')
+                    } else {
+                        cell.classList.add('dark')
+                    }
+                } else {
+                    if (cellIndex%2 === 0) {
+                        cell.classList.add('dark')
+                    } else {
+                        cell.classList.add('light')
+                    }
+                }
+
+                this.#renderChessMans(cell, rowCell)
+
+                row.appendChild(cell)
+            })
+
+            this.wrapper.appendChild(row)
+        })
+    }
+
+    #renderChessMans(wrapper, item) {
+        if (item.icon) {
+            const iconWrapper = document.createElement('div')
+            iconWrapper.innerHTML = item.icon
+
+            iconWrapper.classList.add('iconWrapper')
+            iconWrapper.classList.add(item.color)
+
+            wrapper.appendChild(iconWrapper)
+        }
     }
 }
 

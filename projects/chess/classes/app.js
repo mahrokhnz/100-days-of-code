@@ -4,7 +4,7 @@ class App {
     constructor() {
         this.board = new Board();
 
-        console.log(this.board)
+        this.board.render()
     }
 }
 

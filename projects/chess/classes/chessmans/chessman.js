@@ -1,15 +1,17 @@
 class Chessman {
     name;
     color;
-    place;
+    icon;
 
+    place;
     initialPlace;
 
     // movement
 
-    constructor(name, color, initialPlace) {
+    constructor(name, color, icon, initialPlace) {
         this.name = name;
         this.color = color;
+        this.icon = icon;
         this.place = initialPlace;
         this.initialPlace = initialPlace;
     }
