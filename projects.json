@@ -59,6 +59,10 @@
     {
       "title": "Tic Tac Toe",
       "address": "tic_tac_toe"
+    },
+    {
+      "title": "Chess",
+      "address": "chess"
     }
   ],
   "animation": [
@@ -77,6 +81,10 @@
     {
       "title": "Flappy Bird",
       "address": "flappy_bird"
+    },
+    {
+      "title": "Chess",
+      "address": "chess"
     }
   ],
   "dragging": [
@@ -105,6 +113,10 @@
     {
       "title": "Calculator",
       "address": "calculator"
+    },
+    {
+      "title": "Chess",
+      "address": "chess"
     }
   ],
   "api": [
