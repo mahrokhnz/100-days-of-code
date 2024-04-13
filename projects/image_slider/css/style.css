@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageSlider {
+    width: 1300px;
+    height: 900px;
+    background-color: #fa7065;
+    text-align: center;
+    padding: 30px;
+    position: relative;
+}
+
+.title {
+    font-size: 100px;
+    color: #fdcac6;
+    letter-spacing: 10px;
+}
+
+img {
+    position: absolute;
+    width: 500px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.primary-0 {
+    height: 500px;
+    left: 50%;
+    top: 120px;
+    transform: translateX(-50%);
+    z-index: 3;
+    transition-property: left, height;
+    transition: 0.3s ease-in-out;
+}
+
+img[class^="secondary"] {
+    height: 400px;
+    top: calc(120px + 50px);
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0.8;
+    transition-property: left, height;
+    transition: 0.3s ease-in-out;
+}
+
+.secondary-1 {
+    left: 60%;
+}
+
+.secondary--1 {
+    left: 40%;
+}
+
+img[class^="tertiary"] {
+    height: 300px;
+    top: calc(170px + 50px);
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0.6;
+    transition-property: left, height;
+    transition: 0.3s ease-in-out;
+}
+
+.tertiary-2 {
+    left: 70%;
+}
+
+.tertiary--2 {
+    left: 30%;
+}
+
+.slider {
+    position: absolute;
+    top: 770px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 800px;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+}
+
+/*Chrome, Safari, Opera, and Edge Chromium*/
+.slider::-webkit-slider-runnable-track {
+    background: #fb978f;
+    height: 30px;
+    border-radius: 20px;
+}
+
+/*Firefox*/
+.slider::-moz-range-track {
+    background: #fb978f;
+    height: 30px;
+    border-radius: 20px;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    margin-top: calc((30px/2) - (60px/2));
+    background-color: #ffffff;
+    height: 60px;
+    width: 250px;
+    border-radius: 50px;
+}
+
+.slider::-moz-range-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    margin-top: calc((30px/2) - (60px/2));
+    background-color: #ffffff;
+    height: 60px;
+    width: 250px;
+    border-radius: 50px;
+}
