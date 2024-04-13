@@ -1,0 +1,32 @@
+[
+  {
+    "url": "galaxy-1",
+    "class": "primary-0",
+    "description": "galaxy-1-0",
+    "index": "0"
+  },
+  {
+  "url": "galaxy-2",
+  "class": "secondary-1",
+  "description": "galaxy-2-1",
+    "index": "1"
+  },
+  {
+    "url": "galaxy-3",
+    "class": "secondary--1",
+    "description": "galaxy-3--1",
+    "index": "2"
+  },
+  {
+    "url": "galaxy-4",
+    "class": "tertiary-2",
+    "description": "galaxy-4-2",
+    "index": "3"
+  },
+  {
+    "url": "galaxy-5",
+    "class": "tertiary--2",
+    "description": "galaxy-5--2",
+    "index": "4"
+  }
+]

@@ -85,6 +85,10 @@
     {
       "title": "Chess",
       "address": "chess"
+    },
+    {
+      "title": "Image Slider",
+      "address": "image_slider"
     }
   ],
   "dragging": [
