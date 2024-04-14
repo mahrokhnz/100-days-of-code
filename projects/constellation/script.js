@@ -5,6 +5,8 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+let mouseP = {x: 0, y: 0}
+
 //CIRCLES
 const stars = new Array(230).fill(0).map(() => ({
     x: Math.random() * canvas.width,
@@ -19,29 +21,30 @@ function drawStars() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    stars.forEach((circle) => {
-        ctx.fillStyle = circle.color;
+    stars.forEach((star) => {
+        ctx.fillStyle = star.color;
         ctx.beginPath();
-        ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2, false);
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2, false);
         ctx.fill();
     });
 }
 
 function animate() {
-    stars.forEach((circle) => {
-        circle.x += circle.sx;
-        circle.y += circle.sy;
+    stars.forEach((star) => {
+        star.x += star.sx;
+        star.y += star.sy;
 
-        if (circle.x < circle.r || circle.x > canvas.width - circle.r) {
-            circle.sx = -circle.sx
+        if (star.x < star.r || star.x > canvas.width - star.r) {
+            star.sx = -star.sx
         }
 
-        if (circle.y < circle.r || circle.y > canvas.height - circle.r) {
-            circle.sy = -circle.sy
+        if (star.y < star.r || star.y > canvas.height - star.r) {
+            star.sy = -star.sy
         }
     });
 
     drawStars();
+    detectStars(mouseP)
 
     requestAnimationFrame(animate)
 }
@@ -60,10 +63,11 @@ const detectLines = (nearStars) => {
         for (let j = 1; j < nearStars.length - 1; j++) {
             const diff = pythagoras(nearStars[i], nearStars[j])
 
-            if (diff < 100) {
+            if (diff < 150) {
                 ctx.beginPath()
                 ctx.moveTo(nearStars[i].x, nearStars[i].y)
                 ctx.lineTo(nearStars[j].x, nearStars[j].y)
+                ctx.strokeStyle = "rgba(255, 0, 180, .5)"
                 ctx.stroke()
                 ctx.closePath()
             }
@@ -76,7 +80,7 @@ const detectStars = (mouse) => {
     stars.map((star) => {
         const diff = pythagoras(mouse, star)
 
-        if (diff < 100) {
+        if (diff < 150) {
             nearStars.push(star)
         }
     })
@@ -85,5 +89,7 @@ const detectStars = (mouse) => {
 }
 
 canvas.addEventListener("mousemove", (e) => {
-    detectStars({x: e.pageX, y: e.pageY})
+    mouseP = {x: e.pageX, y: e.pageY}
+
+    detectStars(mouseP)
 });
