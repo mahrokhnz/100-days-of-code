@@ -6,7 +6,19 @@ canvas.height = window.innerHeight;
 
 let mouseP = {x: 0, y: 0}
 
-const stars = new Array(230).fill(0).map(() => ({
+const numberOfStars = (width) => {
+    if (width > 1500) {
+        return 250
+    } else if (width > 1000) {
+        return 200
+    } else if (width > 500) {
+        return 150
+    } else if (width > 200) {
+        return 50
+    }
+}
+
+const stars = new Array(numberOfStars(screen.width)).fill(0).map(() => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     r: 0.6,
@@ -86,6 +98,12 @@ const detectStars = (mouse) => {
 }
 
 canvas.addEventListener("mousemove", (e) => {
+    mouseP = {x: e.pageX, y: e.pageY}
+
+    detectStars(mouseP)
+});
+
+canvas.addEventListener("touchmove", (e) => {
     mouseP = {x: e.pageX, y: e.pageY}
 
     detectStars(mouseP)
