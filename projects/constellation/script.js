@@ -1,13 +1,11 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-//FULL SCREEN CANVAS
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let mouseP = {x: 0, y: 0}
 
-//CIRCLES
 const stars = new Array(230).fill(0).map(() => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -54,8 +52,7 @@ requestAnimationFrame(animate)
 const pythagoras = (firstPoint, secondPoint) => {
     const xd = Math.abs(firstPoint.x - secondPoint.x)
     const yd = Math.abs(firstPoint.y - secondPoint.y)
-    const powerDiff = Math.pow(xd, 2) + Math.pow(yd, 2)
-    return Math.sqrt(powerDiff)
+    return Math.sqrt(Math.pow(xd, 2) + Math.pow(yd, 2))
 }
 
 const detectLines = (nearStars) => {
@@ -77,7 +74,7 @@ const detectLines = (nearStars) => {
 
 const detectStars = (mouse) => {
     const nearStars = []
-    stars.map((star) => {
+    stars.forEach((star) => {
         const diff = pythagoras(mouse, star)
 
         if (diff < 150) {
