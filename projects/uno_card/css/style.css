@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unoWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 1300px;
+    height: 800px;
+    background-color: #26de81;
+    border: 2px #20bf6b solid;
+    position: relative;
+}
+
+.cardsWrapper {
+    display: flex;
+}
+
+.cardWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 200px;
+    border: 8px #fff solid;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.numberWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: rotate(20deg);
+}
+
+.number {
+    font-size: 60px;
+    transform: rotate(-20deg);
+}
+
+.return {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #fff;
+    transform: rotate(20deg);
+}
+
+.returnImage {
+    width: 60px;
+    height: 60px;
+    transform: rotate(-20deg);
+}
