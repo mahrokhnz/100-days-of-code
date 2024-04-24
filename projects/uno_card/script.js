@@ -7,9 +7,10 @@ const special = ['plus','color']
 let cardBox = []
 let gamer = []
 let mahrokh = []
+let gameCard = {}
 
-// TODO
 let isStarted = localStorage.getItem('isStarted') || false
+let whoseTurn = 'mahrokh' | 'gamer'
 
 // Filter of Red Blue Yellow and green for svg icons in img
 const colorFilter = (color) => {
@@ -108,7 +109,7 @@ const gamerGenerator = (card, parent = '') => {
         parent.appendChild(cardWrapper)
     } else {
         unoCardWrapper.appendChild(cardWrapper)
-        cardWrapper.classList.add('bankCardWrapper')
+        cardWrapper.classList.add('gameCardWrapper')
     }
     cardWrapper.classList.add('cardWrapper')
 
@@ -209,12 +210,55 @@ const handCardBank = () => {
     cardGenerator(cardBox[0])
 }
 
+// Hand Game Card
+const findGameCard = (box) => {
+    const randomIndex = Math.floor(Math.random() * (box.length - 1 ) +1)
+    gameCard = box[randomIndex]
+    box.splice(randomIndex, 1)
+
+    return gameCard
+}
+
+// Hand Game Card
+const handGameCard = () => {
+    gamerGenerator(gameCard)
+}
+
+// Mahrokh Selection
+const mahrokhSelection = () => {
+    const specialCards = mahrokh.filter((card) => card.sign && !card.color)
+    if (!gameCard.sign) {
+        const selectRange = mahrokh.filter((card) => card.color === gameCard.color)
+        findGameCard(selectRange.concat(specialCards))
+
+
+        console.log(gameCard, '00')
+        handGameCard()
+        localStorage.setItem('gameCard', JSON.stringify(gameCard))
+    }
+
+    whoseTurn = 'gamer'
+}
+
+console.log(whoseTurn, 'ooo')
+
+const playGame = () => {
+    if (whoseTurn === "mahrokh") {
+        mahrokhSelection()
+    } else {
+        console.log('gamer')
+    }
+}
+
+// Functions run when game started and set local storages
 const gameStarted = () => {
     if (isStarted) {
         unoCardWrapper.style.display = 'flex'
 
         const localStorageCardBox = localStorage.getItem('cardBox')
-        const gamerCard = localStorage.getItem('gamerCard')
+        const localStorageGamerCard = localStorage.getItem('gamerCard')
+        const localStorageGameCard = localStorage.getItem('gameCard')
+        const localStorageWhoseTurn = localStorage.getItem('whoseTurn')
 
         if (localStorageCardBox) {
             cardBox = JSON.parse(localStorageCardBox)
@@ -234,8 +278,8 @@ const gameStarted = () => {
         // Create Cards of Gamer and Mahrokh
         // TODO: what about counts of cards
         mahrokh = spreadCards()
-        if (gamerCard) {
-            gamer = JSON.parse(gamerCard)
+        if (localStorageGamerCard) {
+            gamer = JSON.parse(localStorageGamerCard)
         } else {
             gamer = spreadCards()
 
@@ -253,6 +297,26 @@ const gameStarted = () => {
 
         // Hand Card Bank
         handCardBank()
+
+        // Hand Game Card
+        if (localStorageGameCard) {
+            gameCard = JSON.parse(localStorageGameCard)
+        } else {
+            gameCard = findGameCard(cardBox)
+            localStorage.setItem('gameCard', JSON.stringify(gameCard))
+        }
+
+        handGameCard()
+
+        // Detect Turn and Play Game
+        if (localStorageWhoseTurn) {
+            whoseTurn = localStorageWhoseTurn
+        } else {
+            whoseTurn = 'mahrokh'
+            localStorage.setItem('whoseTurn', `${whoseTurn}`)
+        }
+
+        playGame()
     }
 }
 
@@ -267,6 +331,5 @@ startGame.addEventListener('click', () => {
 gameStarted()
 
 // TODO
-// clean functions
 // cards with same colors should be in order
 // detect selection

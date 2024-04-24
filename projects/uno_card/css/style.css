@@ -70,13 +70,22 @@ body {
     left: 10%;
     top: 50%;
     transform: translateY(-50%);
+    box-shadow: rgba(255, 255, 255, 0.4) 5px 5px, rgba(255, 255, 255, 0.3) 10px 10px, rgba(255, 255, 255, 0.2) 15px 15px, rgba(255, 255, 255, 0.1) 20px 20px, rgba(255, 255, 255, 0.05) 25px 25px;
 }
 
-:not(.cardsWrapperMahrokh) > .cardWrapper {
+.gameCardWrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(255, 255, 255, 0.4) 5px 5px, rgba(255, 255, 255, 0.3) 10px 10px, rgba(255, 255, 255, 0.2) 15px 15px, rgba(255, 255, 255, 0.1) 20px 20px, rgba(255, 255, 255, 0.05) 25px 25px;
+}
+
+.cardWrapper:not(.gameCardWrapper):not(.cardsWrapperMahrokh .cardWrapper) {
     cursor: pointer;
 }
 
-:not(.cardsWrapperMahrokh) > .cardWrapper:hover {
+.cardWrapper:hover:not(.gameCardWrapper):not(.cardsWrapperMahrokh .cardWrapper) {
     box-shadow: #45aaf2 0 0 0 5px;
     scale: 1.2;
 }
