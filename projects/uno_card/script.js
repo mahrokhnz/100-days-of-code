@@ -1,14 +1,30 @@
-const unoWrapper = document.querySelector('.unoWrapper')
+const unoCardWrapper = document.querySelector('.unoCardWrapper')
+const startGame = document.querySelector('.startGame')
 
 const colors = ['red', 'blue', 'green', 'yellow']
 const specialColors = ['plus','return', 'stop']
 const special = ['plus','color']
 let cardBox = []
 let gamer = []
-let me = []
+let mahrokh = []
 
-const isStarted = true
+// TODO
+let isStarted = localStorage.getItem('isStarted') || false
 
+// Filter of Red Blue Yellow and green for svg icons in img
+const colorFilter = (color) => {
+    if (color === 'red') {
+        return 'brightness(0) saturate(100%) invert(10%) sepia(100%) saturate(7150%) hue-rotate(0deg) brightness(100%) contrast(107%)'
+    } else if (color === 'blue') {
+        return 'brightness(0) saturate(100%) invert(8%) sepia(100%) saturate(6986%) hue-rotate(247deg) brightness(105%) contrast(139%)'
+    } else if (color === 'green') {
+        return 'brightness(0) saturate(100%) invert(31%) sepia(26%) saturate(3825%) hue-rotate(91deg) brightness(96%) contrast(101%)'
+    } else if (color === 'yellow') {
+        return 'brightness(0) saturate(100%) invert(97%) sepia(51%) saturate(6437%) hue-rotate(357deg) brightness(105%) contrast(104%)'
+    }
+}
+
+// Create Bank of Cards
 const cardBoxGenerator = () => {
     colors.forEach((color) => {
         // number-color
@@ -40,8 +56,16 @@ const cardBoxGenerator = () => {
     }
 }
 
-cardBoxGenerator()
+// Shuffle Bank of Cards
+const shuffleCardBox = () => {
+    for (let i = cardBox.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cardBox[i], cardBox[j]] = [cardBox[j], cardBox[i]];
+    }
+    return cardBox;
+}
 
+// Create Cards of Gamer and Mahrokh
 const spreadCards = (cardBoxHand = []) => {
     const randomIndex = Math.floor(Math.random() * (cardBox.length - 1 ) +1)
     cardBoxHand.push(cardBox[randomIndex])
@@ -54,93 +78,195 @@ const spreadCards = (cardBoxHand = []) => {
     return cardBoxHand
 }
 
-gamer = spreadCards()
-me = spreadCards()
-
-const cardGenerator = (card, parent, type= '') => {
+// Generate Mahrokh Card in html
+const cardGenerator = (card, parent = '') => {
     const cardWrapper = document.createElement('div')
     cardWrapper.classList.add('cardWrapper')
-    parent.appendChild(cardWrapper)
 
-    if (cardWrapper.previousElementSibling) {
-        cardWrapper.style.marginLeft = '10px'
+    if (parent) {
+        parent.appendChild(cardWrapper)
+    } else {
+        unoCardWrapper.appendChild(cardWrapper)
+        cardWrapper.classList.add('bankCardWrapper')
     }
+
+    const unoWrapper = document.createElement('div')
+    cardWrapper.appendChild(unoWrapper)
+    unoWrapper.classList.add('wrapper')
+    unoWrapper.classList.add('unoWrapper')
+
+    const uno = document.createElement('span')
+    unoWrapper.appendChild(uno)
+    uno.classList.add('uno')
+    uno.innerText = 'UNO'
+}
+
+// Generate Gamer Card in html
+const gamerGenerator = (card, parent = '') => {
+    const cardWrapper = document.createElement('div')
+    if (parent) {
+        parent.appendChild(cardWrapper)
+    } else {
+        unoCardWrapper.appendChild(cardWrapper)
+        cardWrapper.classList.add('bankCardWrapper')
+    }
+    cardWrapper.classList.add('cardWrapper')
 
     if (card.color) {
         cardWrapper.style.backgroundColor = card.color
 
-        if (card.number) {
+        if (card.number || card.sign === 'plus') {
             const numberWrapper = document.createElement('div')
-            const number = document.createElement('span')
             cardWrapper.appendChild(numberWrapper)
-            numberWrapper.appendChild(number)
-            numberWrapper.classList.add('numberWrapper')
-            number.classList.add('number')
-
+            numberWrapper.classList.add('wrapper')
             numberWrapper.style.color = card.color
 
-            number.innerText = card.number
+            const number = document.createElement('span')
+            numberWrapper.appendChild(number)
+            number.classList.add('number')
+            number.innerText = card.number ? card.number : '+2'
+        } else if (card.sign === 'return' || card.sign === 'stop') {
+            const signWrapper = document.createElement('div')
+            cardWrapper.appendChild(signWrapper)
+            signWrapper.classList.add('wrapper')
+
+            const sign = document.createElement('img')
+            signWrapper.appendChild(sign)
+            sign.classList.add('returnImage')
+            sign.src = card.sign === 'return' ? '/projects/uno_card/assets/arrows-rotate-regular.svg' : '/projects/uno_card/assets/ban-regular.svg'
+            sign.style.filter = colorFilter(card.color)
         }
+    } else {
+        cardWrapper.style.backgroundColor = 'black'
 
-        if (card.sign) {
-            if (card.sign === 'return') {
-                const signWrapper = document.createElement('div')
-                const sign = document.createElement('img')
-                cardWrapper.appendChild(signWrapper)
-                signWrapper.classList.add('return')
-                signWrapper.appendChild(sign)
-                sign.classList.add('returnImage')
+        if (card.sign === 'plus') {
+            const numberWrapper = document.createElement('div')
+            cardWrapper.appendChild(numberWrapper)
+            numberWrapper.classList.add('wrapper')
+            numberWrapper.style.color = 'black'
 
-                sign.src = '/projects/uno_card/assets/arrows-rotate-regular.svg'
+            const number = document.createElement('span')
+            numberWrapper.appendChild(number)
+            number.classList.add('number')
+            number.innerText = '+4'
+        } else if (card.sign === 'color') {
+            const circleWrapper = document.createElement('div')
+            cardWrapper.appendChild(circleWrapper)
+            circleWrapper.classList.add('circleWrapper')
 
-                if (card.color === 'red') {
-                    sign.style.filter = 'brightness(0) saturate(100%) invert(10%) sepia(100%) saturate(7150%) hue-rotate(0deg) brightness(100%) contrast(107%)'
-                }
+            const leftTop = document.createElement('div')
+            circleWrapper.appendChild(leftTop)
+            leftTop.classList.add('circlePart')
+            leftTop.classList.add('leftTop')
+            leftTop.style.filter = colorFilter('red')
 
-                if (card.color === 'blue') {
-                    sign.style.filter = 'brightness(0) saturate(100%) invert(8%) sepia(100%) saturate(6986%) hue-rotate(247deg) brightness(105%) contrast(139%)'
-                }
+            const rightTop = document.createElement('div')
+            circleWrapper.appendChild(rightTop)
+            rightTop.classList.add('circlePart')
+            rightTop.classList.add('rightTop')
+            rightTop.style.filter = colorFilter('blue')
 
-                if (card.color === 'green') {
-                    sign.style.filter = 'brightness(0) saturate(100%) invert(31%) sepia(26%) saturate(3825%) hue-rotate(91deg) brightness(96%) contrast(101%)'
-                }
+            const leftBottom = document.createElement('div')
+            circleWrapper.appendChild(leftBottom)
+            leftBottom.classList.add('circlePart')
+            leftBottom.classList.add('leftBottom')
+            leftBottom.style.filter = colorFilter('yellow')
 
-                if (card.color === 'yellow') {
-                    sign.style.filter = 'brightness(0) saturate(100%) invert(97%) sepia(51%) saturate(6437%) hue-rotate(357deg) brightness(105%) contrast(104%)'
-                }
-            }
+            const rightBottom = document.createElement('div')
+            circleWrapper.appendChild(rightBottom)
+            rightBottom.classList.add('circlePart')
+            rightBottom.classList.add('rightBottom')
+            rightBottom.style.filter = colorFilter('green')
         }
     }
 }
 
+// Hand Cards of Mahrokh
+const handCardsToMahrokh = () => {
+    const cardsWrapper = document.createElement('div')
+    unoCardWrapper.appendChild(cardsWrapper)
+    cardsWrapper.classList.add('cardsWrapper')
+    cardsWrapper.classList.add('cardsWrapperMahrokh')
+
+    mahrokh.forEach((gamerCard) => {
+        cardGenerator(gamerCard, cardsWrapper)
+    })
+}
+
+// Hand Cards of Gamer
 const handCardsToGamer = () => {
     const cardsWrapper = document.createElement('div')
-    unoWrapper.appendChild(cardsWrapper)
+    unoCardWrapper.appendChild(cardsWrapper)
     cardsWrapper.classList.add('cardsWrapper')
-    cardsWrapper.classList.add('cardsWrapperGamer')
 
     gamer.forEach((gamerCard) => {
-        cardGenerator(gamerCard, cardsWrapper,'gamer')
+        gamerGenerator(gamerCard, cardsWrapper)
     })
 }
 
-const handCardsToMe = () => {
-    const cardsWrapper = document.createElement('div')
-    unoWrapper.appendChild(cardsWrapper)
-    cardsWrapper.classList.add('cardsWrapper')
-
-    me.forEach((gamerCard) => {
-        cardGenerator(gamerCard, cardsWrapper,'me')
-    })
+// Hand Card Bank
+const handCardBank = () => {
+    cardGenerator(cardBox[0])
 }
 
-handCardsToGamer()
-handCardsToMe()
+const gameStarted = () => {
+    if (isStarted) {
+        unoCardWrapper.style.display = 'flex'
+
+        const localStorageCardBox = localStorage.getItem('cardBox')
+        const gamerCard = localStorage.getItem('gamerCard')
+
+        if (localStorageCardBox) {
+            cardBox = JSON.parse(localStorageCardBox)
+
+            // Shuffle Before Handing
+            cardBox = shuffleCardBox()
+        } else {
+            // Create CardBox
+            cardBoxGenerator()
+
+            // Shuffle Before Handing
+            cardBox = shuffleCardBox()
+
+            localStorage.setItem('cardBox', JSON.stringify(cardBox))
+        }
+
+        // Create Cards of Gamer and Mahrokh
+        // TODO: what about counts of cards
+        mahrokh = spreadCards()
+        if (gamerCard) {
+            gamer = JSON.parse(gamerCard)
+        } else {
+            gamer = spreadCards()
+
+            localStorage.setItem('gamerCard', JSON.stringify(gamer))
+        }
+
+        // Shuffle After Handing
+        cardBox = shuffleCardBox()
+
+        // Hand Card To Mahrokh
+        handCardsToMahrokh()
+
+        // Hand Card To Gamer
+        handCardsToGamer()
+
+        // Hand Card Bank
+        handCardBank()
+    }
+}
+
+startGame.addEventListener('click', () => {
+    unoCardWrapper.innerHTML = ''
+    isStarted = true
+    localStorage.setItem('isStarted', isStarted)
+
+    gameStarted()
+})
+
+gameStarted()
 
 // TODO
 // clean functions
-// me cards should be hidden
 // cards with same colors should be in order
-// detect selection and hover
-// local storage
-// generate other cards
+// detect selection

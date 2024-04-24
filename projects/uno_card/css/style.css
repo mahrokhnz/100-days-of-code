@@ -12,8 +12,31 @@ body {
     justify-content: center;
 }
 
-.unoWrapper {
+.modal {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: #dfe4ea;
+    width: 1300px;
+    height: 800px;
+    z-index: 1;
+}
+
+.startGame {
+    width: 500px;
+    height: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    background-color: red;
+    z-index: 10;
+    border: none;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.unoCardWrapper {
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     width: 1300px;
@@ -21,30 +44,62 @@ body {
     background-color: #26de81;
     border: 2px #20bf6b solid;
     position: relative;
+    z-index: 2;
 }
 
 .cardsWrapper {
     display: flex;
+    gap: 10px;
+    padding: 8px;
 }
 
 .cardWrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 500px;
+    flex-grow: 1;
     height: 200px;
     border: 8px #fff solid;
     border-radius: 8px;
+    transition: scale 0.2s ease-in-out;
+    background: black;
+}
+
+.bankCardWrapper {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+:not(.cardsWrapperMahrokh) > .cardWrapper {
     cursor: pointer;
 }
 
-.numberWrapper {
+:not(.cardsWrapperMahrokh) > .cardWrapper:hover {
+    box-shadow: #45aaf2 0 0 0 5px;
+    scale: 1.2;
+}
+
+.wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100px;
     height: 150px;
     background-color: #fff;
+    border-radius: 50%;
+    transform: rotate(20deg);
+}
+
+.unoWrapper {
+    background-color: red;
+}
+
+.circleWrapper {
+    position: relative;
+    width: 100px;
+    height: 150px;
     border-radius: 50%;
     transform: rotate(20deg);
 }
@@ -54,19 +109,47 @@ body {
     transform: rotate(-20deg);
 }
 
-.return {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 150px;
-    border-radius: 50%;
-    background-color: #fff;
-    transform: rotate(20deg);
-}
-
 .returnImage {
     width: 60px;
     height: 60px;
     transform: rotate(-20deg);
+}
+
+.circlePart {
+    position: absolute;
+    width: 50px;
+    height: 75px;
+    background-color: #333;
+    transition: transform .5s, opacity .5s;
+}
+
+.leftTop {
+    left: 0;
+    top: 0;
+    border-top-left-radius: 100%;
+}
+
+.rightTop {
+    left: 50px;
+    top: 0;
+    border-top-right-radius: 100%;
+}
+
+.leftBottom {
+    left: 0;
+    top: 75px;
+    border-bottom-left-radius: 100%;
+}
+
+.rightBottom {
+    left: 50px;
+    top: 75px;
+    border-bottom-right-radius: 100%;
+}
+
+.uno {
+    font-size: 40px;
+    color: #fff;
+    font-weight: bolder;
+    transform: rotate(-70deg);
 }
