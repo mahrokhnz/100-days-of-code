@@ -113,7 +113,7 @@ const gamerGenerator = (card, parent = '') => {
     }
     cardWrapper.classList.add('cardWrapper')
 
-    if (card.color) {
+    if (card?.color) {
         cardWrapper.style.backgroundColor = card.color
 
         if (card.number || card.sign === 'plus') {
@@ -140,7 +140,7 @@ const gamerGenerator = (card, parent = '') => {
     } else {
         cardWrapper.style.backgroundColor = 'black'
 
-        if (card.sign === 'plus') {
+        if (card?.sign === 'plus') {
             const numberWrapper = document.createElement('div')
             cardWrapper.appendChild(numberWrapper)
             numberWrapper.classList.add('wrapper')
@@ -150,7 +150,7 @@ const gamerGenerator = (card, parent = '') => {
             numberWrapper.appendChild(number)
             number.classList.add('number')
             number.innerText = '+4'
-        } else if (card.sign === 'color') {
+        } else if (card?.sign === 'color') {
             const circleWrapper = document.createElement('div')
             cardWrapper.appendChild(circleWrapper)
             circleWrapper.classList.add('circleWrapper')
@@ -226,21 +226,24 @@ const handGameCard = () => {
 
 // Mahrokh Selection
 const mahrokhSelection = () => {
-    const specialCards = mahrokh.filter((card) => card.sign && !card.color)
     if (!gameCard.sign) {
-        const selectRange = mahrokh.filter((card) => card.color === gameCard.color)
-        findGameCard(selectRange.concat(specialCards))
+        const matchableCard = mahrokh.filter((card) => card.color === gameCard.color || card.number === gameCard.number)
 
+        gameCard = findGameCard(matchableCard)
 
-        console.log(gameCard, '00')
-        handGameCard()
+        handGameCard(gameCard)
+
         localStorage.setItem('gameCard', JSON.stringify(gameCard))
+
+        // delete from mahrokh cards
+
+        // delete card node
+        const mahrokhWrapper = document.querySelector('.cardsWrapperMahrokh')
+        mahrokhWrapper.childNodes.forEach((child) => {
+            console.log(child)
+        })
     }
-
-    whoseTurn = 'gamer'
 }
-
-console.log(whoseTurn, 'ooo')
 
 const playGame = () => {
     if (whoseTurn === "mahrokh") {
@@ -252,7 +255,7 @@ const playGame = () => {
 
 // Functions run when game started and set local storages
 const gameStarted = () => {
-    if (isStarted) {
+    // if (isStarted) {
         unoCardWrapper.style.display = 'flex'
 
         const localStorageCardBox = localStorage.getItem('cardBox')
@@ -316,8 +319,11 @@ const gameStarted = () => {
             localStorage.setItem('whoseTurn', `${whoseTurn}`)
         }
 
-        playGame()
-    }
+        setTimeout(() => {
+            console.log('when')
+            playGame()
+        }, 3000)
+    // }
 }
 
 startGame.addEventListener('click', () => {
