@@ -27,10 +27,11 @@ const colorFilter = (color) => {
 
 // Create Bank of Cards
 const cardBoxGenerator = () => {
-    colors.forEach((color) => {
+    colors.forEach((color, index) => {
         // number-color
         for (let i = 0; i < 10; i++) {
             cardBox.push({
+                id: `${index}${i}`,
                 color: color,
                 number: `${i}`,
                 sign: ''
@@ -39,6 +40,7 @@ const cardBoxGenerator = () => {
         // sign-color
         for (let i = 0; i < specialColors.length; i++) {
             cardBox.push({
+                id: `${index}${i + 10}`,
                 color: color,
                 number: '',
                 sign: specialColors[i]
@@ -49,6 +51,7 @@ const cardBoxGenerator = () => {
     for (let i = 0; i < special.length; i++) {
         for (let j = 0; j < 4; j++) {
             cardBox.push({
+                id: `${i + 4}${j}`,
                 color: '',
                 number: '',
                 sign: special[i]
@@ -260,6 +263,7 @@ const gameStarted = () => {
 
         const localStorageCardBox = localStorage.getItem('cardBox')
         const localStorageGamerCard = localStorage.getItem('gamerCard')
+        const localStorageMahrokhCard = localStorage.getItem('mahrokhCard')
         const localStorageGameCard = localStorage.getItem('gameCard')
         const localStorageWhoseTurn = localStorage.getItem('whoseTurn')
 
@@ -280,7 +284,16 @@ const gameStarted = () => {
 
         // Create Cards of Gamer and Mahrokh
         // TODO: what about counts of cards
-        mahrokh = spreadCards()
+        if (localStorageMahrokhCard) {
+            mahrokh = cardBox.filter((card) => JSON.parse(localStorageMahrokhCard).includes(card.id))
+        } else {
+            mahrokh = spreadCards()
+
+            const mahrokhPrivateCards = mahrokh.map((card) => card.id)
+
+            localStorage.setItem('mahrokhCard', JSON.stringify(mahrokhPrivateCards))
+        }
+
         if (localStorageGamerCard) {
             gamer = JSON.parse(localStorageGamerCard)
         } else {
