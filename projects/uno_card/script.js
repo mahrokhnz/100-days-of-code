@@ -86,6 +86,7 @@ const spreadCards = (cardBoxHand = []) => {
 const cardGenerator = (card, parent = '') => {
     const cardWrapper = document.createElement('div')
     cardWrapper.classList.add('cardWrapper')
+    cardWrapper.setAttribute('data-card-id', card.id)
 
     if (parent) {
         parent.appendChild(cardWrapper)
@@ -239,13 +240,25 @@ const mahrokhSelection = () => {
         localStorage.setItem('gameCard', JSON.stringify(gameCard))
 
         // delete from mahrokh cards
+        const deletedIndex = mahrokh.findIndex((card) => card?.id === gameCard?.id)
+        mahrokh.splice(deletedIndex, 1)
+
+        // update local storage
+        localStorage.setItem('mahrokhCard', JSON.stringify(privateCards(mahrokh)))
 
         // delete card node
         const mahrokhWrapper = document.querySelector('.cardsWrapperMahrokh')
-        mahrokhWrapper.childNodes.forEach((child) => {
-            console.log(child)
-        })
+        if (mahrokhWrapper.hasChildNodes()) {
+           mahrokhWrapper.childNodes.forEach((child) => {
+               if (child.getAttribute('data-card-id') === gameCard.id) {
+                   child.remove()
+               }
+           })
+        }
     }
+
+    whoseTurn = 'gamer'
+    localStorage.setItem('whoseTurn', whoseTurn)
 }
 
 const playGame = () => {
@@ -254,6 +267,10 @@ const playGame = () => {
     } else {
         console.log('gamer')
     }
+}
+
+const privateCards = (cards) => {
+    return cards.map((card) => card.id)
 }
 
 // Functions run when game started and set local storages
@@ -289,9 +306,7 @@ const gameStarted = () => {
         } else {
             mahrokh = spreadCards()
 
-            const mahrokhPrivateCards = mahrokh.map((card) => card.id)
-
-            localStorage.setItem('mahrokhCard', JSON.stringify(mahrokhPrivateCards))
+            localStorage.setItem('mahrokhCard', JSON.stringify(privateCards(mahrokh)))
         }
 
         if (localStorageGamerCard) {
