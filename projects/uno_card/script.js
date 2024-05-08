@@ -203,6 +203,7 @@ const handCardsToGamer = () => {
     const cardsWrapper = document.createElement('div')
     unoCardWrapper.appendChild(cardsWrapper)
     cardsWrapper.classList.add('cardsWrapper')
+    cardsWrapper.classList.add('cardsWrapperGamer')
 
     gamer.forEach((gamerCard) => {
         gamerGenerator(gamerCard, cardsWrapper)
@@ -228,12 +229,9 @@ const handGameCard = () => {
     gamerGenerator(gameCard)
 }
 
-// Mahrokh Selection
-const mahrokhSelection = () => {
-    if (!gameCard.sign) {
-        const matchableCard = mahrokh.filter((card) => card.color === gameCard.color || card.number === gameCard.number)
-
-        gameCard = findGameCard(matchableCard)
+const giveCardProcess = (matchableCards, user) => {
+    if (user === 'mahrokh') {
+        gameCard = findGameCard(matchableCards)
 
         handGameCard(gameCard)
 
@@ -241,6 +239,7 @@ const mahrokhSelection = () => {
 
         // delete from mahrokh cards
         const deletedIndex = mahrokh.findIndex((card) => card?.id === gameCard?.id)
+        console.log(deletedIndex, 'deleted')
         mahrokh.splice(deletedIndex, 1)
 
         // update local storage
@@ -249,23 +248,104 @@ const mahrokhSelection = () => {
         // delete card node
         const mahrokhWrapper = document.querySelector('.cardsWrapperMahrokh')
         if (mahrokhWrapper.hasChildNodes()) {
-           mahrokhWrapper.childNodes.forEach((child) => {
-               if (child.getAttribute('data-card-id') === gameCard.id) {
-                   child.remove()
-               }
-           })
+            mahrokhWrapper.childNodes.forEach((child) => {
+                if (child.getAttribute('data-card-id') === gameCard?.id) {
+                    console.log(child, 'child')
+                    child.remove()
+                }
+            })
+        } else {
+            // TODO winning
+            console.log('Gamer Won')
         }
-    }
 
-    whoseTurn = 'gamer'
-    localStorage.setItem('whoseTurn', whoseTurn)
+        whoseTurn = 'gamer'
+    } else {
+        const gamerWrapper = document.querySelector('.cardsWrapperGamer')
+
+        console.log(gamerWrapper.hasChildNodes())
+        if (gamerWrapper.hasChildNodes()) {
+            matchableCards.forEach((matchableCard) => {
+                gamerWrapper.childNodes.forEach((child) => {
+                    if (child.getAttribute('data-card-id') === matchableCards.id) {
+                        child.classList.add('gameCardWrapper')
+                    }
+                })
+            })
+        } else {
+            // TODO winning
+            console.log('Gamer Won')
+        }
+
+        whoseTurn = 'mahrokh'
+    }
 }
 
-const playGame = () => {
-    if (whoseTurn === "mahrokh") {
-        mahrokhSelection()
+const matchableFinder = (type) => {
+    let matchableCards = null
+
+    if (type === 'number') {
+        matchableCards = mahrokh.filter((card) => card.color === gameCard.color || card.number === gameCard.number)
+    } else if (type === 'plus-color') {
+        matchableCards = mahrokh.filter((card) => card.color === gameCard.color && card.sign === 'plus')
+    } else if (type === 'plus') {
+        matchableCards = mahrokh.filter((card) => card.sign === 'plus')
+    }
+
+    return matchableCards
+}
+
+// Mahrokh Selection
+const cardSelection = () => {
+    if ((whoseTurn === 'mahrokh' && mahrokh.length > 0) || (whoseTurn === 'gamer' && gamer.length > 0)) {
+        if (!gameCard.sign) {
+            const matchableCards = matchableFinder('number')
+            if (matchableCards.length > 0) {
+                giveCardProcess(matchableCards, whoseTurn)
+            } else {
+                // TODO: Take
+                console.log('Take Card 1')
+            }
+        } else {
+            if (gameCard.sign === 'plus') {
+                if (gameCard.color) {
+                    const matchableCards = matchableFinder('plus-color')
+
+                    if (matchableCards.length > 0) {
+                        giveCardProcess(matchableCards, whoseTurn)
+                    } else {
+                        const matchableCards = matchableFinder('plus')
+
+                        if (matchableCards.length > 0) {
+                            giveCardProcess(matchableCards, whoseTurn)
+                        } else {
+                            // TODO: Take
+                            console.log('Take Card 2')
+                        }
+                    }
+                } else {
+                    const matchableCards = matchableFinder('plus')
+                    if (matchableCards.length > 0) {
+                        giveCardProcess(matchableCards, whoseTurn)
+                    } else {
+                        // TODO: Take
+                        console.log('Take Card 3')
+                    }
+                }
+            } else if (gameCard.sign === 'return' || gameCard.sign === 'stop') {
+                const prevWhoseTurn = whoseTurn
+                whoseTurn = prevWhoseTurn === 'gamer' ? 'mahrokh' : 'gamer'
+                localStorage.setItem('whoseTurn', whoseTurn)
+            } else if (gameCard.sign === 'color') {
+                // TODO: not logical
+                const prevWhoseTurn = whoseTurn
+                whoseTurn = prevWhoseTurn === 'gamer' ? 'mahrokh' : 'gamer'
+                localStorage.setItem('whoseTurn', whoseTurn)
+            }
+        }
     } else {
-        console.log('gamer')
+        // TODO winner
+        console.log('winner')
     }
 }
 
@@ -276,81 +356,80 @@ const privateCards = (cards) => {
 // Functions run when game started and set local storages
 const gameStarted = () => {
     // if (isStarted) {
-        unoCardWrapper.style.display = 'flex'
+    unoCardWrapper.style.display = 'flex'
 
-        const localStorageCardBox = localStorage.getItem('cardBox')
-        const localStorageGamerCard = localStorage.getItem('gamerCard')
-        const localStorageMahrokhCard = localStorage.getItem('mahrokhCard')
-        const localStorageGameCard = localStorage.getItem('gameCard')
-        const localStorageWhoseTurn = localStorage.getItem('whoseTurn')
+    const localStorageCardBox = localStorage.getItem('cardBox')
+    const localStorageGamerCard = localStorage.getItem('gamerCard')
+    const localStorageMahrokhCard = localStorage.getItem('mahrokhCard')
+    const localStorageGameCard = localStorage.getItem('gameCard')
+    const localStorageWhoseTurn = localStorage.getItem('whoseTurn')
 
-        if (localStorageCardBox) {
-            cardBox = JSON.parse(localStorageCardBox)
+    if (localStorageCardBox) {
+        cardBox = JSON.parse(localStorageCardBox)
 
-            // Shuffle Before Handing
-            cardBox = shuffleCardBox()
-        } else {
-            // Create CardBox
-            cardBoxGenerator()
+        // Shuffle Before Handing
+        cardBox = shuffleCardBox()
+    } else {
+        // Create CardBox
+        cardBoxGenerator()
 
-            // Shuffle Before Handing
-            cardBox = shuffleCardBox()
-
-            localStorage.setItem('cardBox', JSON.stringify(cardBox))
-        }
-
-        // Create Cards of Gamer and Mahrokh
-        // TODO: what about counts of cards
-        if (localStorageMahrokhCard) {
-            mahrokh = cardBox.filter((card) => JSON.parse(localStorageMahrokhCard).includes(card.id))
-        } else {
-            mahrokh = spreadCards()
-
-            localStorage.setItem('mahrokhCard', JSON.stringify(privateCards(mahrokh)))
-        }
-
-        if (localStorageGamerCard) {
-            gamer = JSON.parse(localStorageGamerCard)
-        } else {
-            gamer = spreadCards()
-
-            localStorage.setItem('gamerCard', JSON.stringify(gamer))
-        }
-
-        // Shuffle After Handing
+        // Shuffle Before Handing
         cardBox = shuffleCardBox()
 
-        // Hand Card To Mahrokh
-        handCardsToMahrokh()
+        localStorage.setItem('cardBox', JSON.stringify(cardBox))
+    }
 
-        // Hand Card To Gamer
-        handCardsToGamer()
+    // Create Cards of Gamer and Mahrokh
+    // TODO: what about counts of cards
+    if (localStorageMahrokhCard) {
+        mahrokh = cardBox.filter((card) => JSON.parse(localStorageMahrokhCard).includes(card.id))
+    } else {
+        mahrokh = spreadCards()
 
-        // Hand Card Bank
-        handCardBank()
+        localStorage.setItem('mahrokhCard', JSON.stringify(privateCards(mahrokh)))
+    }
 
-        // Hand Game Card
-        if (localStorageGameCard) {
-            gameCard = JSON.parse(localStorageGameCard)
-        } else {
-            gameCard = findGameCard(cardBox)
-            localStorage.setItem('gameCard', JSON.stringify(gameCard))
-        }
+    if (localStorageGamerCard) {
+        gamer = JSON.parse(localStorageGamerCard)
+    } else {
+        gamer = spreadCards()
 
-        handGameCard()
+        localStorage.setItem('gamerCard', JSON.stringify(gamer))
+    }
 
-        // Detect Turn and Play Game
-        if (localStorageWhoseTurn) {
-            whoseTurn = localStorageWhoseTurn
-        } else {
-            whoseTurn = 'mahrokh'
-            localStorage.setItem('whoseTurn', `${whoseTurn}`)
-        }
+    // Shuffle After Handing
+    cardBox = shuffleCardBox()
 
-        setTimeout(() => {
-            console.log('when')
-            playGame()
-        }, 3000)
+    // Hand Card To Mahrokh
+    handCardsToMahrokh()
+
+    // Hand Card To Gamer
+    handCardsToGamer()
+
+    // Hand Card Bank
+    handCardBank()
+
+    // Hand Game Card
+    if (localStorageGameCard) {
+        gameCard = JSON.parse(localStorageGameCard)
+    } else {
+        gameCard = findGameCard(cardBox)
+        localStorage.setItem('gameCard', JSON.stringify(gameCard))
+    }
+
+    handGameCard()
+
+    // Detect Turn and Play Game
+    if (localStorageWhoseTurn) {
+        whoseTurn = localStorageWhoseTurn
+    } else {
+        whoseTurn = 'mahrokh'
+        localStorage.setItem('whoseTurn', `${whoseTurn}`)
+    }
+
+    setTimeout(() => {
+        cardSelection()
+    }, 3000)
     // }
 }
 
@@ -363,6 +442,7 @@ startGame.addEventListener('click', () => {
 })
 
 gameStarted()
+
 
 // TODO
 // cards with same colors should be in order

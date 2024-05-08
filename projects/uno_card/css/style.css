@@ -85,7 +85,7 @@ body {
     cursor: pointer;
 }
 
-.cardWrapper:hover:not(.gameCardWrapper):not(.cardsWrapperMahrokh .cardWrapper) {
+.bankCardWrapper:hover, .gameCardWrapper:hover {
     box-shadow: #45aaf2 0 0 0 5px;
     scale: 1.2;
 }
