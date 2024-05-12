@@ -86,7 +86,7 @@ const spreadCards = (cardBoxHand = []) => {
 const cardGenerator = (card, parent = '') => {
     const cardWrapper = document.createElement('div')
     cardWrapper.classList.add('cardWrapper')
-    cardWrapper.setAttribute('data-card-id', card.id)
+    cardWrapper.setAttribute('data-card-id', card?.id)
 
     if (parent) {
         parent.appendChild(cardWrapper)
@@ -116,21 +116,22 @@ const gamerGenerator = (card, parent = '') => {
         cardWrapper.classList.add('gameCardWrapper')
     }
     cardWrapper.classList.add('cardWrapper')
+    cardWrapper.setAttribute('data-card-id', card?.id)
 
     if (card?.color) {
-        cardWrapper.style.backgroundColor = card.color
+        cardWrapper.style.backgroundColor = card?.color
 
-        if (card.number || card.sign === 'plus') {
+        if (card?.number || card?.sign === 'plus') {
             const numberWrapper = document.createElement('div')
             cardWrapper.appendChild(numberWrapper)
             numberWrapper.classList.add('wrapper')
-            numberWrapper.style.color = card.color
+            numberWrapper.style.color = card?.color
 
             const number = document.createElement('span')
             numberWrapper.appendChild(number)
             number.classList.add('number')
-            number.innerText = card.number ? card.number : '+2'
-        } else if (card.sign === 'return' || card.sign === 'stop') {
+            number.innerText = card?.number ? card?.number : '+2'
+        } else if (card?.sign === 'return' || card?.sign === 'stop') {
             const signWrapper = document.createElement('div')
             cardWrapper.appendChild(signWrapper)
             signWrapper.classList.add('wrapper')
@@ -138,8 +139,8 @@ const gamerGenerator = (card, parent = '') => {
             const sign = document.createElement('img')
             signWrapper.appendChild(sign)
             sign.classList.add('returnImage')
-            sign.src = card.sign === 'return' ? '/projects/uno_card/assets/arrows-rotate-regular.svg' : '/projects/uno_card/assets/ban-regular.svg'
-            sign.style.filter = colorFilter(card.color)
+            sign.src = card?.sign === 'return' ? '/projects/uno_card/assets/arrows-rotate-regular.svg' : '/projects/uno_card/assets/ban-regular.svg'
+            sign.style.filter = colorFilter(card?.color)
         }
     } else {
         cardWrapper.style.backgroundColor = 'black'
@@ -229,8 +230,10 @@ const handGameCard = () => {
     gamerGenerator(gameCard)
 }
 
-const giveCardProcess = (matchableCards, user) => {
-    if (user === 'mahrokh') {
+const giveCardProcess = (matchableCards) => {
+    console.log(whoseTurn)
+
+    if (whoseTurn === 'mahrokh') {
         gameCard = findGameCard(matchableCards)
 
         handGameCard(gameCard)
@@ -239,7 +242,6 @@ const giveCardProcess = (matchableCards, user) => {
 
         // delete from mahrokh cards
         const deletedIndex = mahrokh.findIndex((card) => card?.id === gameCard?.id)
-        console.log(deletedIndex, 'deleted')
         mahrokh.splice(deletedIndex, 1)
 
         // update local storage
@@ -250,7 +252,6 @@ const giveCardProcess = (matchableCards, user) => {
         if (mahrokhWrapper.hasChildNodes()) {
             mahrokhWrapper.childNodes.forEach((child) => {
                 if (child.getAttribute('data-card-id') === gameCard?.id) {
-                    console.log(child, 'child')
                     child.remove()
                 }
             })
@@ -260,15 +261,15 @@ const giveCardProcess = (matchableCards, user) => {
         }
 
         whoseTurn = 'gamer'
+        cardSelection()
     } else {
         const gamerWrapper = document.querySelector('.cardsWrapperGamer')
 
-        console.log(gamerWrapper.hasChildNodes())
         if (gamerWrapper.hasChildNodes()) {
-            matchableCards.forEach((matchableCard) => {
-                gamerWrapper.childNodes.forEach((child) => {
-                    if (child.getAttribute('data-card-id') === matchableCards.id) {
-                        child.classList.add('gameCardWrapper')
+            gamerWrapper.childNodes.forEach((child) => {
+                matchableCards.forEach((matchableCard) => {
+                    if (child.getAttribute('data-card-id') === matchableCard.id) {
+                        child.classList.add('playCardWrapper')
                     }
                 })
             })
@@ -278,18 +279,20 @@ const giveCardProcess = (matchableCards, user) => {
         }
 
         whoseTurn = 'mahrokh'
+        // cardSelection()
     }
 }
 
 const matchableFinder = (type) => {
     let matchableCards = null
+    const bank = whoseTurn === 'mahrokh' ? mahrokh : gamer
 
     if (type === 'number') {
-        matchableCards = mahrokh.filter((card) => card.color === gameCard.color || card.number === gameCard.number)
+        matchableCards = bank.filter((card) => (card?.color === gameCard.color) || (card?.number === gameCard.number))
     } else if (type === 'plus-color') {
-        matchableCards = mahrokh.filter((card) => card.color === gameCard.color && card.sign === 'plus')
+        matchableCards = bank.filter((card) => card?.color === gameCard.color && card?.sign === 'plus')
     } else if (type === 'plus') {
-        matchableCards = mahrokh.filter((card) => card.sign === 'plus')
+        matchableCards = bank.filter((card) => card?.sign === 'plus')
     }
 
     return matchableCards
@@ -301,7 +304,7 @@ const cardSelection = () => {
         if (!gameCard.sign) {
             const matchableCards = matchableFinder('number')
             if (matchableCards.length > 0) {
-                giveCardProcess(matchableCards, whoseTurn)
+                giveCardProcess(matchableCards)
             } else {
                 // TODO: Take
                 console.log('Take Card 1')
@@ -312,12 +315,12 @@ const cardSelection = () => {
                     const matchableCards = matchableFinder('plus-color')
 
                     if (matchableCards.length > 0) {
-                        giveCardProcess(matchableCards, whoseTurn)
+                        giveCardProcess(matchableCards)
                     } else {
                         const matchableCards = matchableFinder('plus')
 
                         if (matchableCards.length > 0) {
-                            giveCardProcess(matchableCards, whoseTurn)
+                            giveCardProcess(matchableCards)
                         } else {
                             // TODO: Take
                             console.log('Take Card 2')
@@ -326,7 +329,7 @@ const cardSelection = () => {
                 } else {
                     const matchableCards = matchableFinder('plus')
                     if (matchableCards.length > 0) {
-                        giveCardProcess(matchableCards, whoseTurn)
+                        giveCardProcess(matchableCards)
                     } else {
                         // TODO: Take
                         console.log('Take Card 3')
@@ -350,7 +353,7 @@ const cardSelection = () => {
 }
 
 const privateCards = (cards) => {
-    return cards.map((card) => card.id)
+    return cards.map((card) => card?.id)
 }
 
 // Functions run when game started and set local storages
@@ -382,7 +385,7 @@ const gameStarted = () => {
     // Create Cards of Gamer and Mahrokh
     // TODO: what about counts of cards
     if (localStorageMahrokhCard) {
-        mahrokh = cardBox.filter((card) => JSON.parse(localStorageMahrokhCard).includes(card.id))
+        mahrokh = cardBox.filter((card) => JSON.parse(localStorageMahrokhCard).includes(card?.id))
     } else {
         mahrokh = spreadCards()
 
