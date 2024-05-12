@@ -230,22 +230,26 @@ const handGameCard = () => {
     gamerGenerator(gameCard)
 }
 
+const deleteSelectedCard = (bank) => {
+    // delete from mahrokh cards
+    const deletedIndex = bank.findIndex((card) => card?.id === gameCard?.id)
+    bank.splice(deletedIndex, 1)
+
+    // update local storage
+    localStorage.setItem(`${whoseTurn}Card`, whoseTurn === 'mahrokh' ? JSON.stringify(privateCards(bank)) : JSON.stringify(bank))
+}
+
 const giveCardProcess = (matchableCards) => {
-    console.log(whoseTurn)
+    // TODO
 
     if (whoseTurn === 'mahrokh') {
         gameCard = findGameCard(matchableCards)
 
-        handGameCard(gameCard)
+        handGameCard()
 
         localStorage.setItem('gameCard', JSON.stringify(gameCard))
 
-        // delete from mahrokh cards
-        const deletedIndex = mahrokh.findIndex((card) => card?.id === gameCard?.id)
-        mahrokh.splice(deletedIndex, 1)
-
-        // update local storage
-        localStorage.setItem('mahrokhCard', JSON.stringify(privateCards(mahrokh)))
+        deleteSelectedCard(mahrokh)
 
         // delete card node
         const mahrokhWrapper = document.querySelector('.cardsWrapperMahrokh')
@@ -273,6 +277,18 @@ const giveCardProcess = (matchableCards) => {
                     }
                 })
             })
+
+            const playChildren = document.querySelectorAll('.playCardWrapper')
+            playChildren.forEach((playChild) => {
+                playChild.addEventListener('click', (e) => {
+                    gameCard = playChild
+                    handGameCard()
+                    localStorage.setItem('gameCard', JSON.stringify(gameCard))
+                    deleteSelectedCard(gamer)
+                    playChild.remove()
+                })
+            })
+
         } else {
             // TODO winning
             console.log('Gamer Won')
@@ -288,9 +304,9 @@ const matchableFinder = (type) => {
     const bank = whoseTurn === 'mahrokh' ? mahrokh : gamer
 
     if (type === 'number') {
-        matchableCards = bank.filter((card) => (card?.color === gameCard.color) || (card?.number === gameCard.number))
+        matchableCards = bank.filter((card) => (card?.color === gameCard?.color) || (card?.number === gameCard?.number))
     } else if (type === 'plus-color') {
-        matchableCards = bank.filter((card) => card?.color === gameCard.color && card?.sign === 'plus')
+        matchableCards = bank.filter((card) => card?.color === gameCard?.color && card?.sign === 'plus')
     } else if (type === 'plus') {
         matchableCards = bank.filter((card) => card?.sign === 'plus')
     }
@@ -301,7 +317,7 @@ const matchableFinder = (type) => {
 // Mahrokh Selection
 const cardSelection = () => {
     if ((whoseTurn === 'mahrokh' && mahrokh.length > 0) || (whoseTurn === 'gamer' && gamer.length > 0)) {
-        if (!gameCard.sign) {
+        if (!gameCard?.sign) {
             const matchableCards = matchableFinder('number')
             if (matchableCards.length > 0) {
                 giveCardProcess(matchableCards)
@@ -310,8 +326,8 @@ const cardSelection = () => {
                 console.log('Take Card 1')
             }
         } else {
-            if (gameCard.sign === 'plus') {
-                if (gameCard.color) {
+            if (gameCard?.sign === 'plus') {
+                if (gameCard?.color) {
                     const matchableCards = matchableFinder('plus-color')
 
                     if (matchableCards.length > 0) {
@@ -335,11 +351,11 @@ const cardSelection = () => {
                         console.log('Take Card 3')
                     }
                 }
-            } else if (gameCard.sign === 'return' || gameCard.sign === 'stop') {
+            } else if (gameCard?.sign === 'return' || gameCard?.sign === 'stop') {
                 const prevWhoseTurn = whoseTurn
                 whoseTurn = prevWhoseTurn === 'gamer' ? 'mahrokh' : 'gamer'
                 localStorage.setItem('whoseTurn', whoseTurn)
-            } else if (gameCard.sign === 'color') {
+            } else if (gameCard?.sign === 'color') {
                 // TODO: not logical
                 const prevWhoseTurn = whoseTurn
                 whoseTurn = prevWhoseTurn === 'gamer' ? 'mahrokh' : 'gamer'
