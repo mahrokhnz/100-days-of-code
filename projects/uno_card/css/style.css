@@ -85,7 +85,7 @@ body {
     cursor: pointer;
 }
 
-.bankCardWrapper:hover, .gameCardWrapper:hover {
+.bankCardWrapper:hover, .playCardWrapper:hover {
     box-shadow: #45aaf2 0 0 0 5px;
     scale: 1.2;
 }
