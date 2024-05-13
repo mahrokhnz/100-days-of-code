@@ -107,7 +107,7 @@ const cardGenerator = (card, parent = '') => {
 }
 
 // Generate Gamer Card in html
-const gamerGenerator = (card, parent = '') => {
+const gamerGenerator = (card = gameCard, parent = '') => {
     const cardWrapper = document.createElement('div')
     if (parent) {
         parent.appendChild(cardWrapper)
@@ -213,7 +213,8 @@ const handCardsToGamer = () => {
 
 // Hand Card Bank
 const handCardBank = () => {
-    cardGenerator(cardBox[0])
+    const validCards = cardBox.filter((card) => !card.sign)
+    cardGenerator(validCards[0])
 }
 
 // Hand Game Card
@@ -223,11 +224,6 @@ const findGameCard = (box) => {
     box.splice(randomIndex, 1)
 
     return gameCard
-}
-
-// Hand Game Card
-const handGameCard = () => {
-    gamerGenerator(gameCard)
 }
 
 const deleteSelectedCard = (bank) => {
@@ -240,12 +236,14 @@ const deleteSelectedCard = (bank) => {
 }
 
 const giveCardProcess = (matchableCards) => {
-    // TODO
-
     if (whoseTurn === 'mahrokh') {
         gameCard = findGameCard(matchableCards)
 
-        handGameCard()
+        if (gameCard) {
+            gamerGenerator()
+        } else {
+            console.log('Couldnt Find')
+        }
 
         localStorage.setItem('gameCard', JSON.stringify(gameCard))
 
@@ -280,22 +278,21 @@ const giveCardProcess = (matchableCards) => {
 
             const playChildren = document.querySelectorAll('.playCardWrapper')
             playChildren.forEach((playChild) => {
-                playChild.addEventListener('click', (e) => {
-                    gameCard = playChild
-                    handGameCard()
+                playChild.addEventListener('click', () => {
+                    gameCard = gamer.find((card) => card.id === playChild.getAttribute('data-card-id'))
                     localStorage.setItem('gameCard', JSON.stringify(gameCard))
+                    gamerGenerator()
                     deleteSelectedCard(gamer)
                     playChild.remove()
+
+                    whoseTurn = 'mahrokh'
+                    cardSelection()
                 })
             })
-
         } else {
             // TODO winning
             console.log('Gamer Won')
         }
-
-        whoseTurn = 'mahrokh'
-        // cardSelection()
     }
 }
 
@@ -436,7 +433,7 @@ const gameStarted = () => {
         localStorage.setItem('gameCard', JSON.stringify(gameCard))
     }
 
-    handGameCard()
+    gamerGenerator()
 
     // Detect Turn and Play Game
     if (localStorageWhoseTurn) {
