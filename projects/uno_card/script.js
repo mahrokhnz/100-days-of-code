@@ -58,6 +58,12 @@ const cardBoxGenerator = () => {
             })
         }
     }
+
+    // const valueArr = cardBox.map(function(item){ return item.id });
+    // const isDuplicate = valueArr.some(function(item, idx){
+    //     return valueArr.indexOf(item) != idx
+    // });
+    // console.log(isDuplicate);
 }
 
 // Shuffle Bank of Cards
@@ -213,8 +219,7 @@ const handCardsToGamer = () => {
 
 // Hand Card Bank
 const handCardBank = () => {
-    const validCards = cardBox.filter((card) => !card.sign)
-    cardGenerator(validCards[0])
+    cardGenerator(cardBox[0])
 }
 
 // Hand Game Card
@@ -237,33 +242,35 @@ const deleteSelectedCard = (bank) => {
 
 const giveCardProcess = (matchableCards) => {
     if (whoseTurn === 'mahrokh') {
-        gameCard = findGameCard(matchableCards)
+        setTimeout(() => {
+            gameCard = findGameCard(matchableCards)
 
-        if (gameCard) {
-            gamerGenerator()
-        } else {
-            console.log('Couldnt Find')
-        }
+            if (gameCard) {
+                gamerGenerator()
+            } else {
+                console.log('Couldnt Find')
+            }
 
-        localStorage.setItem('gameCard', JSON.stringify(gameCard))
+            localStorage.setItem('gameCard', JSON.stringify(gameCard))
 
-        deleteSelectedCard(mahrokh)
+            deleteSelectedCard(mahrokh)
 
-        // delete card node
-        const mahrokhWrapper = document.querySelector('.cardsWrapperMahrokh')
-        if (mahrokhWrapper.hasChildNodes()) {
-            mahrokhWrapper.childNodes.forEach((child) => {
-                if (child.getAttribute('data-card-id') === gameCard?.id) {
-                    child.remove()
-                }
-            })
-        } else {
-            // TODO winning
-            console.log('Gamer Won')
-        }
+            // delete card node
+            const mahrokhWrapper = document.querySelector('.cardsWrapperMahrokh')
+            if (mahrokhWrapper.hasChildNodes()) {
+                mahrokhWrapper.childNodes.forEach((child) => {
+                    if (child.getAttribute('data-card-id') === gameCard?.id) {
+                        child.remove()
+                    }
+                })
+            } else {
+                // TODO winning
+                console.log('Gamer Won')
+            }
 
-        whoseTurn = 'gamer'
-        cardSelection()
+            whoseTurn = 'gamer'
+            cardSelection()
+        }, 3000)
     } else {
         const gamerWrapper = document.querySelector('.cardsWrapperGamer')
 
@@ -429,7 +436,8 @@ const gameStarted = () => {
     if (localStorageGameCard) {
         gameCard = JSON.parse(localStorageGameCard)
     } else {
-        gameCard = findGameCard(cardBox)
+        const validCards = cardBox.filter((card) => !card.sign)
+        gameCard = findGameCard(validCards)
         localStorage.setItem('gameCard', JSON.stringify(gameCard))
     }
 
@@ -443,9 +451,7 @@ const gameStarted = () => {
         localStorage.setItem('whoseTurn', `${whoseTurn}`)
     }
 
-    setTimeout(() => {
-        cardSelection()
-    }, 3000)
+    cardSelection()
     // }
 }
 
