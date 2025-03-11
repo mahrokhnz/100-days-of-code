@@ -2,6 +2,9 @@
 
 Welcome to my 100 Days of Code repository! This is my journey to enhance my coding skills, commit to consistent practice, and track my progress over 100 days of learning and building.
 
+Demo:
+[100 Days Of Code](https://mahrokhnz.github.io/100-days-of-code/)
+
 ## Features
 
 - **Daily Log**: Documenting my daily progress and the concepts or challenges I tackled.
